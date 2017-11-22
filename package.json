@@ -1,5 +1,5 @@
 {
-  "name": "node-skeleton",
+  "name": "mappp-midterm",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -13,17 +13,16 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "dotenv": "^2.0.0",
+    "dotenv": "^4.0.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
-    "knex": "^0.11.7",
+    "knex": "^0.14.1",
     "knex-logger": "^0.1.0",
     "morgan": "^1.7.0",
-    "node-sass-middleware": "^0.9.8",
-    "pg": "^6.0.2"
+    "node-sass-middleware": "^0.11.0",
+    "pg": "^7.4.0"
   },
   "devDependencies": {
-    "nodemon": "^1.9.2",
-    "sqlite3": "^3.1.4"
+    "nodemon": "^1.9.2"
   }
 }
