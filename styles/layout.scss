@@ -20,6 +20,12 @@ header{
 .logo{display:inline-block;}
 .logo img{max-width:60px;}
 
+.left-nav-container {
+  width: 300px;
+  margin: 0px;
+  display: inline-block;
+}
+
 .left-nav {
     width: 300px;
     background: #ccc;
@@ -76,9 +82,13 @@ textarea, .map-title{width:98%;}
 ul {padding:0;}
 li{list-style:none;}
 
-footer{
-  background:beige;
-  border-top:1px solid black;
+footer {
+  background: beige;
+  border-top: 1px solid black;
+  position: fixed;
+  left:0px;
+  bottom:0px;
+  width:100%;
 }
 
 
@@ -94,3 +104,11 @@ footer{
 }
 
 .pop-down-login input{width:95%; margin:10px 0;}
+
+.fa-rotate-180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
