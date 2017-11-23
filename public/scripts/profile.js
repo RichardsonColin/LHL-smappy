@@ -1,4 +1,15 @@
 $(() => {
+
+  $.ajax({
+    method: "GET",
+    url: "/api/users"
+  }).done((users) => {
+    for(user of users) {
+      $("<h1>").text(user.name).appendTo($(".user-info"));
+      $("<h2>").text(user.your_location).appendTo($(".user-info"));
+    }
+  });
+
   $.ajax({
     method: "GET",
     url: "/api/favorites"
