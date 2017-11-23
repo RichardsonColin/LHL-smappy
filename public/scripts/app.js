@@ -13,8 +13,18 @@ $(() => {
     method: "GET",
     url: "/api/maps"
   }).done((maps) => {
-    for(map of maps) {
+    for(let map of maps) {
       $('<li>').text(map.title).appendTo($('.all-maps-list'));
+    }
+  });
+
+  $.ajax({
+    method: "GET",
+    url: "/api/favorites"
+  }).done((favorites) => {
+    for(map of favorites) {
+    console.log(map.title);
+      $("<li>").text(map.title).appendTo($(".favourite-maps-list"));
     }
   });
 });
