@@ -11,10 +11,15 @@ module.exports = (knex) => {
     knex
       .select()
       .from("maps")
-      .innerJoin('contributions', 'contributions.map_id', 'maps.id')
-      .where('contributions.user_id', userId)
-      .then((results) => {
-        res.json(results);
+      .whereIn('maps.id',
+        knex
+          .select()
+          .from('contributions')
+          .distinct('contributions.map_id')
+          .where('contributions.user_id', userId)
+      )
+        .then((results) => {
+          res.json(results);
     });
   });
 
