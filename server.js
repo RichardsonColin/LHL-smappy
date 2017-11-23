@@ -8,6 +8,8 @@ const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
+const bcrypt = require('bcrypt');
+const cookieSession = require('cookie-session');
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -33,6 +35,15 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['Cleo'],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
+
 app.use(express.static("public"));
 
 // Mount all resource routes
@@ -42,6 +53,29 @@ app.use("/api/users", usersRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+app.get("/login-test", (req, res) => {
+  console.log("hello");
+  res.render("login-test");
+});
+
+app.post("/login", (req, res) => {
+  let userEmail = req.body.email;
+  let hashPassword = bcrypt.hashSync(req.body.password, 10);
+
+  knex('users')
+  .insert({
+    email: userEmail,
+    password: hashPassword
+  })
+  .returning('id')
+  .asCallback(function(err, id) {
+    console.log(id);
+  // knex.destroy(); // Ask someone about this, a new call doesn't open this back up
+  });
+  res.render("login-test");
+});
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
