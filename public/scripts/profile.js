@@ -1,11 +1,11 @@
 $(() => {
-  console.log('going to make an ajax request');
   $.ajax({
     method: "GET",
     url: "/api/favorites"
   }).done((favorites) => {
     for(map of favorites) {
-      $("<div>").text(map.title).appendTo($("favorite"));
+    console.log(map.title);
+      $("<div>").text(map.title).appendTo($(".favorite"));
     }
   });
 
@@ -13,8 +13,9 @@ $(() => {
     method: "GET",
     url: "/api/contributions"
   }).done((contributions) => {
+    console.log(contributions);
     for(map of contributions) {
-      $("<div>").text(map.title).appendTo($("contributions"));
+      $("<div>").text(map.title).appendTo($(".contributions"));
     }
   });
 });

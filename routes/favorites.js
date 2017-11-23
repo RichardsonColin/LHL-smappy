@@ -11,7 +11,7 @@ console.log("hello from favorites");
   router.get("/", (req, res) => {
     console.log('inside the get');
     knex
-      .select("title")
+      .select()
       .from("maps")
       .innerJoin('favourite_maps', 'favourite_maps.map_id', 'maps.id')
       .where('favourite_maps.user_id', userId)

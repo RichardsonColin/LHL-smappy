@@ -9,7 +9,7 @@ module.exports = (knex) => {
 
   router.get("/", (req, res) => {
     knex
-      .select("title")
+      .select()
       .from("maps")
       .innerJoin('contributions', 'contributions.map_id', 'maps.id')
       .where('contributions.user_id', userId)
