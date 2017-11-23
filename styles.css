@@ -1,0 +1,89 @@
+header{
+  border-bottom:1px solid black;
+   padding:10px;
+   margin-bottom:20px;
+   background:blue;
+ }
+
+.login-button{
+  display:inline-block;
+  float:right;
+}
+
+.logo{display:inline-block;}
+.logo img{max-width:60px;}
+
+.left-nav {
+    width: 300px;
+    background: #ccc;
+    display: inline-block;
+    border: 1px solid black;
+}
+
+.left-nav div{
+  text-align:center;
+
+}
+.left-nav button {
+
+    width: 100%;
+}
+.left-nav i{
+    float: right;
+    padding-right: 10px;
+}
+
+.left-nav h3 {
+    font-size: 1.75rem;
+    margin-top: 10px;
+    border-bottom: 1px solid black;
+    width: 80%;
+    margin: auto;
+}
+
+.marker-info {
+    position: relative;
+    background-color: #ddd;
+    float: right;
+    width: 500px;
+    padding: 10px;
+}
+
+.marker-info input{
+  display:block;
+  margin: 10px 0 ;
+
+}
+
+.buttons button{width:32%;}
+
+textarea, .map-title{width:98%;}
+
+.upload-button {
+    margin-bottom: 10px;
+}
+
+.upload-button  button {width:32%;}
+
+.favourite-maps, .all-maps{text-align:center;border-top:1px solid black;}
+ul {padding:0;}
+li{list-style:none;}
+
+footer{
+  background:beige;
+  border-top:1px solid black;
+}
+
+
+.pop-down-login {
+    background: #aaa;
+    position: relative;
+    width: 50%;
+    float: right;
+    display: inline-flex;
+    z-index: 300;
+    padding:10px;
+    display:none;
+}
+
+.pop-down-login input{width:95%; margin:10px 0;}
