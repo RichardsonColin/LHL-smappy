@@ -1,13 +1,21 @@
 function initMap() {
+let mapData ={};
 
-let importData = JSON.parse(map_data);
+if (!map_data) {
+  mapData = {
+    lat: 48.4245,
+    long: -123.3630,
+    zoom: 14
+  };
+} else {
+  let importData = JSON.parse(map_data);
 
-const mapData = {
-  lat: importData.map_data1.lat,
-  long: importData.map_data1.long,
-  zoom: Number(importData.map_data1.zoom)
-};
-
+  mapData = {
+    lat: importData.map_data1.lat,
+    long: importData.map_data1.long,
+    zoom: Number(importData.map_data1.zoom)
+  };
+}
 
   var map = new google.maps.Map(document.getElementById("googleMap"), {
 

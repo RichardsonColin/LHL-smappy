@@ -23,7 +23,6 @@ $(() => {
     url: "/api/favorites"
   }).done((favorites) => {
     for(map of favorites) {
-    console.log(map.title);
       $("<li>").text(map.title).appendTo($(".favourite-maps-list"));
     }
   });
