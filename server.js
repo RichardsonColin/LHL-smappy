@@ -22,7 +22,6 @@ const usersRoutes = require("./routes/users");
 const allMapsRoutes = require("./routes/all_maps");
 const favoritesRoutes = require("./routes/favorites");
 const contributionsRoutes = require("./routes/contributions");
-const currentMapRoutes = require("./routes/current_map");
 
 app.set("view engine", "ejs");
 
@@ -59,7 +58,6 @@ app.use("/api/users", usersRoutes(knex));
 app.use("/api/all_maps", allMapsRoutes(knex));
 app.use("/api/favorites", favoritesRoutes(knex));
 app.use("/api/contributions", contributionsRoutes(knex));
-app.use("/api/:id", currentMapRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
@@ -124,13 +122,10 @@ app.get("/maps/:id", (req, res) => {
 
     .asCallback(function (err, rows) {
     mapData = rows[0];
-    console.log('mapdata', mapData);
     let dataTemplate = {
       map_data1: mapData
     };
-    console.log('inside app.get object', dataTemplate);
     dataTemplate = JSON.stringify(dataTemplate);
-    console.log('inside app.get json', typeof dataTemplate, dataTemplate);
       res.render('map_page', {data: dataTemplate});
     });
 });
