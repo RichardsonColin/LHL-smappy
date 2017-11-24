@@ -1,3 +1,13 @@
+
+//refs
+//
+$boxBG: rgba(250,250,250,0.7);
+
+
+
+
+
+
 body {
   font-family: 'Raleway', sans-serif;
   background-color: #EEE;
@@ -6,6 +16,10 @@ body {
     color: #244751;
   }
 }
+
+
+
+
 header{
   display:flex;
    padding:10px;
@@ -29,6 +43,8 @@ header{
   padding: 10px 20px ;
   text-decoration: none;
   letter-spacing: 1px;
+
+
 }
 
 button:hover {
@@ -64,7 +80,7 @@ button:hover {
 
 .left-nav {
     width: 300px;
-    background: rgba(250,250,250,0.7);
+    background: $boxBG;
     height: 100%;
     border: solid 1px white;
     float: left;
@@ -75,6 +91,9 @@ button:hover {
       background-color:ghostwhite;
       padding:10px;
       border:none;
+      display:block;
+      width:100%;
+      text-align: center;
     }
     .button:hover{
         background-color: purple;
@@ -102,7 +121,7 @@ button:hover {
 
 .marker-info {
     position: relative;
-    background-color: #ddd;
+    background-color: $boxBG;
     float: right;
     width: 500px;
     padding: 10px;
@@ -186,6 +205,11 @@ footer {
     letter-spacing: 3px;
 
     i {margin-left:8px;}
+
+    a, a:hover{color:#fff;
+      text-decoration: none;
+    }
+
 }
 .in-form{
   padding:10px;
@@ -198,4 +222,30 @@ footer {
     padding: 5px;
     display: block;
   }
+}
+
+.upload-button button , .buttons button{
+    width: 32%;
+    padding: 10px;
+    background: #88f4a4;
+    color: white;
+}
+
+.upload-button button:hover, .buttons button:hover{
+    background: #daf0e4;
+    text-decoration: none;
+}
+
+.buttons {
+
+  button:nth-child(2){background-color: #ccc;}
+
+  button:nth-child(2):hover{background-color:#888;}
+
+  button:nth-child(3) {
+    color: white;
+    background: magenta;
+  }
+
+  button:nth-child(3):hover{background-color:#993fa7;}
 }
