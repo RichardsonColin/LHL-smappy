@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Create New Map</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -18,19 +18,28 @@
       <% include ./partials/_header %>
     </header>
       <% include ./partials/_pop-down-login %>
+
       <div>
         <div>
-          <form method="POST" action="">
+          <form method="POST" action="/new-map">
             <h1>Create a new map</h1>
             <label for="map-name">Name</label>
             <input id="map-name" type="text" name="map-name" placeholder="Enter your map title" style="width: 300px">
-            <br>
-            <label for="autocomplete">Location</label>
-            <input id="autocomplete" type="text" placeholder="Enter your map location"
-             onFocus="geolocate()" style="width: 300px">
+            <input id="pac-input" class="controls" type="text" placeholder="Enter your location" style="width: 300px">
+            <input type="submit" name="submit">
           </form>
         </div>
       </div>
+      <div class="map-container">
+      <div id="googleMap">
+        <div id="datactrl">
+          <input type="button" id="data-save" value="save" />
+          <input type="button" id="data-show" value="show saved data" />
+          <input type="button" id="data-load" value="load saved data" />
+          <input type="button" id="data-clear" value="remove all data" />
+        </div>
+      </div>
+    </div>
     <footer>
       <% include ./partials/_footer.ejs %>
     </footer>
