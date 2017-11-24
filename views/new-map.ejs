@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <title>Create New Map</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/bootstrap.min.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
     <script type="text/javascript" src="/scripts/new-map.js"></script>
 
   </head>
@@ -18,16 +21,20 @@
       <% include ./partials/_header %>
     </header>
       <% include ./partials/_pop-down-login %>
-      <div>
+      <div class="left-nav">
         <div>
           <form method="POST" action="">
             <h1>Create a new map</h1>
-            <label for="map-name">Title</label>
-            <input id="map-name" type="text" name="map-name" placeholder="Enter your map title" style="width: 300px">
-            <br>
+            <div class="in-form">
             <label for="autocomplete">Location</label>
-            <input id="autocomplete" type="text" placeholder="Enter your map location"
-             onFocus="geolocate()" style="width: 300px">
+            <input class="create-inputs" id="autocomplete" type="text" placeholder="Enter your map location"
+             onFocus="geolocate()" >
+             <br>
+            <label for="map-name">Title</label>
+            <input id="map-name"  class="create-inputs" type="text" name="map-name" placeholder="Enter your map title" >
+
+
+           </div>
           </form>
         </div>
       </div>
