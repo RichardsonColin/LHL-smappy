@@ -15,7 +15,6 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
-const flash = require('connect-flash');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -48,8 +47,6 @@ app.use(cookieSession({
   // Cookie Options
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
-
-app.use(flash());
 
 app.use(express.static("public"));
 
@@ -112,9 +109,7 @@ function checkLogin(emailreq, password) {
 
 // Test route // TO DO TO DO TO DO
 app.get("/login-test", (req, res) => {
-  res.render("login-test", {
-    errors: req.flash('error')
-    });
+  res.render("login-test");
 });
 
 
@@ -131,11 +126,6 @@ app.post("/logout", (req, res) => {
 app.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  if (!req.body.email || !req.body.password) {
-    req.flash('error', 'Both email and password are required to login');
-    res.redirect('/login-test');
-    return;
-  }
   checkLogin(email, password)
   .then(exists => {
     console.log('I am the result of the function promise',exists);
@@ -145,8 +135,7 @@ app.post('/login', (req, res) => {
       res.redirect('login-test');
     }
       else {
-        req.flash('error', 'Email and password did not match');
-        res.redirect('/login-test');
+        res.status(400).send('Username or Password do not match.');
       }
     });
 });
@@ -157,11 +146,9 @@ app.post('/login', (req, res) => {
 app.post('/register', (req, res) => {
   const email = req.body.email;
   const password = bcrypt.hashSync(req.body.password, 10);
-  if (!req.body.email || !req.body.password) {
-    req.flash('error', 'Both email and password are required to register');
-    res.redirect('/login-test');
-    return;
-  }
+  // checkEmailInDB(email, password);
+
+  //let check = registerUser(email, password);
   checkEmailInDB(email, password)
   .then(exists => {
     if (!exists) {
@@ -172,8 +159,7 @@ app.post('/register', (req, res) => {
         res.redirect('login-test');
       });
     } else {
-      req.flash('error', 'Email aleady exists in our database');
-      res.redirect('/login-test');
+      res.status(400).send('Email has already been registered');
     }
   });
 });
