@@ -3,7 +3,8 @@ function initMap() {
   var map = new google.maps.Map(document.getElementById("googleMap"), {
             center: new google.maps.LatLng(48.4245, -123.3630),
             zoom: 14,
-      noClear: true
+            noClear: true,
+            disableDefaultUI: true
     }),
     //this may be the stored data
     data = {

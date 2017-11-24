@@ -10,6 +10,7 @@ const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
 const bcrypt = require('bcrypt');
+const path = require('path');
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -31,15 +32,14 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
-app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
   debug: true,
-  outputStyle: 'expanded'
+  outputStyle: 'compressed'
 }));
-
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   name: 'session',
   keys: ['Cleo'],

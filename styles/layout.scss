@@ -1,4 +1,5 @@
 body {
+  font-family: 'Raleway', sans-serif;
   background-color: #EEE;
 
   h1 {
@@ -6,21 +7,49 @@ body {
   }
 }
 header{
-  border-bottom:1px solid black;
+  display:flex;
    padding:10px;
-   background:blue;
+   background: #8effa3;
+   border-bottom: solid 4px white;
+
+   button {
+  background: #fff;
+  background-image: -webkit-linear-gradient(top, #fff, #fff);
+  background-image: -moz-linear-gradient(top, #fff, #fff);
+  background-image: -ms-linear-gradient(top, #fff, #fff);
+  background-image: -o-linear-gradient(top, #fff, #fff);
+  background-image: linear-gradient(to bottom, #fff, #fff);
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 8px;
+  border:none;
+  font-family: Arial;
+  color: #8effa3;
+  font-size: 15px;
+  padding: 10px 20px ;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  background: #daf0e4;
+  text-decoration: none;
+}
  }
 
  html, body {
+
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-.login-button{
-  display:inline-block;
-  float:right;
+.login-button {
+    display: flex;
+    float: right;
+    align-items: center;
+
 }
 
 .logo{display:inline-block;}
@@ -35,19 +64,34 @@ header{
 
 .left-nav {
     width: 300px;
-    background: #ccc;
-    display: inline-block;
-    border: 1px solid black;
+    background: rgba(250,250,250,0.7);
+    height: 100%;
+    border: solid 1px white;
     float: left;
     position: absolute;
+
+    .button{
+      font-size:15px;
+      background-color:ghostwhite;
+      padding:10px;
+      border:none;
+    }
+    .button:hover{
+        background-color: purple;
+        color:white;
+    }
+
+    h3 {
+    font-size: 1.75rem;
+    margin-top: 10px;
+    margin: auto;
+    padding-top: 12px;
+    padding-left: 12px;
+  }
 }
 
-.left-nav div{
-  text-align:center;
 
-}
 .left-nav button {
-
     width: 100%;
 }
 .left-nav i{
@@ -55,13 +99,6 @@ header{
     padding-right: 10px;
 }
 
-.left-nav h3 {
-    font-size: 1.75rem;
-    margin-top: 10px;
-    border-bottom: 1px solid black;
-    width: 80%;
-    margin: auto;
-}
 
 .marker-info {
     position: relative;
@@ -87,19 +124,22 @@ textarea, .map-title{width:98%;}
 
 .upload-button  button {width:32%;}
 
-.favourite-maps, .all-maps{text-align:center;border-top:1px solid black;}
-ul {padding:0;}
-li{list-style:none;}
-
-footer {
-  background: beige;
-  border-top: 1px solid black;
-  position: fixed;
-  left:0px;
-  bottom:0px;
-  width:100%;
+.favourite-maps, .all-maps{
+  border-bottom: solid 1px white;
+  ul {padding:10px;}
+  li{list-style:none; padding: 5px;}
 }
 
+footer {
+    background: #fff;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    padding: 5px;
+    width: 100%;
+    color: #88f4a4;
+    font-size: 20px;
+}
 
 .pop-down-login {
     background: #aaa;
@@ -133,3 +173,17 @@ footer {
   height: 100%;
   width: 100%;
 }
+
+#datactrl{top:10px;}
+
+.logo{
+    margin-left: 5%;
+    font-size: 30px;
+    font-family: monospace;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 3px;
+
+    i {margin-left:8px;}
+}
+
