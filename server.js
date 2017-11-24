@@ -65,6 +65,10 @@ app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
+app.get("/new-map", (req, res) => {
+  res.render("new-map");
+});
+
 
 // TO DO MOVE THIS TO HELP FUNCTIONS
 function registerUser(email, password) {
