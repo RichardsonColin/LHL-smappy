@@ -54,28 +54,55 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+
+// TO DO MOVE THIS TO HELP FUNCTIONS
+function registerUser(email, password) {
+  let user_id = 0;
+  return knex('users')
+    .insert({
+      email: email,
+      password: password
+    })
+    .returning('*')
+    .then((users) => {
+      console.log(users[0].id);
+      user_id = users[0].id;
+      return user_id;
+    });
+}
+
+
+function checkEmailInDB(email) {
+  return knex
+    .select('email')
+    .from('users')
+    .where({'email': email})
+    .then((users) => {
+      return users.length !== 0;
+    });
+}
+
+function checkLogin(emailreq, password) {
+  return knex('users')
+  .where({ email: emailreq })
+  .returning('*')
+  .then((result) => {
+    if (bcrypt.compareSync(password, result[0].password))  {
+      return result[0].id;
+    } else {
+      return false;
+    }
+  });
+}
+
+
+// Test route // TO DO TO DO TO DO
 app.get("/login-test", (req, res) => {
-  // console.log("hello");
   res.render("login-test");
 });
 
-app.post("/login", (req, res) => {
-  const emailReq = req.body.email;
-  const passwordReq = req.body.password;
-  let pass;
-  knex('users').where({
-  email: emailReq }).select('password').then(
-  function(result){
-      pass = result;
-      }).catch(function(error) {
-  console.log(error);
-  });
 
-  if (passwordReq === pass){
-    //login
-  }
-  res.redirect('login-test');
-});
+
 
 app.post("/logout", (req, res) => {
   console.log('logout id',req.session.user_id);
@@ -85,40 +112,22 @@ app.post("/logout", (req, res) => {
 });
 
 
-function registerUser(email, password) {
-  let user_id = 0;
-
-  return knex('users')
-    .insert({
-      email: email,
-      password: password
-    })
-    .returning('*')
-    .then((users) => {
-
-      console.log(users[0].id);
-      user_id = users[0].id;
-
-      return user_id;
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  checkLogin(email, password)
+  .then(exists => {
+    console.log('I am the result of the function promise',exists);
+    if (exists) {
+      req.session.user_id = exists;
+      console.log(req.session.user_id);
+      res.redirect('login-test');
+    }
+      else {
+        res.status(400).send('Username or Password do not match.');
+      }
     });
-      // console.log('before return',user_id);
-    // });
-      // console.log('IM THE GODDAMN USER_ID BEFORE RETURN',user_id);
-}
-
-
-function checkEmailInDB(email) {
-  // return new Promise((resolve, reject) => {
-
-    return knex
-      .select('email')
-      .from('users')
-      .where({'email': email})
-      .then((users) => {
-        return users.length !== 0;
-      });
-}
-
+});
 
 
 
