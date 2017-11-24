@@ -22,6 +22,7 @@ const usersRoutes = require("./routes/users");
 const allMapsRoutes = require("./routes/all_maps");
 const favoritesRoutes = require("./routes/favorites");
 const contributionsRoutes = require("./routes/contributions");
+const currentMapRoutes = require("./routes/current_map");
 
 app.set("view engine", "ejs");
 
@@ -55,19 +56,15 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
-app.use("/api/maps", allMapsRoutes(knex));
+app.use("/api/all_maps", allMapsRoutes(knex));
 app.use("/api/favorites", favoritesRoutes(knex));
 app.use("/api/contributions", contributionsRoutes(knex));
+app.use("/api/:id", currentMapRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
 });
-
-app.get("/profile", (req, res) => {
-  res.render("profile");
-});
-
 
 // TO DO MOVE THIS TO HELP FUNCTIONS
 function registerUser(email, password) {
@@ -114,6 +111,27 @@ function checkLogin(emailreq, password) {
 app.get("/login-test", (req, res) => {
   res.render("login-test", {
     errors: req.flash('error')
+    });
+});
+
+app.get("/profile", (req, res) => {
+  res.render("profile");
+});
+
+app.get("/maps/:id", (req, res) => {
+  let mapData = {};
+  knex('maps').select().where('id', req.params.id)
+
+    .asCallback(function (err, rows) {
+    mapData = rows[0];
+    console.log('mapdata', mapData);
+    let dataTemplate = {
+      map_data1: mapData
+    };
+    console.log('inside app.get object', dataTemplate);
+    dataTemplate = JSON.stringify(dataTemplate);
+    console.log('inside app.get json', typeof dataTemplate, dataTemplate);
+      res.render('map_page', {data: dataTemplate});
     });
 });
 

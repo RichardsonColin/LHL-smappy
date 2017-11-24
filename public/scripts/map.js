@@ -1,8 +1,45 @@
 function initMap() {
 
+let importData = JSON.parse(map_data);
+console.log('post parse');
+console.log('map_data', map_data);
+console.log('importData', importData);
+
+console.log('mapdata1', importData.map_data1);
+console.log('lat', importData.map_data1.lat);
+
+// console.log(typeof importData.map_data1.zoom, importData.map_data1.zoom);
+const mapData = {
+  lat: importData.map_data1.lat,
+  long: importData.map_data1.long,
+  zoom: Number(importData.map_data1.zoom)
+};
+
+// console.log(mapInfo);
+
+  //   knex
+  //     .select("*")
+  //     .from("maps")
+  //     .where("id", req.params.id)
+  //     .then((results) => {
+  //       res.json(results);
+  //   });
+  // $.ajax({
+  //   method: "GET",
+  //   url: "/api/:id"
+  // }).done((maps) => {
+  //   for(let map of maps) {
+  //     mapData = map;
+  //   }
+
+
+  // console.log('mapinfo', mapData);
+
+  // console.log(mapid);
+
   var map = new google.maps.Map(document.getElementById("googleMap"), {
-            center: new google.maps.LatLng(48.4245, -123.3630),
-            zoom: 14,
+            center: new google.maps.LatLng(mapData.lat, mapData.long),
+            zoom: mapData.zoom,
       noClear: true
     }),
     //this may be the stored data
@@ -115,4 +152,7 @@ function initMap() {
       });
     }
   });
+
+
+  // });
 }

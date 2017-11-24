@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+
+    <script type="text/javascript">
+      var map_data = '<%- data %>';
+    </script>
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/toggle.js"></script>
+    <script type="text/javascript" src="/scripts/map.js"></script>
+
+  </head>
+
+  <body>
+ <!-- icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- icon in compose button-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  </head>
+  <body>
+    <header>
+       <% include ./partials/_header.ejs %>
+    </header>
+
+<!-- map area -->
+
+
+<div id="googleMap">
+  <div id="datactrl">
+    <input type="button" id="data-save" value="save" />
+    <input type="button" id="data-show" value="show saved data" />
+    <input type="button" id="data-load" value="load saved data" />
+    <input type="button" id="data-clear" value="remove all data" />
+  </div>
+</div>
+
+
+  <div class="left-nav-container">
+    <div class="arrow-button">
+      <i class="fa fa-arrow-circle-left" style="font-size:20px;"></i>
+    </div>
+    <div class="left-nav">
+      <button> Create New </button>
+      <div class="favourite-maps">
+        <h3>Favourite Maps</h3>
+        <ul class="favourite-maps-list">
+        </ul>
+      </div>
+      <div class="all-maps">
+        <h3> All Maps</h3>
+        <ul class="all-maps-list">
+        </ul>
+
+      </div>
+
+    </div>
+
+
+  </div>
+<!-- end of left nav -->
+<!-- starts hidden -->
+
+
+  <div class="marker-info">
+    <input class="map-title" type="text" placeholder="Map title">
+    <textarea  col="50" placeholder="Map description"></textarea>
+   <div class="upload-button">
+    <button>upload image</button>
+   </div>
+  <div class="buttons">
+    <button>save</button>
+    <button>cancel</button>
+    <button>delete</button>
+  </div>
+
+</div>
+
+
+
+
+  <footer>
+    <% include ./partials/_footer.ejs %>
+  </footer>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-SheEDWF9WCljdS9aO5YELMTjdqjb-tE&callback=initMap" type="text/javascript"></script>
+
+  </body>
+</html>
