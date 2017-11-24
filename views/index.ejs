@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/bootstrap.min.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700" rel="stylesheet">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -23,9 +25,11 @@
 
   </head>
   <body>
-    <header>
+     <header>
        <% include ./partials/_header.ejs %>
     </header>
+
+
 
 <!-- map area -->
 
@@ -40,11 +44,9 @@
 
 
   <div class="left-nav-container">
-    <div class="arrow-button">
-      <i class="fa fa-arrow-circle-left" style="font-size:20px;"></i>
-    </div>
+
     <div class="left-nav">
-      <button> Create New </button>
+      <button class="button"> Create New </button>
       <div class="favourite-maps">
         <h3>Favourite Maps</h3>
         <ul class="favourite-maps-list">
@@ -58,7 +60,9 @@
       </div>
 
     </div>
-
+    <div class="arrow-button">
+      <i class="fa fa-arrow-circle-left" style="font-size:20px;"></i>
+    </div>
 
   </div>
 <!-- end of left nav -->
@@ -83,7 +87,6 @@
   </div>
 
 </div>
-
 
 
 
