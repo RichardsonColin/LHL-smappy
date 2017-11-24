@@ -11,6 +11,7 @@ const sass        = require("node-sass-middleware");
 const app         = express();
 const bcrypt = require('bcrypt');
 const path = require('path');
+const flash = require('connect-flash');
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -47,6 +48,7 @@ app.use(cookieSession({
   // Cookie Options
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
+app.use(flash());
 
 app.use(express.static("public"));
 
@@ -58,8 +60,11 @@ app.use("/api/contributions", contributionsRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {
+    errors: req.flash('error')
+  });
 });
+
 
 app.get("/profile", (req, res) => {
   res.render("profile");
@@ -111,19 +116,13 @@ function checkLogin(emailreq, password) {
 }
 
 
-// Test route // TO DO TO DO TO DO
-app.get("/login-test", (req, res) => {
-  res.render("login-test");
-});
-
-
 
 
 app.post("/logout", (req, res) => {
-  console.log('logout id',req.session.user_id);
+  // console.log('logout id',req.session.user_id);
   req.session.user_id = null;
-  console.log('logout id after logout',req.session.user_id);
-  res.redirect('login-test');
+  // console.log('logout id after logout',req.session.user_id);
+  res.redirect('/');
 });
 
 
@@ -132,16 +131,17 @@ app.post('/login', (req, res) => {
   const password = req.body.password;
   checkLogin(email, password)
   .then(exists => {
-    console.log('I am the result of the function promise',exists);
-    if (exists) {
-      req.session.user_id = exists;
-      console.log(req.session.user_id);
-      res.redirect('login-test');
+    // console.log('I am the result of the function promise',exists);
+  if (exists) {
+    req.session.user_id = exists;
+    console.log(req.session.user_id);
+    res.redirect('/');
+  }
+    else {
+      req.flash('error', 'Email and password do not match');
+      res.redirect('/');
     }
-      else {
-        res.status(400).send('Username or Password do not match.');
-      }
-    });
+  });
 });
 
 
@@ -159,14 +159,49 @@ app.post('/register', (req, res) => {
       return registerUser(email, password)
       .then(user_id => {
         req.session.user_id = user_id;
-        console.log('right after registration ',req.session.user_id);
-        res.redirect('login-test');
+        // console.log('right after registration ',req.session.user_id);
+        res.redirect('/');
       });
     } else {
-      res.status(400).send('Email has already been registered');
+      req.flash('error', 'Email is not unique');
+      res.redirect('/');
     }
   });
 });
+
+
+// app.post('/register', (req, res) => {
+//   if (!req.body.email || !req.body.password) {
+//     req.flash('error', 'Both email and password are required');
+//     res.redirect('/');
+//     return;
+//   }
+
+//   knex('users').select(1).where('email', req.body.email).then((rows) => {
+//     if (rows.length) {
+//       return Promise.reject({
+//         message: 'Email address is not unique'
+//         });
+//     } else {
+//       return bcrypt.hash(req.body.password, 10);
+//     }
+//     }).then((passwordDigest) => {
+//       return knex('users').insert({
+//         email: req.body.email,
+//         password: passwordDigest
+//       })  ;
+//     }).then(() => {
+//       req.flash('info', 'User account created successfully');
+//       res.redirect('/');
+//     }).catch((error) => {
+//       // FIXME do not show the user internal error messages such as the ones from the database
+//       req.flash('error', error.message);
+//       // FIXME in a real app some errors are expected and don't need to be logged
+//       // FIXME in real app errors are typically sent to a custom logging system and not just sent to the console.
+//       console.error(error);
+//       res.redirect('/');
+//     });
+//   });
 
 
 app.listen(PORT, () => {

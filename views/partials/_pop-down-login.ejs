@@ -20,4 +20,10 @@
         <input type="submit" value="Logout">
       </form>
 
+      <% if (errors.length) { %>
+        <% errors.forEach((error) => { %>
+          <p><%= error %></p>
+        <% }) %>
+      <%} %>
+
   </div>
