@@ -66,3 +66,16 @@ function initAutocomplete() {
           map.fitBounds(bounds);
         });
       }
+
+$(() => {
+  $('.create-map').hide();
+
+  $('#pac-input').on('focusout', function() {
+    $('.create-map').slideDown('slow');
+  });
+});
+
+
+
+
+

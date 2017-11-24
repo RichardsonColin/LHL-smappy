@@ -19,27 +19,18 @@
     </header>
       <% include ./partials/_pop-down-login %>
 
-      <div>
-        <div>
-          <form method="POST" action="/new-map">
-            <h1>Create a new map</h1>
-            <label for="map-name">Name</label>
-            <input id="map-name" type="text" name="map-name" placeholder="Enter your map title" style="width: 300px">
-            <input id="pac-input" class="controls" type="text" placeholder="Enter your location" style="width: 300px">
-            <input type="submit" name="submit">
-          </form>
-        </div>
-      </div>
-      <div class="map-container">
-      <div id="googleMap">
-        <div id="datactrl">
-          <input type="button" id="data-save" value="save" />
-          <input type="button" id="data-show" value="show saved data" />
-          <input type="button" id="data-load" value="load saved data" />
-          <input type="button" id="data-clear" value="remove all data" />
-        </div>
-      </div>
+    <div class="create-map">
+      <form method="POST" action="/new-map">
+        <h1>Create a new map</h1>
+        <label for="map-name">Name</label>
+        <input id="map-name" type="text" name="map-name" placeholder="Enter your map title" style="width: 300px">
+        <input type="submit" name="submit">
+      </form>
     </div>
+
+    <input id="pac-input" class="controls" type="text" placeholder="Enter your location" style="width: 300px">
+    <div id="googleMap"></div>
+
     <footer>
       <% include ./partials/_footer.ejs %>
     </footer>
