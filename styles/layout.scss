@@ -8,9 +8,15 @@ body {
 header{
   border-bottom:1px solid black;
    padding:10px;
-   margin-bottom:20px;
    background:blue;
  }
+
+ html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 .login-button{
   display:inline-block;
@@ -24,6 +30,7 @@ header{
   width: 300px;
   margin: 0px;
   display: inline-block;
+  z-index: 10;
 }
 
 .left-nav {
@@ -31,6 +38,8 @@ header{
     background: #ccc;
     display: inline-block;
     border: 1px solid black;
+    float: left;
+    position: absolute;
 }
 
 .left-nav div{
@@ -111,4 +120,16 @@ footer {
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
+}
+
+.arrow-button {
+  display: block;
+  position: relative;
+}
+
+#googleMap {
+  position: absolute;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
 }
