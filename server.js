@@ -109,6 +109,26 @@ function checkLogin(emailreq, password) {
   });
 }
 
+function getMapData(id) {
+  return knex
+    .select()
+    .from('maps')
+    .where('id', id)
+    .then((maps) => {
+      mapData = maps[0];
+      return id;
+    });
+}
+
+function getMarkers(id) {
+  return knex
+    .select()
+    .from('markers')
+    .where('map_id', id)
+    .then((markers) => {
+      markersData = markers;
+    })
+}
 
 // Test route // TO DO TO DO TO DO
 app.get("/login-test", (req, res) => {
@@ -121,16 +141,23 @@ app.get("/profile", (req, res) => {
 
 app.get("/maps/:id", (req, res) => {
   let mapData = {};
-  knex('maps').select().where('id', req.params.id)
+  let markersData = {};
 
-    .asCallback(function (err, rows) {
-    mapData = rows[0];
-    let dataTemplate = {
-      map_data1: mapData
-    };
-    dataTemplate = JSON.stringify(dataTemplate);
-      res.render('map_page', {data: dataTemplate});
-    });
+  getMapData(req.params.id).then(exists => {
+    if(exists) {
+      return getMarkers(req.params.id).then(() => {
+        let dataTemplate = {
+          map_data1: mapData,
+          markers_input: markersData
+        };
+        console.log(dataTemplate);
+        dataTemplate = JSON.stringify(dataTemplate);
+          res.render('map_page', {data: dataTemplate});
+      });
+    } else {
+      res.status(404).send("Map doesn't exist");
+    }
+  });
 });
 
 
