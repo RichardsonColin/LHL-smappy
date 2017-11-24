@@ -11,7 +11,7 @@ $(() => {
 
   $.ajax({
     method: "GET",
-    url: "/api/maps"
+    url: "/api/all_maps"
   }).done((maps) => {
     for(let map of maps) {
       $('<li>').text(map.title).appendTo($('.all-maps-list'));

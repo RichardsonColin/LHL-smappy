@@ -1,10 +1,20 @@
 function initMap() {
 
+let importData = JSON.parse(map_data);
+
+const mapData = {
+  lat: importData.map_data1.lat,
+  long: importData.map_data1.long,
+  zoom: Number(importData.map_data1.zoom)
+};
+
+
   var map = new google.maps.Map(document.getElementById("googleMap"), {
-            center: new google.maps.LatLng(48.4245, -123.3630),
-            zoom: 14,
-            noClear: true,
-            disableDefaultUI: true
+
+    center: new google.maps.LatLng(mapData.lat, mapData.long),
+    zoom: mapData.zoom,
+    noClear: true
+
     }),
     //this may be the stored data
     data = {
@@ -116,4 +126,7 @@ function initMap() {
       });
     }
   });
+
+
+  // });
 }

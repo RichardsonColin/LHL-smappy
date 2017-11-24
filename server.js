@@ -52,7 +52,7 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
-app.use("/api/maps", allMapsRoutes(knex));
+app.use("/api/all_maps", allMapsRoutes(knex));
 app.use("/api/favorites", favoritesRoutes(knex));
 app.use("/api/contributions", contributionsRoutes(knex));
 
@@ -68,7 +68,6 @@ app.get("/profile", (req, res) => {
 app.get("/new-map", (req, res) => {
   res.render("new-map");
 });
-
 
 // TO DO MOVE THIS TO HELP FUNCTIONS
 function registerUser(email, password) {
@@ -114,6 +113,24 @@ function checkLogin(emailreq, password) {
 // Test route // TO DO TO DO TO DO
 app.get("/login-test", (req, res) => {
   res.render("login-test");
+});
+
+app.get("/profile", (req, res) => {
+  res.render("profile");
+});
+
+app.get("/maps/:id", (req, res) => {
+  let mapData = {};
+  knex('maps').select().where('id', req.params.id)
+
+    .asCallback(function (err, rows) {
+    mapData = rows[0];
+    let dataTemplate = {
+      map_data1: mapData
+    };
+    dataTemplate = JSON.stringify(dataTemplate);
+      res.render('map_page', {data: dataTemplate});
+    });
 });
 
 
