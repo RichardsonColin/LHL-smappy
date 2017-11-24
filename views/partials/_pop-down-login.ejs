@@ -1,5 +1,12 @@
  <div class="pop-down-login">
       <div class="login">
+
+      <% if (errors.length) { %>
+        <% errors.forEach((error) => { %>
+          <p><%= error %></p>
+        <% }) %>
+      <%} %>
+
         <span> LOGIN</span>
         <form action="/login" method="POST">
           <input type="email" name="email" placeholder="Email">
