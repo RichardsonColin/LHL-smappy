@@ -60,9 +60,16 @@ app.use("/api/contributions", contributionsRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index", {
-    errors: req.flash('error')
-  });
+  let loggedIn = false;
+  if (req.session.user_id) {
+    loggedIn = true;
+  }
+   let templateVars = {
+                       loggedIn: loggedIn,
+                       errors: req.flash('error')
+                      };
+  res.render("index", templateVars
+  );
 });
 
 
@@ -150,6 +157,11 @@ app.post("/logout", (req, res) => {
 app.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  if (!req.body.email || !req.body.password) {
+    req.flash('error', 'Both email and password are required');
+    res.redirect(req.get('referer'));
+    return;
+  }
   checkLogin(email, password)
   .then(exists => {
     // console.log('I am the result of the function promise',exists);
@@ -171,9 +183,11 @@ app.post('/login', (req, res) => {
 app.post('/register', (req, res) => {
   const email = req.body.email;
   const password = bcrypt.hashSync(req.body.password, 10);
-  // checkEmailInDB(email, password);
-
-  //let check = registerUser(email, password);
+  if (!req.body.email || !req.body.password) {
+    req.flash('error', 'Both email and password are required');
+    res.redirect(req.get('referer'));
+    return;
+  }
   checkEmailInDB(email, password)
   .then(exists => {
     if (!exists) {
@@ -181,11 +195,11 @@ app.post('/register', (req, res) => {
       .then(user_id => {
         req.session.user_id = user_id;
         // console.log('right after registration ',req.session.user_id);
-        res.redirect('/');
+        res.redirect(req.get('referer'));
       });
     } else {
       req.flash('error', 'Email is not unique');
-      res.redirect('/');
+      res.redirect(req.get('referer'));
     }
   });
 });
