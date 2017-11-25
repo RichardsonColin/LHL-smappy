@@ -29,9 +29,8 @@
   <body>
      <header>
        <% include ./partials/_header.ejs %>
-       <% include ./partials/_pop-down-login %>
-    </header>
 
+    </header>
 
 <!-- map area -->
 
@@ -43,6 +42,25 @@
     <input type="button" id="data-clear" value="remove all data" />
   </div>
 </div>
+<div class="pop-down-login">
+                  <div class="login">
+                    <h4>LOGIN</h4>
+                    <form action="/login" method="POST">
+                      <input type="email" name="email" placeholder="Email">
+                      <input type="password" name="password" placeholder="password">
+                      <input class="button" type="submit" value="Submit">
+                    </form>
+                  </div>
+                  <div class="register">
+                    <h4>REGISTER</h4>
+                    <form action="/register" method="POST">
+                    <input type="email" name="email" placeholder="Email">
+                    <input type="password" name="password" placeholder="Password">
+                    <input type="submit"  class="button" value="Submit">
+                    </form>
+                  </div>
+
+                </div>
 
 
   <div class="left-nav-container">

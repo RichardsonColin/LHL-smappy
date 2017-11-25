@@ -11,4 +11,16 @@ $(() => {
   toggleLeftNav();
 
 
+
+function toggleLogin() {
+    var loginButton = $('.login-button');
+
+    loginButton.click(function() {
+      $('.pop-down-login').toggle('slide', function() {
+
+      });
+    });
+  }
+  toggleLogin();
+
 });
