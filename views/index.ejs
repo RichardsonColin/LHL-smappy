@@ -77,8 +77,11 @@
     <div class="left-nav-container">
 
       <div class="left-nav">
+        <% if (loggedIn) { %>
+         <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
 
-        <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
+        <%  } %>
+
         <div class="favourite-maps">
           <h3>Favourite Maps</h3>
           <ul class="favourite-maps-list">
