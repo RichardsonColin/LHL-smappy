@@ -161,13 +161,11 @@ footer {
 }
 
 .pop-down-login {
-    background: $boxBG;
+    width: 300px;
+    background: rgba(250,250,250,0.7);
+    border: solid 1px white;
+    float: right;
     position: relative;
-    width: 100%;
-    text-align: left;
-    margin-top: 10px;
-    margin-left: 10px;
-    z-index: 300;
     padding:10px;
 
 
@@ -260,10 +258,3 @@ footer {
 
   button:nth-child(3):hover{background-color:#993fa7;}
 }
-//=======
-//
-//
-//
-.pop-down-login{display:none;}
-
-.login-button:hover .pop-down-login{display:block;}
