@@ -14,7 +14,7 @@ $(() => {
     url: "/api/all_maps"
   }).done((maps) => {
     for(let map of maps) {
-      $('<li>').text(map.title).appendTo($('.all-maps-list'));
+      $('<li>').html(`<a href="/maps/${map.id}">${map.title}</a>`).appendTo($('.all-maps-list'));
     }
   });
 
@@ -23,7 +23,7 @@ $(() => {
     url: "/api/favorites"
   }).done((favorites) => {
     for(map of favorites) {
-      $("<li>").text(map.title).appendTo($(".favourite-maps-list"));
+      $("<li>").html(`<a href="/maps/${map.id}">${map.title}</a>`).appendTo($(".favourite-maps-list"));
     }
   });
 });

@@ -158,7 +158,6 @@ function getMapData(id) {
     .then((maps) => {
       mapData = maps[0];
       return id;
-
     });
 }
 

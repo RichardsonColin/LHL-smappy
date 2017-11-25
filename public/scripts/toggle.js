@@ -1,9 +1,10 @@
 $(() => {
 
 function toggleLeftNav() {
-    $(".left-nav").click(function () {
-    tp = $(this).css('left') == '0px' ? '-350px' : '0px';
-    $(this).animate( {left: tp }, 1000);
+    $(".toggle-button").click(function () {
+    tp = $('.left-nav').css('left') == '0px' ? '-350px' : '0px';
+    $('.left-nav').animate( {left: tp }, 1000);
+    console.log();
 
 toggleLeftNavArrow();
 
