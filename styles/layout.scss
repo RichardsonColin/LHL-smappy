@@ -62,10 +62,9 @@ button:hover {
 }
 
 .login-button {
-    display: flex;
     float: right;
-    align-items: center;
-
+    display: block;
+    text-align: right;
 }
 
 .logo{display:inline-block;}
@@ -162,17 +161,30 @@ footer {
 }
 
 .pop-down-login {
-    background: #aaa;
+    background: $boxBG;
     position: relative;
-    width: 50%;
-    float: right;
-    display: inline-flex;
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 10px;
     z-index: 300;
     padding:10px;
-    display:none;
-}
+    //display:none;
 
-.pop-down-login input{width:95%; margin:10px 0;}
+
+     .button{padding: 10px;
+    background: #88f4a4;
+    color: white;
+    width: 32%;
+
+    &:hover{ background: #daf0e4;
+    text-decoration: none;}
+  }
+
+
+  input{width:95%; margin:10px 0;padding: 10px;}
+
+ }
 
 .fa-rotate-180 {
   -webkit-transform: rotate(180deg);
@@ -249,3 +261,10 @@ footer {
 
   button:nth-child(3):hover{background-color:#993fa7;}
 }
+//=======
+//
+//
+//
+.pop-down-login{display:none;}
+
+.login-button:hover .pop-down-login{display:block;}

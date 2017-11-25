@@ -6,8 +6,32 @@
           <div class="login-button">
             <button> login/register</button>
             <button> profile</button>
-          </div>
 
+
+      <div class="pop-down-login">
+        <div class="login">
+          <h4>LOGIN</h4>
+          <form action="/login" method="POST">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="password">
+            <input class="button" type="submit" value="Submit">
+          </form>
+        </div>
+        <div class="register">
+          <h4>REGISTER</h4>
+          <form action="/register" method="POST">
+          <input type="email" name="email" placeholder="Email">
+          <input type="password" name="password" placeholder="Password">
+          <input type="submit"  class="button" value="Submit">
+          </form>
+        </div>
+
+      </div>
+</div>
+
+<!--         <form action="/logout" method="POST">
+          <input type="submit"   class="button" value="Logout">
+        </form> -->
 
 
 
