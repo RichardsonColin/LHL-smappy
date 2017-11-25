@@ -1,15 +1,9 @@
 $(() => {
-  function toggleLeftNav() {
-    var arrowButton = $('.arrow-button');
 
-    arrowButton.click(function() {
-      $('.left-nav').toggle('slide', function() {
-        $('.fa-arrow-circle-left').toggleClass('fa-rotate-180');
-      });
-    });
-  }
-  toggleLeftNav();
-
+  $(".left-nav").click(function () {
+    tp = $(this).css('left') == '0px' ? '-350px' : '0px';
+    $(this).animate( {left: tp }, 1000);
+});
 
 
 function toggleLogin() {
