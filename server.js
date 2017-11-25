@@ -73,6 +73,8 @@ app.get("/new-map", (req, res) => {
 
 app.post("/new-map", (req, res) => {
   console.log(req.body);
+  console.log('REEEEEEES', res);
+  res.json({success: true});
 });
 
 
@@ -173,7 +175,6 @@ app.post('/register', (req, res) => {
     }
   });
 });
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
