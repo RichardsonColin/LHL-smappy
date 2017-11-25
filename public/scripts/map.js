@@ -1,4 +1,7 @@
 const allInfoWindows = [];
+const markers = [];
+let uniqueId = 1;
+
 
 function closeInfoWindows() {
   while (allInfoWindows.length > 0) {
@@ -15,22 +18,6 @@ let mapData = {};
   // console.log(importData);
   drawMap(importData);
 
-
-  // google.maps.event.addListener(map.data, 'click', function(e) {
-  //   if (e.feature.getGeometry().getType() === 'Point') {
-
-  //     win.setOptions({
-  //       content: 'Latitude: ' + e.feature.getGeometry().get().lat() +
-  //         '<br>Longitude: ' + e.feature.getGeometry().get().lng(),
-  //       pixelOffset: new google.maps.Size(0, -40),
-  //       map: map,
-  //       position: e.feature.getGeometry().get()
-  //     });
-  //   }
-  // });
-
-
-  // });
 }
 
 function drawMap (data) {
@@ -57,12 +44,17 @@ function drawMap (data) {
     let marker = new google.maps.Marker({
       position: latLng,
       map: map,
+      databaseId: point.id,
       infoBox: infoBox
     });
+
+    marker.id = uniqueId;
+    uniqueId++;
     // console.log('marker', marker.infoBox);
     google.maps.event.addListener(marker, "click", function () {
       closeInfoWindows();
       console.log('clicked a marker');
+      console.log(marker.id);
       var content = marker.infoBox;
       var infoWindow = new google.maps.InfoWindow({
         content: content
@@ -71,9 +63,11 @@ function drawMap (data) {
       // console.log('all infor windows', allInfoWindows);
       infoWindow.open(map, marker);
     });
+
+    markers.push(marker);
   });
 
-
+  console.log(markers);
 
 
 
@@ -91,8 +85,12 @@ function drawMap (data) {
       map: map
     });
 
+    marker.id = uniqueId;
+    uniqueId++;
     $(".marker-info").css('visibility', 'visible');
 
+    markers.push(marker);
+    console.log(markers);
   });
 
 }
