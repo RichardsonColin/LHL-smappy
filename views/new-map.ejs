@@ -20,11 +20,12 @@
       <% include ./partials/_pop-down-login %>
 
     <div class="create-map">
-      <form method="POST" action="/new-map">
+      <form id="create-map-form" method="POST" action="/new-map">
         <h1>Create a new map</h1>
         <label for="map-name">Name</label>
         <input id="map-name" type="text" name="map-name" placeholder="Enter your map title" style="width: 300px">
-        <input type="submit" name="submit">
+        <input id="hidden-field" type="hidden" name='hidden-field'>
+        <input class="create-map-submit" type="submit" name="Save map">
       </form>
     </div>
 
