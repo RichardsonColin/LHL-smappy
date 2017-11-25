@@ -142,18 +142,25 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/maps/:id", (req, res) => {
+  let loggedIn = false;
+  if (req.session.user_id) {
+    loggedIn = true;
+  }
   let mapData = {};
   knex('maps').select().where('id', req.params.id)
 
     .asCallback(function (err, rows) {
     mapData = rows[0];
+    console.log(rows);
     let dataTemplate = {
       map_data1: mapData
     };
     dataTemplate = JSON.stringify(dataTemplate);
-      res.render('map_page', {data: dataTemplate});
+      res.render('map_page', {data: dataTemplate, errors: req.flash('error'), loggedIn: loggedIn});
     });
 });
+
+
 
 
 app.post("/logout", (req, res) => {

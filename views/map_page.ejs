@@ -6,11 +6,13 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 
     <script type="text/javascript">
       // imports the dataTemplate data from server.js and makes it available to js files
       var map_data = '<%- data %>';
+      console.log(<%- data %>);
     </script>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -20,14 +22,6 @@
   </head>
 
   <body>
- <!-- icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
-    <!-- icon in compose button-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-  </head>
-  <body>
     <header>
        <% include ./partials/_header.ejs %>
     </header>
@@ -35,40 +29,64 @@
 <!-- map area -->
 
 
-<div id="googleMap">
-  <div id="datactrl">
-    <input type="button" id="data-save" value="save" />
-    <input type="button" id="data-show" value="show saved data" />
-    <input type="button" id="data-load" value="load saved data" />
-    <input type="button" id="data-clear" value="remove all data" />
-  </div>
-</div>
-
-
-  <div class="left-nav-container">
-    <div class="arrow-button">
-      <i class="fa fa-arrow-circle-left" style="font-size:20px;"></i>
-    </div>
-    <div class="left-nav">
-      <button> Create New </button>
-      <div class="favourite-maps">
-        <h3>Favourite Maps</h3>
-        <ul class="favourite-maps-list">
-        </ul>
+ <div id="googleMap">
+      <div id="datactrl">
+        <input type="button" id="data-save" value="save" />
+        <input type="button" id="data-show" value="show saved data" />
+        <input type="button" id="data-load" value="load saved data" />
+        <input type="button" id="data-clear" value="remove all data" />
       </div>
-      <div class="all-maps">
-        <h3> All Maps</h3>
-        <ul class="all-maps-list">
-        </ul>
-
-      </div>
-
     </div>
+    <div class="pop-down-login">
+      <% if (errors.length) { %>
+        <% errors.forEach((error) => { %>
+          <p class="error"><%= error %></p>
+        <% }) %>
+      <%} %>
+      <div class="login">
+        <h4>LOGIN</h4>
+        <form action="/login" method="POST">
+          <input type="email" name="email" placeholder="Email">
+          <input type="password" name="password" placeholder="password">
+          <input class="button" type="submit" value="Submit">
+        </form>
+      </div>
+      <div class="register">
+        <h4>REGISTER</h4>
+        <form action="/register" method="POST">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit"  class="button" value="Submit">
+        </form>
+      </div>
+    </div>
+    <% include ./partials/_logout.ejs %>
 
 
-  </div>
-<!-- end of left nav -->
-<!-- starts hidden -->
+
+    <div class="left-nav-container">
+
+      <div class="left-nav">
+        <div class="toggle-button"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+        <% if (loggedIn) { %>
+         <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
+
+        <%  } %>
+
+        <div class="favourite-maps">
+          <h3>Favourite Maps</h3>
+          <ul class="favourite-maps-list">
+          </ul>
+        </div>
+        <div class="all-maps">
+          <h3> All Maps</h3>
+          <ul class="all-maps-list">
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- end of left nav -->
+    <!-- starts hidden -->
 
 
   <div class="marker-info">
