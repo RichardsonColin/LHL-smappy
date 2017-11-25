@@ -3,7 +3,7 @@
 //
 $boxBG: rgba(250,250,250,0.7);
 
-
+$logoFont : monospace;
 
 
 
@@ -21,7 +21,7 @@ body {
 
 
 header{
-  display:flex;
+  //display:flex;
    padding:10px;
    background: #8effa3;
    border-bottom: solid 4px white;
@@ -192,6 +192,7 @@ footer {
     width: 100%;
     color: #88f4a4;
     font-size: 20px;
+    font-family: $logoFont ;
 }
 
 .pop-down-login {
@@ -242,8 +243,13 @@ footer {
 
 .logo{
     margin-left: 5%;
+<<<<<<< HEAD
     font-size: 40px;
     font-family: monospace;
+=======
+    font-size: 30px;
+    font-family: $logoFont ;
+>>>>>>> reid-partials
     font-weight: 900;
     color: white;
     letter-spacing: 3px;
@@ -294,6 +300,7 @@ footer {
   button:nth-child(3):hover{background-color:#993fa7;}
 }
 
+<<<<<<< HEAD
 .error {
   background-color: red;
   font-weight: 700;
@@ -302,3 +309,11 @@ footer {
   text-align: center;
 }
 
+=======
+.profile-container{
+  background-color: $boxBG;
+  width:50%;
+  margin:auto;
+  padding:10px;
+}
+>>>>>>> reid-partials
