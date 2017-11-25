@@ -147,6 +147,7 @@ app.get("/maps/:id", (req, res) => {
     loggedIn = true;
   }
   let mapData = {};
+  console.log(req.params.id);
   knex('maps').select().where('id', req.params.id)
 
     .asCallback(function (err, rows) {
