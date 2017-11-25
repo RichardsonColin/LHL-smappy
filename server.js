@@ -88,10 +88,20 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/new-map", (req, res) => {
-  res.render("new-map");
+  let loggedIn = false;
+  if (req.session.user_id) {
+    loggedIn = true;
+  }
+  let templateVars = {
+                       loggedIn: loggedIn,
+                       userid: req.session.user_id,
+                       errors: req.flash('error')
+                       };
+
+  res.render("new-map", templateVars);
 });
 
-// TO DO MOVE THIS TO HELP FUNCTIONS
+
 function registerUser(email, password) {
   let user_id = 0;
   return knex('users')
@@ -125,18 +135,14 @@ function checkLogin(emailreq, password) {
   .then((result) => {
     if (bcrypt.compareSync(password, result[0].password))  {
       return result[0].id;
-    } else {
-      return false;
     }
+    else {
+      return 0;
+    }
+
   });
 }
 
-
-
-// Test route // TO DO TO DO TO DO
-app.get("/login-test", (req, res) => {
-  res.render("login-test");
-});
 
 app.get("/profile", (req, res) => {
   res.render("profile");
@@ -150,26 +156,27 @@ app.get("/maps/:id", (req, res) => {
   let mapData = {};
   let markersData = {};
 
-function getMapData(id) {
-  return knex
-    .select()
-    .from('maps')
-    .where('id', id)
-    .then((maps) => {
-      mapData = maps[0];
-      return id;
-    });
-}
+  function getMapData(id) {
+    return knex
+      .select()
+      .from('maps')
+      .where('id', id)
+      .then((maps) => {
+        mapData = maps[0];
+        return id;
+      });
+  }
 
-function getMarkers(id) {
-  return knex
-    .select()
-    .from('markers')
-    .where('map_id', id)
-    .then((markers) => {
-      markersData = markers;
-    })
-}
+  function getMarkers(id) {
+    return knex
+      .select()
+      .from('markers')
+      .where('map_id', id)
+      .then((markers) => {
+        markersData = markers;
+    });
+  }
+
   getMapData(req.params.id).then(exists => {
     if(exists) {
       return getMarkers(req.params.id).then(() => {
@@ -191,10 +198,8 @@ function getMarkers(id) {
 
 
 app.post("/logout", (req, res) => {
-  // console.log('logout id',req.session.user_id);
   req.session.user_id = null;
-  // console.log('logout id after logout',req.session.user_id);
-  res.redirect('/');
+  res.redirect(req.get('referer'));
 });
 
 
@@ -205,25 +210,36 @@ app.post('/login', (req, res) => {
     req.flash('error', 'Both email and password are required');
     res.redirect(req.get('referer'));
     return;
-  }
-  checkLogin(email, password)
-  .then(exists => {
-    // console.log('I am the result of the function promise',exists);
-  if (exists) {
-    req.session.user_id = exists;
-    console.log(req.session.user_id);
-    res.redirect('/');
-  }
-    else {
-      req.flash('error', 'Email and password do not match');
-      res.redirect('/');
     }
-
-
+    // console.log(password);
+    checkEmailInDB(email, password)
+    .then(exists => {
+      console.log('I AM THE EXISTS!', exists);
+      if (exists) {
+        checkLogin(email, password)
+        .then(exists => {
+          console.log('I AM EXISTS!',exists);
+          // console.log('I am the result of the function promise',exists);
+          if (exists) {
+            req.session.user_id = exists;
+            console.log(req.session.user_id);
+            res.redirect(req.get('referer'));
+          }
+          else {
+            console.log(exists);
+            req.flash('error', 'Email and password do not match');
+            res.redirect(req.get('referer'));
+            return;
+          }
+        });
+      }
+      else {
+        req.flash('error', 'Email is not registered');
+        res.redirect(req.get('referer'));
+        return;
+      }
   });
 });
-
-
 
 
 app.post('/register', (req, res) => {
@@ -241,7 +257,7 @@ app.post('/register', (req, res) => {
       .then(user_id => {
         req.session.user_id = user_id;
         // console.log('right after registration ',req.session.user_id);
-        res.redirect('/');
+        res.redirect(req.get('referer'));
       });
     } else {
       req.flash('error', 'Email is not unique');
