@@ -109,6 +109,21 @@ function checkLogin(emailreq, password) {
   });
 }
 
+
+
+// Test route // TO DO TO DO TO DO
+app.get("/login-test", (req, res) => {
+  res.render("login-test");
+});
+
+app.get("/profile", (req, res) => {
+  res.render("profile");
+});
+
+app.get("/maps/:id", (req, res) => {
+  let mapData = {};
+  let markersData = {};
+
 function getMapData(id) {
   return knex
     .select()
@@ -129,20 +144,6 @@ function getMarkers(id) {
       markersData = markers;
     })
 }
-
-// Test route // TO DO TO DO TO DO
-app.get("/login-test", (req, res) => {
-  res.render("login-test");
-});
-
-app.get("/profile", (req, res) => {
-  res.render("profile");
-});
-
-app.get("/maps/:id", (req, res) => {
-  let mapData = {};
-  let markersData = {};
-
   getMapData(req.params.id).then(exists => {
     if(exists) {
       return getMarkers(req.params.id).then(() => {

@@ -1,37 +1,38 @@
 function initMap() {
-let mapData ={};
+let mapData = {};
 
 if (!map_data) {
   mapData = {
-    lat: 48.4245,
-    long: -123.3630,
+    lat: 49.28,
+    long: -123.11,
     zoom: 14
   };
 } else {
   let importData = JSON.parse(map_data);
 
-  mapData = {
-    lat: importData.map_data1.lat,
-    long: importData.map_data1.long,
-    zoom: Number(importData.map_data1.zoom)
-  };
+  console.log(importData);
+  drawMap(importData);
+
 }
 
-  var map = new google.maps.Map(document.getElementById("googleMap"), {
+  // var map = new google.maps.Map(document.getElementById("googleMap"), {
 
-    center: new google.maps.LatLng(mapData.lat, mapData.long),
-    zoom: mapData.zoom,
-    noClear: true
+  //   center: new google.maps.LatLng(mapData.lat, mapData.long),
+  //   zoom: mapData.zoom,
+  //   noClear: true
 
-    }),
-    //this may be the stored data
+  //   }),
+
+
+
+  //   // this may be the stored data
     data = {
       "type": "FeatureCollection",
       "features": [{
         "type": "Feature",
         "geometry": {
           "type": "Point",
-          "coordinates": [-0.120850, 51.508742]
+          "coordinates": []
         },
         "properties": {}
       }]
@@ -95,16 +96,16 @@ if (!map_data) {
     };
 
 
-  for (var id in fx) {
-    var o = ctrl.querySelector('input[id=' + id + ']');
-    google.maps.event.addDomListener(o, 'click', fx[id].click);
-    if (fx[id].init) {
-      google.maps.event.trigger(o, 'click');
-    }
-  }
+  // for (var id in fx) {
+  //   var o = ctrl.querySelector('input[id=' + id + ']');
+  //   google.maps.event.addDomListener(o, 'click', fx[id].click);
+  //   if (fx[id].init) {
+  //     google.maps.event.trigger(o, 'click');
+  //   }
+  // }
 
 
-
+// console.log('map', map);
 
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(ctrl);
 
@@ -138,3 +139,74 @@ if (!map_data) {
 
   // });
 }
+
+function drawMap (data) {
+  let markerArr = [];
+
+  let mapData = data.map_data1;
+  console.log('in drawmap', mapData);
+  // document.querySelector('#mapTitleInput').value = mapData.title;
+  let pointsData = data.markers_input;
+  console.log('indrawmap', pointsData);
+
+  let mapOptions = {
+    center: new google.maps.LatLng(mapData.lat, mapData.long),
+    zoom: Number(mapData.zoom),
+    // mapTypeId: google.maps.MapTypeId.ROADMAP,
+
+  };
+
+  map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+
+  pointsData.forEach(function (point) {
+    console.log(point);
+    let latLng = new google.maps.LatLng(point.lat, point.long);
+    let infoBox = `<p>${point.title}</p> <p>${point.description}</p>`;
+
+    // {
+    //   title: point.title,
+    //   description: point.description
+    // }
+    let marker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+      infoBox: infoBox
+    });
+    console.log('marker', marker.infoBox);
+    google.maps.event.addListener(marker, "click", function (e) {
+      var content = marker.infoBox;
+      // content += "<br /><input type = 'button' va;ue = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />";
+      var infoWindow = new google.maps.InfoWindow({
+        content: content
+      });
+      infoWindow.open(map, marker);
+    });
+  });
+
+
+
+
+  //   let thisMarker = marker(point.lat, point.lng, map, point.name, point.description, point.img_url);
+  //   thisMarker['infoBox'] = {
+  //     title: point.name,
+  //     description: point.description,
+  //     url: point.img_url
+  //   };
+    // markerArr.push(thisMarker);
+  // });
+
+  // return map;
+
+}
+
+
+     // window.eqfeed_callback = function(results) {
+     //    for (var i = 0; i < results.features.length; i++) {
+     //      var coords = results.features[i].geometry.coordinates;
+     //      var latLng = new google.maps.LatLng(coords[1],coords[0]);
+     //      var marker = new google.maps.Marker({
+     //        position: latLng,
+     //        map: map
+     //      });
+     //    }
+     //  }
