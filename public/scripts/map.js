@@ -1,3 +1,12 @@
+const allInfoWindows = [];
+
+function closeInfoWindows() {
+  while (allInfoWindows.length > 0) {
+    allInfoWindows[0].close();
+    allInfoWindows.shift();
+  }
+}
+
 function initMap() {
 let mapData = {};
 
@@ -142,7 +151,6 @@ if (!map_data) {
 
 function drawMap (data) {
   let markerArr = [];
-
   let mapData = data.map_data1;
   console.log('in drawmap', mapData);
   // document.querySelector('#mapTitleInput').value = mapData.title;
@@ -173,12 +181,14 @@ function drawMap (data) {
       infoBox: infoBox
     });
     console.log('marker', marker.infoBox);
-    google.maps.event.addListener(marker, "click", function (e) {
+    google.maps.event.addListener(marker, "click", function () {
+      closeInfoWindows();
       var content = marker.infoBox;
-      // content += "<br /><input type = 'button' va;ue = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />";
       var infoWindow = new google.maps.InfoWindow({
         content: content
       });
+      allInfoWindows.push(infoWindow);
+      console.log('all infor windows', allInfoWindows);
       infoWindow.open(map, marker);
     });
   });
