@@ -132,6 +132,7 @@ function checkLogin(emailreq, password) {
 }
 
 
+
 // Test route // TO DO TO DO TO DO
 app.get("/login-test", (req, res) => {
   res.render("login-test");
@@ -142,22 +143,61 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/maps/:id", (req, res) => {
-  let loggedIn = false;
-  if (req.session.user_id) {
-    loggedIn = true;
-  }
+  // let loggedIn = false;
+  // if (req.session.user_id) {
+    let loggedIn = true;
+  // }
   let mapData = {};
-  knex('maps').select().where('id', req.params.id)
+// <<<<<<< HEAD
+//   knex('maps').select().where('id', req.params.id)
 
-    .asCallback(function (err, rows) {
-    mapData = rows[0];
-    console.log(rows);
-    let dataTemplate = {
-      map_data1: mapData
-    };
-    dataTemplate = JSON.stringify(dataTemplate);
-      res.render('map_page', {data: dataTemplate, errors: req.flash('error'), loggedIn: loggedIn});
+//     .asCallback(function (err, rows) {
+//     mapData = rows[0];
+//     console.log(rows);
+//     let dataTemplate = {
+//       map_data1: mapData
+//     };
+//     dataTemplate = JSON.stringify(dataTemplate);
+//       res.render('map_page', {data: dataTemplate, errors: req.flash('error'), loggedIn: loggedIn});
+// =======
+  let markersData = {};
+
+function getMapData(id) {
+  return knex
+    .select()
+    .from('maps')
+    .where('id', id)
+    .then((maps) => {
+      mapData = maps[0];
+      return id;
+// >>>>>>> add_markers
     });
+}
+
+function getMarkers(id) {
+  return knex
+    .select()
+    .from('markers')
+    .where('map_id', id)
+    .then((markers) => {
+      markersData = markers;
+    })
+}
+  getMapData(req.params.id).then(exists => {
+    if(exists) {
+      return getMarkers(req.params.id).then(() => {
+        let dataTemplate = {
+          map_data1: mapData,
+          markers_input: markersData
+        };
+        console.log(dataTemplate);
+        dataTemplate = JSON.stringify(dataTemplate);
+        res.render('map_page', {data: dataTemplate, errors: req.flash('error'), loggedIn: loggedIn});
+      });
+    } else {
+      res.status(404).send("Map doesn't exist");
+    }
+  });
 });
 
 
