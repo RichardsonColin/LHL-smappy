@@ -13,6 +13,7 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const flash = require('connect-flash');
 
+
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
@@ -91,6 +92,15 @@ app.get("/new-map", (req, res) => {
   res.render("new-map");
 });
 
+
+app.post("/new-map", (req, res) => {
+  console.log(req.body);
+  console.log('REEEEEEES', res);
+  res.json({success: true});
+});
+
+
+
 // TO DO MOVE THIS TO HELP FUNCTIONS
 function registerUser(email, password) {
   let user_id = 0;
@@ -168,7 +178,7 @@ function getMarkers(id) {
     .where('map_id', id)
     .then((markers) => {
       markersData = markers;
-    })
+    });
 }
   getMapData(req.params.id).then(exists => {
     if(exists) {
@@ -249,7 +259,6 @@ app.post('/register', (req, res) => {
     }
   });
 });
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

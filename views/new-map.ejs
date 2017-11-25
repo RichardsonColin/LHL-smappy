@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <title>Create New Map</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -21,23 +24,22 @@
       <% include ./partials/_header %>
     </header>
 
-      <div class="left-nav">
-        <div>
-          <form method="POST" action="">
-            <h1>Create a new map</h1>
-            <div class="in-form">
-            <label for="autocomplete">Location</label>
-            <input class="create-inputs" id="autocomplete" type="text" placeholder="Enter your map location"
-             onFocus="geolocate()" >
-             <br>
-            <label for="map-name">Title</label>
-            <input id="map-name"  class="create-inputs" type="text" name="map-name" placeholder="Enter your map title" >
+      <% include ./partials/_pop-down-login %>
+
+    <div class="create-map">
+      <form id="create-map-form" method="POST" action="/new-map">
+        <h1>Create a new map</h1>
+        <label for="map-name">Name</label>
+        <input id="map-name" type="text" name="map-name" placeholder="Enter your map title" style="width: 300px">
+        <input id="map-data" type="hidden" name='map-data'>
+        <input class="create-map-submit" type="submit" name="Save map">
+      </form>
+    </div>
+
+    <input id="pac-input" class="controls" type="text" placeholder="Enter your location" style="width: 300px">
+    <div id="googleMap"></div>
 
 
-           </div>
-          </form>
-        </div>
-      </div>
     <footer>
       <% include ./partials/_footer.ejs %>
     </footer>
