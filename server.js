@@ -80,6 +80,7 @@ app.get("/profile", (req, res) => {
   }
    let templateVars = {
                        loggedIn: loggedIn,
+                       userid: req.session.user_id,
                        errors: req.flash('error')
                       };
   res.render("profile", templateVars

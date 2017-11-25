@@ -3,7 +3,6 @@
 const express = require('express');
 const router  = express.Router();
 
-const userId = 1; //req.session.user_id
 module.exports = (knex) => {
 
 console.log("hello from favorites");
@@ -11,10 +10,10 @@ console.log("hello from favorites");
   router.get("/", (req, res) => {
     console.log('inside the get');
     knex
-      .select()
+      .select('*')
       .from("maps")
-      .innerJoin('favourite_maps', 'favourite_maps.map_id', 'maps.id')
-      .where('favourite_maps.user_id', userId)
+      // .innerJoin('favourite_maps', 'favourite_maps.map_id', 'maps.id')
+      .where({user_id: req.session.user_id})
       .then((results) => {
         res.json(results);
     });
