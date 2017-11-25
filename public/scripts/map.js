@@ -1,140 +1,97 @@
-function initMap() {
-let mapData ={};
+const allInfoWindows = [];
+const markers = [];
+let uniqueId = 1;
 
-if (!map_data) {
-  mapData = {
-    lat: 48.4245,
-    long: -123.3630,
-    zoom: 14
-  };
-} else {
+
+function closeInfoWindows() {
+  while (allInfoWindows.length > 0) {
+    allInfoWindows[0].close();
+    allInfoWindows.shift();
+  }
+}
+
+function initMap() {
+let mapData = {};
+
   let importData = JSON.parse(map_data);
 
-  mapData = {
-    lat: importData.map_data1.lat,
-    long: importData.map_data1.long,
-    zoom: Number(importData.map_data1.zoom)
-  };
+  // console.log(importData);
+  drawMap(importData);
+
 }
 
-  var map = new google.maps.Map(document.getElementById("googleMap"), {
+function drawMap (data) {
+  let markerArr = [];
+  let mapData = data.map_data1;
+  // console.log('in drawmap', mapData);
+  // document.querySelector('#mapTitleInput').value = mapData.title;
+  let pointsData = data.markers_input;
+  // console.log('indrawmap', pointsData);
 
+  let mapOptions = {
     center: new google.maps.LatLng(mapData.lat, mapData.long),
-    zoom: mapData.zoom,
-    noClear: true
+    zoom: Number(mapData.zoom),
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
 
-    }),
-    //this may be the stored data
-    data = {
-      "type": "FeatureCollection",
-      "features": [{
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-0.120850, 51.508742]
-        },
-        "properties": {}
-      }]
-    },
-    win = new google.maps.InfoWindow,
+  };
 
+  const map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
-    //some buttons for interaction
-    ctrl = document.getElementById('datactrl'),
-
-
-    fx = {
-      'data-save': {
-        click: function() {
-          //use this method to store the data somewhere,
-          //e.g. send it to a server
-          console.log('map.data', map.data);
-          console.log('data', data);
-          map.data.toGeoJson(function(json) {
-            data = json;
-          });
-
-        }
-      },
-      'data-show': {
-        click: function() {
-          alert('you may send this JSON-string to a server and store it there:\n\n' +
-            JSON.stringify(data))
-          console.log(data);
-        }
-      },
-      'data-load': {
-        click: function() {
-          //use this method to load the data from somwhere
-          //e.g. from a server via loadGeoJson
-
-          map.data.forEach(function(f) {
-            map.data.remove(f);
-          });
-          map.data.addGeoJson(data)
-        },
-        init: true
-      },
-      'data-clear': {
-        click: function() {
-          //use this method to clear the data
-          //when you also want to remove the data on the server
-          //send a geoJSON with empty features-array to the server
-
-          map.data.forEach(function(f) {
-            map.data.remove(f);
-          });
-          data = {
-            type: "FeatureCollection",
-            features: []
-          };
-
-
-        }
-      }
-    };
-
-
-  for (var id in fx) {
-    var o = ctrl.querySelector('input[id=' + id + ']');
-    google.maps.event.addDomListener(o, 'click', fx[id].click);
-    if (fx[id].init) {
-      google.maps.event.trigger(o, 'click');
-    }
-  }
-
-
-
-
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(ctrl);
-
-
-
-
-  function placeMarker(location) {
-    var feature = new google.maps.Data.Feature({
-      geometry: location
+  pointsData.forEach(function (point) {
+    // console.log(point);
+    let latLng = new google.maps.LatLng(point.lat, point.long);
+    let infoBox = `<p>${point.title}</p> <p>${point.description}</p>`;
+    let marker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+      databaseId: point.id,
+      infoBox: infoBox
     });
-    map.data.add(feature);
-  }
-  google.maps.event.addListener(map, 'click', function(event) {
-    placeMarker(event.latLng);
-  });
 
-
-  google.maps.event.addListener(map.data, 'click', function(e) {
-    if (e.feature.getGeometry().getType() === 'Point') {
-
-      win.setOptions({
-        content: 'Latitude: ' + e.feature.getGeometry().get().lat() +
-          '<br>Longitude: ' + e.feature.getGeometry().get().lng(),
-        pixelOffset: new google.maps.Size(0, -40),
-        map: map,
-        position: e.feature.getGeometry().get()
+    marker.id = uniqueId;
+    uniqueId++;
+    // console.log('marker', marker.infoBox);
+    google.maps.event.addListener(marker, "click", function () {
+      closeInfoWindows();
+      console.log('clicked a marker');
+      console.log(marker.id);
+      var content = marker.infoBox;
+      var infoWindow = new google.maps.InfoWindow({
+        content: content
       });
-    }
+      allInfoWindows.push(infoWindow);
+      // console.log('all infor windows', allInfoWindows);
+      infoWindow.open(map, marker);
+    });
+
+    markers.push(marker);
   });
 
+  console.log(markers);
 
-  // });
+
+
+  //Attach click event handler to the map.
+  google.maps.event.addListener(map, 'click', function (e) {
+
+    //Determine the location where the user has clicked.
+    var location = e.latLng;
+    console.log('e.fa.x', e.fa.x);
+    console.log('e.fa.y', e.fa.y);
+
+    //Create a marker and placed it on the map.
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+
+    marker.id = uniqueId;
+    uniqueId++;
+    $(".marker-info").css('visibility', 'visible');
+
+    markers.push(marker);
+    console.log(markers);
+  });
+
 }
+
