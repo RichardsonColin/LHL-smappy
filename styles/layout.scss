@@ -26,7 +26,7 @@ header{
    background: #8effa3;
    border-bottom: solid 4px white;
 
-   button {
+  button {
   background: #fff;
   background-image: -webkit-linear-gradient(top, #fff, #fff);
   background-image: -moz-linear-gradient(top, #fff, #fff);
@@ -65,7 +65,8 @@ button:hover {
     float: right;
     display: block;
     text-align: right;
-    margin-right: 10px;
+    margin-right: 5%;
+    margin-top: 8px
 }
 
 .profile-icon{
@@ -96,25 +97,35 @@ button:hover {
 .logo{display:inline-block;}
 .logo img{max-width:60px;}
 
-.left-nav-container {
-  width: 300px;
-  margin: 0px;
-  display: inline-block;
-  z-index: 10;
+.toggle-button{
+  width: 50px;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  font-size: 25px;
+  // display: inline-block;
+  float:right;
+  // position: relative;
+  color: #8effa3;
+
 }
 
+
+
 .left-nav {
-    width: 300px;
+    width: 400px;
     background: $boxBG;
     height: 100%;
     border: solid 1px white;
-    float: left;
+    display: inline-block;
     position: absolute;
 
     .button{
-      font-size:15px;
+      font-size:20px;
       background-color:ghostwhite;
-      padding:10px;
+      padding:20px;
       border:none;
       display:block;
       width:100%;
@@ -135,12 +146,9 @@ button:hover {
 }
 
 
+
 .left-nav button {
     width: 100%;
-}
-.left-nav i{
-    float: right;
-    padding-right: 10px;
 }
 
 
@@ -287,9 +295,22 @@ footer {
   button:nth-child(3):hover{background-color:#993fa7;}
 }
 
+.error {
+  background-color: red;
+  font-weight: 700;
+  padding: 10px;
+  color: white;
+  text-align: center;
+}
+.full-profile-page{
+  background-image: url('https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?auto=format&fit=crop&w=1052&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D');
+  height:100%;
+}
+
 .profile-container{
   background-color: $boxBG;
   width:50%;
   margin:auto;
   padding:10px;
 }
+
