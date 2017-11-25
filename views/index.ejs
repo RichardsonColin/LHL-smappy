@@ -24,92 +24,98 @@
 
   <body>
 
-
-
-  </head>
-  <body>
-     <header>
-       <% include ./partials/_header.ejs %>
+    <header>
+      <% include ./partials/_header.ejs %>
 
     </header>
 
 <!-- map area -->
 
-<div id="googleMap">
-  <div id="datactrl">
-    <input type="button" id="data-save" value="save" />
-    <input type="button" id="data-show" value="show saved data" />
-    <input type="button" id="data-load" value="load saved data" />
-    <input type="button" id="data-clear" value="remove all data" />
-  </div>
-</div>
-<div class="pop-down-login">
-                  <div class="login">
-                    <h4>LOGIN</h4>
-                    <form action="/login" method="POST">
-                      <input type="email" name="email" placeholder="Email">
-                      <input type="password" name="password" placeholder="password">
-                      <input class="button" type="submit" value="Submit">
-                    </form>
-                  </div>
-                  <div class="register">
-                    <h4>REGISTER</h4>
-                    <form action="/register" method="POST">
-                    <input type="email" name="email" placeholder="Email">
-                    <input type="password" name="password" placeholder="Password">
-                    <input type="submit"  class="button" value="Submit">
-                    </form>
-                  </div>
-
-                </div>
-
-
-  <div class="left-nav-container">
-
-    <div class="left-nav">
-
-      <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
-      <div class="favourite-maps">
-        <h3>Favourite Maps</h3>
-        <ul class="favourite-maps-list">
-        </ul>
+    <div id="googleMap">
+      <div id="datactrl">
+        <input type="button" id="data-save" value="save" />
+        <input type="button" id="data-show" value="show saved data" />
+        <input type="button" id="data-load" value="load saved data" />
+        <input type="button" id="data-clear" value="remove all data" />
       </div>
-      <div class="all-maps">
-        <h3> All Maps</h3>
-        <ul class="all-maps-list">
-        </ul>
-
-      </div>
-
     </div>
-    <div class="arrow-button">
-      <i class="fa fa-arrow-circle-left" style="font-size:20px;"></i>
+    <div class="pop-down-login">
+      <% if (errors.length) { %>
+        <% errors.forEach((error) => { %>
+          <p class="error"><%= error %></p>
+        <% }) %>
+      <%} %>
+      <div class="login">
+        <h4>LOGIN</h4>
+        <form action="/login" method="POST">
+          <input type="email" name="email" placeholder="Email">
+          <input type="password" name="password" placeholder="password">
+          <input class="button" type="submit" value="Submit">
+        </form>
+      </div>
+      <div class="register">
+        <h4>REGISTER</h4>
+        <form action="/register" method="POST">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit"  class="button" value="Submit">
+        </form>
+      </div>
+    </div>
+    <div class="pop-down-logout">
+      <form action="/profile" method="GET">
+        <input type="submit"   class="button" value="Edit Profile">
+      </form>
+
+      <form action="/logout" method="POST">
+        <input type="submit"   class="button" value="Logout">
+      </form>
     </div>
 
-  </div>
-<!-- end of left nav -->
-<!-- starts hidden -->
 
 
-  <div class="marker-info">
-    <input class="map-title" type="text" placeholder="Map title">
-    <textarea  col="50" placeholder="Map description"></textarea>
-   <div class="upload-button">
-    <button>upload image</button>
-   </div>
-  <div class="buttons">
-    <button>save</button>
-    <button>cancel</button>
-    <button>delete</button>
-  </div>
+    <div class="left-nav-container">
 
-</div>
+      <div class="left-nav">
+
+        <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
+        <div class="favourite-maps">
+          <h3>Favourite Maps</h3>
+          <ul class="favourite-maps-list">
+          </ul>
+        </div>
+        <div class="all-maps">
+          <h3> All Maps</h3>
+          <ul class="all-maps-list">
+          </ul>
+        </div>
+      </div>
+      <div class="arrow-button">
+        <i class="fa fa-arrow-circle-left" style="font-size:20px;"></i>
+      </div>
+    </div>
+    <!-- end of left nav -->
+    <!-- starts hidden -->
+
+
+    <div class="marker-info">
+      <input class="map-title" type="text" placeholder="Map title">
+      <textarea  col="50" placeholder="Map description"></textarea>
+      <div class="upload-button">
+        <button>upload image</button>
+      </div>
+      <div class="buttons">
+        <button>save</button>
+        <button>cancel</button>
+        <button>delete</button>
+      </div>
+    </div>
 
 
 
-  <footer>
-    <% include ./partials/_footer.ejs %>
-  </footer>
+    <footer>
+      <% include ./partials/_footer.ejs %>
+    </footer>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-SheEDWF9WCljdS9aO5YELMTjdqjb-tE&callback=initMap" type="text/javascript"></script>
 

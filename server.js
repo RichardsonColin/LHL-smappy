@@ -195,7 +195,7 @@ app.post('/register', (req, res) => {
       .then(user_id => {
         req.session.user_id = user_id;
         // console.log('right after registration ',req.session.user_id);
-        res.redirect(req.get('referer'));
+        res.redirect('/');
       });
     } else {
       req.flash('error', 'Email is not unique');

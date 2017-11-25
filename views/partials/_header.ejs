@@ -2,15 +2,13 @@
           <a href="/">  <span> SMAPPY<i class="fa fa-globe"></i></span></a>
  </div>
 
-          <div class="login-button">
+          <div class="button-holder">
             <% if (loggedIn) { %>
-              <button> profile</button>
+             <div class="profile-icon"> <i class="fa fa-user" ></i></div>
             <%  } else  {%>
-            <button> login/register</button>
+            <button class="login-button"> login/register</button>
             <%  }  %>
 
 
           </div>
-<!--         <form action="/logout" method="POST">
-          <input type="submit"   class="button" value="Logout">
-        </form> -->
+

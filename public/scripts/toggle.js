@@ -23,4 +23,15 @@ function toggleLogin() {
   }
   toggleLogin();
 
+
+function togglelogout() {
+    var logout = $('.profile-icon');
+
+    logout.click(function() {
+      $('.pop-down-logout').toggle('slide', function() {
+
+      });
+    });
+  }
+  togglelogout();
 });

@@ -61,11 +61,37 @@ button:hover {
     padding: 0;
 }
 
-.login-button {
+.button-holder {
     float: right;
     display: block;
     text-align: right;
+    margin-right: 10px;
 }
+
+.profile-icon{
+    color: white;
+    font-size: 30px;
+    cursor:pointer;
+}
+
+.pop-down-logout{
+    display:none;
+    width: 300px;
+    background: rgba(250,250,250,0.7);
+    border: solid 1px white;
+    float: right;
+    position: relative;
+    padding:10px;
+
+
+     .button{padding: 10px;
+    background: #88f4a4;
+    color: white;
+    width: 32%;
+
+    &:hover{ background: #daf0e4;
+    text-decoration: none;}
+  }}
 
 .logo{display:inline-block;}
 .logo img{max-width:60px;}
@@ -161,6 +187,7 @@ footer {
 }
 
 .pop-down-login {
+    display:none;
     width: 300px;
     background: rgba(250,250,250,0.7);
     border: solid 1px white;

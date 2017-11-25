@@ -8,7 +8,6 @@ $(() => {
 
   $('.error').parent().css('display','block');
 
-
 });
 
 
