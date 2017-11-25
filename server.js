@@ -74,7 +74,16 @@ app.get("/", (req, res) => {
 
 
 app.get("/profile", (req, res) => {
-  res.render("profile");
+  let loggedIn = false;
+  if (req.session.user_id) {
+    loggedIn = true;
+  }
+   let templateVars = {
+                       loggedIn: loggedIn,
+                       errors: req.flash('error')
+                      };
+  res.render("profile", templateVars
+  );
 });
 
 app.get("/new-map", (req, res) => {
