@@ -17,8 +17,8 @@ $(() => {
     url: `/api/users/`
   }).done((users) => {
     for(user of users) {
-      $("<h1>").text(user.email).appendTo($(".user-info"));
-      $("<h2>").text(user.your_location).appendTo($(".user-info"));
+      $("<h1>").text(user.email).prependTo($(".profile-container"));
+      $("<h2>").text(user.your_location).prependTo($(".profile-container"));
     }
   });
 
