@@ -200,6 +200,20 @@ button:hover {
 
 }
 
+.update-marker {
+    position: relative;
+    background-color: $boxBG;
+    float: right;
+    width: 500px;
+    padding: 10px;
+    visibility: visible;
+}
+
+.update-marker input{
+  display:block;
+  margin: 10px 0 ;
+
+}
 .buttons button{width:32%;}
 
 textarea, .map-title{width:98%;}
