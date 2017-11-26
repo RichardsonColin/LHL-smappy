@@ -250,6 +250,29 @@ app.post('/register', (req, res) => {
   });
 });
 
+function createNewMarker(data) {
+  return knex('markers')
+    .insert(data)
+    .returning('*')
+    .then((markerData) => {
+      let mapId = markerData[0].map_id;
+      console.log(mapId);
+      return mapId;
+    });
+}
+app.post("/new-marker", (req, res) => {
+
+  let newMapData = req.body;
+  newMapData.user_id = req.session.user_id;
+  console.log(newMapData);
+
+  createNewMarker(newMapData).then(result => {
+    console.log('IM THE RESULT',result);
+    res.send(String(result));
+  });
+
+  // res.json({success: true});
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

@@ -1,7 +1,9 @@
 const allInfoWindows = [];
 const markers = [];
 let uniqueId = 1;
-
+let newMarkerLat = 0;
+let newMarkerLong = 0;
+let mapid = 0;
 
 function closeInfoWindows() {
   while (allInfoWindows.length > 0) {
@@ -10,37 +12,82 @@ function closeInfoWindows() {
   }
 }
 
-function initMap() {
-let mapData = {};
+function DeleteMarker(id) {
+  //Find and remove the marker from the Array
+  for (var i = 0; i < markers.length; i++) {
+    if (markers[i].id == id) {
+      //Remove the marker from Map
+      markers[i].setMap(null);
 
-  let importData = JSON.parse(map_data);
+      //Remove the marker from array.
+      markers.splice(i, 1);
+      return;
+    }
+  }
+};
 
-  // console.log(importData);
-  drawMap(importData);
+function saveMarkerInfo(mapid) {
+  var $saveButton = $('.save-button');
+  $saveButton.on('click', function() {
+    event.preventDefault();
 
+    // console.log('marker title', $('.marker-title').val());
+    // console.log('marker-description', $('.marker-description').val());
+    // console.log('picture-url', $('.picture-url').val());
+
+    // console.log('mapid', req.params.id);
+    let newMarkerData = {
+      map_id: mapid,
+      lat: newMarkerLat,
+      long: newMarkerLong,
+      title: $('.marker-title').val(),
+      description: $('.marker-description').val(),
+      picture: $('.picture-url').val()
+    };
+
+    $.ajax ({
+              url: '/new-marker',
+              method: 'POST',
+              data: newMarkerData,
+              success: function (result) {
+              // var obj = JSON.parse(data);
+              console.log('IM THE RETURNED DATA', result);
+              // var id = obj._id;
+              location.href = `/maps/${result}`;
+            }
+    });
+
+    $(".marker-info").css('visibility', 'hidden');
+    console.log('data object', newMarkerData);
+  });
 }
 
-function drawMap (data) {
-  let markerArr = [];
-  let mapData = data.map_data1;
-  // console.log('in drawmap', mapData);
-  // document.querySelector('#mapTitleInput').value = mapData.title;
-  let pointsData = data.markers_input;
-  // console.log('indrawmap', pointsData);
+function removeMarker() {
+  var $cancelButton = $('.cancel-button');
+  $cancelButton.on('click', function() {
+    event.preventDefault();
+    console.log(markers.length);
+    DeleteMarker(markers.length);
+    $(".marker-info").css('visibility', 'hidden');
+  });
+}
 
-  let mapOptions = {
-    center: new google.maps.LatLng(mapData.lat, mapData.long),
-    zoom: Number(mapData.zoom),
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
 
-  };
+function drawMarkers(data, map) {
+  for(let j = 0; j < markers.length; j++) {
+    DeleteMarker(j);
+  }
 
-  const map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
-
-  pointsData.forEach(function (point) {
+  data.forEach(function (point) {
     // console.log(point);
     let latLng = new google.maps.LatLng(point.lat, point.long);
-    let infoBox = `<p>${point.title}</p> <p>${point.description}</p>`;
+    let infoBox = `<p>${point.title}</p>`;
+    if(point.description) {
+      infoBox += `<p>${point.description}</p>`;
+    }
+    if(point.picture) {
+      infoBox += `<img src="${point.picture}" height="100" width="100">`;
+    }
     let marker = new google.maps.Marker({
       position: latLng,
       map: map,
@@ -67,7 +114,39 @@ function drawMap (data) {
     markers.push(marker);
   });
 
-  console.log(markers);
+}
+
+function initMap() {
+let mapData = {};
+
+  let importData = JSON.parse(map_data);
+
+  mapid = importData.map_data1.id;
+  drawMap(importData);
+
+}
+
+function drawMap (data) {
+  let markerArr = [];
+  let mapData = data.map_data1;
+  // console.log('in drawmap', mapData);
+  // document.querySelector('#mapTitleInput').value = mapData.title;
+  let pointsData = data.markers_input;
+  // console.log('indrawmap', pointsData);
+
+  let mapOptions = {
+    center: new google.maps.LatLng(mapData.lat, mapData.long),
+    zoom: Number(mapData.zoom),
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+
+  };
+
+  const map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+
+  drawMarkers(pointsData, map);
+
+
+  // console.log(markers);
 
 
 
@@ -76,14 +155,16 @@ function drawMap (data) {
 
     //Determine the location where the user has clicked.
     var location = e.latLng;
-    console.log('e.fa.x', e.fa.x);
-    console.log('e.fa.y', e.fa.y);
 
     //Create a marker and placed it on the map.
     var marker = new google.maps.Marker({
       position: location,
       map: map
     });
+
+    var markerLocation = marker.getPosition();
+    newMarkerLat = markerLocation.lat();
+    newMarkerLong = markerLocation.lng();
 
     marker.id = uniqueId;
     uniqueId++;
@@ -92,6 +173,7 @@ function drawMap (data) {
     markers.push(marker);
     console.log(markers);
   });
-
+saveMarkerInfo(mapid);
+removeMarker();
 }
 
