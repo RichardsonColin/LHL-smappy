@@ -3,8 +3,6 @@
 const express = require('express');
 const router  = express.Router();
 
-const userId = 1; //req.session.user_id
-
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
@@ -16,7 +14,7 @@ module.exports = (knex) => {
           .select()
           .from('contributions')
           .distinct('contributions.map_id')
-          .where('contributions.user_id', userId)
+          .where('contributions.user_id', req.session.user_id)
       )
         .then((results) => {
           res.json(results);
