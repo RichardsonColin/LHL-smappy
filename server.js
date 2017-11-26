@@ -102,29 +102,42 @@ app.get("/new-map", (req, res) => {
   res.render("new-map", templateVars);
 });
 
+function mapContributions(contributeMapData) {
+  return knex('contributions')
+    .insert({
+      map_id: contributeMapData.id,
+      user_id: contributeMapData.user_id
+    })
+    .then(() => {
+      return;
+    });
+}
+
 function createNewMap(data) {
   return knex('maps')
     .insert(data)
     .returning('*')
     .then((mapData) => {
+      let mapContribute = mapData[0];
       let mapId = mapData[0].id;
-      console.log('IM THE MAP ID BITCH',mapId);
+      mapContributions(mapContribute);
       return mapId;
     });
+
 }
 
 app.post("/new-map", (req, res) => {
 
   let newMapData = req.body;
   newMapData.user_id = req.session.user_id;
-  console.log(newMapData);
+  //console.log(newMapData.id, newMapData.user_id);
 
   createNewMap(newMapData).then(result => {
     console.log('IM THE RESULT',result);
+    //mapContributions(result, newMapData);
+
     res.send(String(result));
   });
-
-  //res.json({success: true});
 });
 
 
