@@ -78,22 +78,17 @@ app.get("/profile", (req, res) => {
   let loggedIn = false;
   if (req.session.user_id) {
     loggedIn = true;
-    let templateVars = {
+  }
+   let templateVars = {
                        loggedIn: loggedIn,
                        userid: req.session.user_id,
                        errors: req.flash('error')
                       };
-  res.render("profile", templateVars);
-
-
-
-  } else {
-    res.redirect("/");
-  }
+  res.render("profile", templateVars
+  );
 });
 
 app.get("/new-map", (req, res) => {
-<<<<<<< HEAD
   let loggedIn = false;
   if (req.session.user_id) {
     loggedIn = true;
@@ -104,18 +99,6 @@ app.get("/new-map", (req, res) => {
                        errors: req.flash('error')
 
                        };
-
-=======
- let loggedIn = false;
-  if (req.session.user_id) {
-    loggedIn = true;
-  }
-   let templateVars = {
-                       loggedIn: loggedIn,
-                       userid: req.session.user_id,
-                       errors: req.flash('error')
-                      };
->>>>>>> post_new_map
   res.render("new-map", templateVars);
 });
 
@@ -189,16 +172,7 @@ function checkLogin(emailreq, password) {
 }
 
 
-<<<<<<< HEAD
-=======
 
-
-// Test route // TO DO TO DO TO DO
-app.get("/login-test", (req, res) => {
-  res.render("login-test");
-});
-
->>>>>>> post_new_map
 app.get("/profile", (req, res) => {
   res.render("profile");
 });
