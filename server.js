@@ -89,14 +89,40 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/new-map", (req, res) => {
-  res.render("new-map");
+ let loggedIn = false;
+  if (req.session.user_id) {
+    loggedIn = true;
+  }
+   let templateVars = {
+                       loggedIn: loggedIn,
+                       userid: req.session.user_id,
+                       errors: req.flash('error')
+                      };
+  res.render("new-map", templateVars);
 });
 
+function createNewMap(data) {
+  return knex('maps')
+    .insert(data)
+    .returning('*')
+    .then((mapData) => {
+      let mapId = mapData[0].id;
+      return mapId;
+    });
+}
 
 app.post("/new-map", (req, res) => {
-  console.log(req.body);
-  console.log('REEEEEEES', res);
-  res.json({success: true});
+
+  let newMapData = req.body;
+  newMapData.user_id = req.session.user_id;
+  console.log(newMapData);
+
+  createNewMap(newMapData).then(mapId => {
+    console.log('ASDGASGARGHARG');
+    res.redirect('/');
+  });
+
+  //res.json({success: true});
 });
 
 
@@ -140,6 +166,7 @@ function checkLogin(emailreq, password) {
     }
   });
 }
+
 
 
 

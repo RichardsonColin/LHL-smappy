@@ -97,7 +97,8 @@ $(() => {
 
     $.post('/new-map', mapData)
       .done(function(data) {
-        window.location.href = "/";
+        //console.log(data);
+        //window.location.href = "/new-map";
       })
       .fail(function(error) {
         // TODO use a notificaiton system.
