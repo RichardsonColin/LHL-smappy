@@ -319,7 +319,7 @@ app.post("/new-marker", (req, res) => {
 });
 
 app.post('/profile-update', (req, res) => {
-  console.log(req.body.name);
+  console.log(req.body.name, req.body.location, req.body.description);
    return knex('users')
    .where({id: req.session.user_id})
   .update({name: req.body.name,

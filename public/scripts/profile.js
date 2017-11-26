@@ -10,6 +10,14 @@ $(() => {
   //   }
   // });
 
+
+  function escape(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+
   let user_id = $('.user-info').attr("data");
   console.log(user_id);
   $.ajax({
@@ -46,10 +54,12 @@ $(() => {
     event.preventDefault();
     const $form = $(this).parent();
     let $name = $($form).find('input[name="user_name"]').val();
+    let $securename = escape($name);
     let $location = $($form).find('input[name="user_location"]').val();
+    let $securelocation= escape($location);
     let $description = $($form).find('textarea').val();
-
-    let data = {name: $name, location: $location, description: $description};
+    let $securedescription = escape($description);
+    let data = {name: $securename, location: $securelocation, description: $securedescription};
 
     if ($name.length === 0 || $location.length === 0 || $description.length === 0) {
       $.flash("All profile information must be filled out to complete your profile");
@@ -59,7 +69,9 @@ $(() => {
       $.ajax({
               type: 'POST',
               url:  '/profile-update',
-              data: data,
+              data: data
+      }).done(() => {
+        location.reload();
       });
     console.log($name, $location, $description);
     }
@@ -67,3 +79,4 @@ $(() => {
 
 
 });
+
