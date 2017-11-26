@@ -95,16 +95,13 @@ $(() => {
       'zoom': map.getZoom()
     };
 
-    // $.post('/new-map', mapData);
 
     $.ajax ({
               url: '/new-map',
               method: 'POST',
               data: mapData,
               success: function (result) {
-              // var obj = JSON.parse(data);
               console.log('IM THE RETURNED DATA', result);
-              // var id = obj._id;
               location.href = `/maps/${result}`;
             }
     });
