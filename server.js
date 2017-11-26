@@ -80,14 +80,18 @@ app.get("/profile", (req, res) => {
   let loggedIn = false;
   if (req.session.user_id) {
     loggedIn = true;
-  }
-   let templateVars = {
+    let templateVars = {
                        loggedIn: loggedIn,
                        userid: req.session.user_id,
                        errors: req.flash('error')
                       };
   res.render("profile", templateVars
   );
+
+
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/new-map", (req, res) => {
@@ -101,32 +105,15 @@ app.get("/new-map", (req, res) => {
                        errors: req.flash('error')
 
                        };
+
   res.render("new-map", templateVars);
 });
 
-function createNewMap(data) {
-  return knex('maps')
-    .insert(data)
-    .returning('*')
-    .then((mapData) => {
-      let mapId = mapData[0].id;
-      console.log('IM THE MAP ID BITCH',mapId);
-      return mapId;
-    });
-}
 
 app.post("/new-map", (req, res) => {
-
-  let newMapData = req.body;
-  newMapData.user_id = req.session.user_id;
-  console.log(newMapData);
-
-  createNewMap(newMapData).then(result => {
-    console.log('IM THE RESULT',result);
-    res.send(String(result));
-  });
-
-  //res.json({success: true});
+  console.log(req.body);
+  console.log('REEEEEEES', res);
+  res.json({success: true});
 });
 
 
@@ -175,7 +162,6 @@ function checkLogin(emailreq, password) {
 }
 
 
-
 app.get("/profile", (req, res) => {
   res.render("profile");
 });
@@ -209,6 +195,15 @@ app.get("/maps/:id", (req, res) => {
     });
   }
 
+function getMarkers(id) {
+  return knex
+    .select()
+    .from('markers')
+    .where('map_id', id)
+    .then((markers) => {
+      markersData = markers;
+    });
+}
 
   getMapData(req.params.id).then(exists => {
     if(exists) {
@@ -230,8 +225,7 @@ app.get("/maps/:id", (req, res) => {
 
 
 
-app.post('/logout', (req, res) => {
-  console.log("I AM NOT POSTING AND I DON'T KNOW WHY");
+app.post("/logout", (req, res) => {
   req.session.user_id = null;
   res.redirect(req.get('referer'));
 });
@@ -298,6 +292,30 @@ app.post('/register', (req, res) => {
       res.redirect(req.get('referer'));
     }
   });
+});
+
+function createNewMarker(data) {
+  return knex('markers')
+    .insert(data)
+    .returning('*')
+    .then((markerData) => {
+      let mapId = markerData[0].map_id;
+      console.log(mapId);
+      return mapId;
+    });
+}
+app.post("/new-marker", (req, res) => {
+
+  let newMapData = req.body;
+  newMapData.user_id = req.session.user_id;
+  console.log(newMapData);
+
+  createNewMarker(newMapData).then(result => {
+    console.log('IM THE RESULT',result);
+    res.send(String(result));
+  });
+
+  // res.json({success: true});
 });
 
 app.listen(PORT, () => {
