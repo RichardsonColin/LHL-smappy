@@ -118,13 +118,9 @@ app.post("/new-map", (req, res) => {
   console.log(newMapData);
 
   createNewMap(newMapData).then(mapId => {
-    console.log('ASDGASGARGHARG');
-    res.redirect('/');
+    res.json({success: true});
   });
-
-  //res.json({success: true});
 });
-
 
 
 // TO DO MOVE THIS TO HELP FUNCTIONS
