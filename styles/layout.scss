@@ -163,6 +163,7 @@ button:hover {
     margin: auto;
     padding-top: 12px;
     padding-left: 12px;
+    padding-bottom: 12px;
     }
 
     .all-maps-list, .favourite-maps{
@@ -425,7 +426,12 @@ footer {
   }
 }
 
-
+#favourite-map {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  margin-left: 15px;
+}
 
 
 

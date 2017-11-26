@@ -23,6 +23,7 @@ const knexLogger  = require('knex-logger');
 const usersRoutes = require("./routes/users");
 const allMapsRoutes = require("./routes/all_maps");
 const favoritesRoutes = require("./routes/favorites");
+const newFavoriteRoutes = require("./routes/new-favourite");
 const contributionsRoutes = require("./routes/contributions");
 
 app.set("view engine", "ejs");
@@ -58,6 +59,7 @@ app.use("/api/users", usersRoutes(knex));
 app.use("/api/all_maps", allMapsRoutes(knex));
 app.use("/api/favorites", favoritesRoutes(knex));
 app.use("/api/contributions", contributionsRoutes(knex));
+app.use("/api/new-favourite", newFavoriteRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
