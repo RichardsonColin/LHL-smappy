@@ -15,6 +15,7 @@ function closeInfoWindows() {
 
 function DeleteMarker(id) {
   //Find and remove the marker from the Array
+
   for (var i = 0; i < markers.length; i++) {
     if (markers[i].id == id) {
       //Remove the marker from Map
@@ -24,7 +25,9 @@ function DeleteMarker(id) {
       markers.splice(i, 1);
       return;
     }
+
   }
+
 };
 
 
@@ -39,6 +42,8 @@ function activateUpdateForm() {
     $(".update-marker").css('visibility', 'visibile');
   });
 }
+
+
 
 function saveMarkerInfo(mapid) {
   var $saveButton = $('.save-button');
@@ -155,9 +160,9 @@ function drawMarkers(data, map) {
       infoBox += `<p>${point.description}</p>`;
     }
     if(point.picture) {
-      infoBox += `<img src="${point.picture}" height="100" width="100">`;
+      infoBox += `<img class="marker-image" src="${point.picture}" height="100" width="100">`;
     }
-    infoBox += "<input type = 'button' value = 'update' onclick = 'activateUpdateForm();' value = 'update' />";
+    infoBox += "<input type='button' value='update' onclick='activateUpdateForm();' class='markerbutton' value = 'update' />  <input type='button' value='delete' onclick='DeleteMarker();' class='deletemarkerbutton' />";
     // infoBox += `<button class="open-update">update</button>`;
     let marker = new google.maps.Marker({
       position: latLng,
@@ -165,6 +170,7 @@ function drawMarkers(data, map) {
       databaseId: point.id,
       infoBox: infoBox
     });
+
 
     marker.id = uniqueId;
     uniqueId++;
@@ -249,6 +255,8 @@ function drawMap (data) {
     markers.push(marker);
     console.log(markers);
   });
+
+
 saveMarkerInfo(mapid);
 removeMarker();
 activateUpdateForm();

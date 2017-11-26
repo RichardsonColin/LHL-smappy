@@ -166,17 +166,48 @@ button:hover {
     padding-bottom: 12px;
     }
 
-    .all-maps-list, .favourite-maps{
+    .all-maps-list{
       a{
         text-decoration: none;
         color: black;
-
-        &:hover{
-          color:purple;
-        }
-
       }
-    }
+      li:hover a {color:#8effa3;}
+      }
+
+}
+
+
+.markerbutton{
+  font-size:15px;
+  padding: 10px;
+  background: #88f4a4;
+  color: white;
+  font-weight: 500;
+  cursor:pointer;
+
+}
+.deletemarkerbutton{
+  font-size:15px;
+  padding:10px;
+  background: #ccc;
+  font-weight: 500;
+  cursor: pointer;
+
+}
+
+.deletemarkerbutton:hover{
+
+background-color:#daf0e4;
+
+}
+.marker-image{
+  vertical-align: bottom;
+  margin-right: 5px;
+}
+
+.markerbutton:hover{
+background-color:#daf0e4;
+
 }
 
 
