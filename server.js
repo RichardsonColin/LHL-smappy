@@ -345,6 +345,19 @@ app.post("/new-marker", (req, res) => {
   // res.json({success: true});
 });
 
+app.post('/profile-update', (req, res) => {
+  console.log(req.body.name, req.body.location, req.body.description);
+   return knex('users')
+   .where({id: req.session.user_id})
+  .update({name: req.body.name,
+           your_location: req.body.location,
+           your_description: req.body.description})
+  .returning('*')
+  .then((mapData) => {
+  res.send(String(mapData));
+  });
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
