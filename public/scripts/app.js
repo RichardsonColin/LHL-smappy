@@ -28,4 +28,5 @@ function getFavourites(){
       }
     });
   }
+
 });

@@ -95,15 +95,22 @@ $(() => {
       'zoom': map.getZoom()
     };
 
-    $.post('/new-map', mapData)
-      .done(function(data) {
-        //console.log(data);
-        //window.location.href = "/new-map";
-      })
-      .fail(function(error) {
-        // TODO use a notificaiton system.
-        console.error('ERROR: ', error);
-      });
+    // $.post('/new-map', mapData);
+
+    $.ajax ({
+              url: '/new-map',
+              method: 'POST',
+              data: mapData,
+              success: function (result) {
+              // var obj = JSON.parse(data);
+              console.log('IM THE RETURNED DATA', result);
+              // var id = obj._id;
+              location.href = `/maps/${result}`;
+            }
+    });
+
+
+
   });
 
   $('#pac-input').on('keypress', function(event){

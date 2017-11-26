@@ -108,6 +108,7 @@ function createNewMap(data) {
     .returning('*')
     .then((mapData) => {
       let mapId = mapData[0].id;
+      console.log('IM THE MAP ID BITCH',mapId);
       return mapId;
     });
 }
@@ -118,9 +119,9 @@ app.post("/new-map", (req, res) => {
   newMapData.user_id = req.session.user_id;
   console.log(newMapData);
 
-  createNewMap(newMapData).then(mapId => {
-    console.log('ASDGASGARGHARG');
-    res.redirect('/');
+  createNewMap(newMapData).then(result => {
+    console.log('IM THE RESULT',result);
+    res.send(String(result));
   });
 
   //res.json({success: true});
