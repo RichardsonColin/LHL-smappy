@@ -193,15 +193,6 @@ app.get("/maps/:id", (req, res) => {
     });
   }
 
-function getMarkers(id) {
-  return knex
-    .select()
-    .from('markers')
-    .where('map_id', id)
-    .then((markers) => {
-      markersData = markers;
-    });
-}
 
   getMapData(req.params.id).then(exists => {
     if(exists) {
@@ -223,7 +214,8 @@ function getMarkers(id) {
 
 
 
-app.post("/logout", (req, res) => {
+app.post('/logout', (req, res) => {
+  console.log("I AM NOT POSTING AND I DON'T KNOW WHY");
   req.session.user_id = null;
   res.redirect(req.get('referer'));
 });
