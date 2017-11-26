@@ -46,7 +46,7 @@ $(() => {
   }).done((contributions) => {
     console.log(contributions);
     for(let map of contributions) {
-      $("<div>").text(map.title).appendTo($(".contributions"));
+      $("<li>").html(`<a href="/maps/${map.id}">${map.title}</a>`).appendTo($(".contributions-maps-list"));
     }
   });
 

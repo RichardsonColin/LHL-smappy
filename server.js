@@ -327,6 +327,13 @@ function createNewMarker(data) {
     .returning('*')
     .then((markerData) => {
       let mapId = markerData[0].map_id;
+      let userId = markerData[0].user_id;
+      let contributionsData = {
+        'id': mapId,
+        'user_id': userId
+      };
+
+      mapContributions(contributionsData);
       console.log(mapId);
       return mapId;
     });
