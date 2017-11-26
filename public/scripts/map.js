@@ -4,6 +4,7 @@ let uniqueId = 1;
 let newMarkerLat = 0;
 let newMarkerLong = 0;
 let mapid = 0;
+let currentMarker = 0;
 
 function closeInfoWindows() {
   while (allInfoWindows.length > 0) {
@@ -26,16 +27,21 @@ function DeleteMarker(id) {
   }
 };
 
+
+//won't work for some reason
+function activateUpdateForm() {
+  var $openUpdate = $('.open-update');
+  $openUpdate.click(function() {
+    event.preventDefault();
+    console.log('clicked the update button');
+    $(".update-marker").css('visibility', 'visibile');
+  });
+}
+
 function saveMarkerInfo(mapid) {
   var $saveButton = $('.save-button');
-  $saveButton.on('click', function() {
+  $saveButton.click(function() {
     event.preventDefault();
-
-    // console.log('marker title', $('.marker-title').val());
-    // console.log('marker-description', $('.marker-description').val());
-    // console.log('picture-url', $('.picture-url').val());
-
-    // console.log('mapid', req.params.id);
     let newMarkerData = {
       map_id: mapid,
       lat: newMarkerLat,
@@ -59,6 +65,67 @@ function saveMarkerInfo(mapid) {
 
     $(".marker-info").css('visibility', 'hidden');
     console.log('data object', newMarkerData);
+  });
+}
+
+function saveMarkerInfo(mapid) {
+  var $saveButton = $('.save-button');
+  $saveButton.click(function() {
+    event.preventDefault();
+    let newMarkerData = {
+      map_id: mapid,
+      lat: newMarkerLat,
+      long: newMarkerLong,
+      title: $('.marker-title').val(),
+      description: $('.marker-description').val(),
+      picture: $('.picture-url').val()
+    };
+
+    $.ajax ({
+              url: '/new-marker',
+              method: 'POST',
+              data: newMarkerData,
+              success: function (result) {
+              // var obj = JSON.parse(data);
+              console.log('IM THE RETURNED DATA', result);
+              // var id = obj._id;
+              location.href = `/maps/${result}`;
+            }
+    });
+
+    $(".marker-info").css('visibility', 'hidden');
+    console.log('data object', newMarkerData);
+  });
+}
+
+function updateMarkerInfo(mapid) {
+  var $updateButton = $('.update-button');
+  $updateButton.click(function() {
+    event.preventDefault();
+    console.log('update button clicked');
+    // let newMarkerData = {
+    //   map_id: mapid,
+    //   lat: newMarkerLat,
+    //   long: newMarkerLong,
+    //   title: $('.marker-title').val(),
+    //   description: $('.marker-description').val(),
+    //   picture: $('.picture-url').val()
+    // };
+
+    // $.ajax ({
+    //           url: '/new-marker',
+    //           method: 'POST',
+    //           data: newMarkerData,
+    //           success: function (result) {
+    //           // var obj = JSON.parse(data);
+    //           console.log('IM THE RETURNED DATA', result);
+    //           // var id = obj._id;
+    //           location.href = `/maps/${result}`;
+    //         }
+    // });
+
+    // $(".marker-info").css('visibility', 'hidden');
+    // console.log('data object', newMarkerData);
   });
 }
 
@@ -88,6 +155,7 @@ function drawMarkers(data, map) {
     if(point.picture) {
       infoBox += `<img src="${point.picture}" height="100" width="100">`;
     }
+    infoBox += `<button class="open-update">update</button>`;
     let marker = new google.maps.Marker({
       position: latLng,
       map: map,
@@ -100,15 +168,19 @@ function drawMarkers(data, map) {
     // console.log('marker', marker.infoBox);
     google.maps.event.addListener(marker, "click", function () {
       closeInfoWindows();
-      console.log('clicked a marker');
-      console.log(marker.id);
+      // console.log('clicked a marker');
+      // console.log(marker.id);
       var content = marker.infoBox;
       var infoWindow = new google.maps.InfoWindow({
         content: content
       });
+      currentMarker = marker.databaseId;
       allInfoWindows.push(infoWindow);
       // console.log('all infor windows', allInfoWindows);
+      // $(".update-marker").css('visibility', 'visibile');
+      console.log('clicked a marker');
       infoWindow.open(map, marker);
+
     });
 
     markers.push(marker);
@@ -175,5 +247,6 @@ function drawMap (data) {
   });
 saveMarkerInfo(mapid);
 removeMarker();
+activateUpdateForm();
 }
 
