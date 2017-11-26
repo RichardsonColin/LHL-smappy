@@ -113,7 +113,7 @@ app.get("/new-map", (req, res) => {
 app.post("/new-map", (req, res) => {
   console.log("I am the req body",req.body);
   // console.log('REEEEEEES', res);
-  res.json({success: true});
+  res.send(String(result));
 });
 
 
@@ -212,7 +212,7 @@ function getMarkers(id) {
           map_data1: mapData,
           markers_input: markersData
         };
-        console.log(dataTemplate);
+        // console.log(dataTemplate);
         dataTemplate = JSON.stringify(dataTemplate);
         res.render('map_page', {data: dataTemplate, errors: req.flash('error'), loggedIn: loggedIn});
       });
@@ -304,6 +304,7 @@ function createNewMarker(data) {
       return mapId;
     });
 }
+
 app.post("/new-marker", (req, res) => {
 
   let newMapData = req.body;
@@ -314,8 +315,56 @@ app.post("/new-marker", (req, res) => {
     console.log('IM THE RESULT',result);
     res.send(String(result));
   });
+});
 
-  // res.json({success: true});
+function updateMarker(data) {
+  return knex('markers')
+    .where('id', data.id)
+    .update({
+      map_id: data.map_id,
+      title: data.title,
+      description: data.description,
+      picture: data.picture
+    })
+    .returning('*')
+    .then((markerData) => {
+      let mapId = markerData[0].map_id;
+      console.log(mapId);
+      return mapId;
+    });
+}
+
+app.post("/new-marker", (req, res) => {
+
+  let updateMarkerData = req.body;
+  updateMarkerData.user_id = req.session.user_id;
+  console.log(updateMarkerData);
+
+  updateMarker(updateMarkerData).then(result => {
+    console.log('IM THE RESULT',result);
+    res.send(String(result));
+  });
+});
+
+function deleteMarker(id) {
+  return knex('markers')
+    .where('id', id)
+    .del()
+    .then(() => {
+      // does this need to do anything?
+      console.log('deleted marker')
+      return;
+    });
+}
+
+app.post("/delete-marker", (req, res) => {
+
+  let markerId = req.body;
+
+  deleteMarker(markerId).then(result => {
+    console.log('deleted');
+    res.send('success');
+  });
 });
 
 app.listen(PORT, () => {
