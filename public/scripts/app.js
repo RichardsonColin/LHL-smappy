@@ -22,7 +22,7 @@ $(() => {
     method: "GET",
     url: "/api/favorites"
   }).done((favorites) => {
-    for(map of favorites) {
+    for(let map of favorites) {
       $("<li>").html(`<a href="/maps/${map.id}">${map.title}</a>`).appendTo($(".favourite-maps-list"));
     }
   });
