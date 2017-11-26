@@ -89,7 +89,16 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/new-map", (req, res) => {
-  res.render("new-map");
+  let loggedIn = false;
+  if (req.session.user_id) {
+    loggedIn = true;
+  }
+  let templateVars = {
+                       loggedIn: loggedIn,
+                       userid: req.session.user_id,
+                       errors: req.flash('error')
+                      };
+  res.render("new-map", templateVars);
 });
 
 

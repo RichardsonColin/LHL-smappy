@@ -15,8 +15,10 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-
+<script type="text/javascript" src="/scripts/toggle.js"></script>
     <script type="text/javascript" src="/scripts/new-map.js"></script>
+    <script type="text/javascript" src="/scripts/login.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
 
   </head>
   <body>
@@ -25,18 +27,15 @@
     </header>
 
       <% include ./partials/_pop-down-login %>
+<%include ./partials/_logout %>
 
-    <div class="create-map">
-      <form id="create-map-form" method="POST" action="/new-map">
-        <h1>Create a new map</h1>
-        <label for="map-name">Name</label>
-        <input id="map-name" type="text" name="map-name" placeholder="Enter your map title" style="width: 300px">
-        <input id="map-data" type="hidden" name='map-data'>
-        <input class="create-map-submit" type="submit" name="Save map">
-      </form>
-    </div>
 
-    <input id="pac-input" class="controls" type="text" placeholder="Enter your location" style="width: 300px">
+
+
+  <% include ./partials/_create-map %>
+    <input id="pac-input" class="controls" type="text" placeholder="Please enter your location" style="width: 300px">
+
+
     <div id="googleMap"></div>
 
 
