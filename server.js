@@ -97,6 +97,7 @@ app.get("/new-map", (req, res) => {
                        loggedIn: loggedIn,
                        userid: req.session.user_id,
                        errors: req.flash('error')
+
                        };
 
   res.render("new-map", templateVars);

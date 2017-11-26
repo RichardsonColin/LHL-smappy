@@ -89,6 +89,7 @@ button:hover {
     float: right;
     position: relative;
     padding:10px;
+    z-index: 1;
 
     span{
       font-size: 20px;
@@ -162,6 +163,18 @@ button:hover {
     padding-top: 12px;
     padding-left: 12px;
     }
+
+    .all-maps-list, .favourite-maps{
+      a{
+        text-decoration: none;
+        color: black;
+
+        &:hover{
+          color:purple;
+        }
+
+      }
+    }
 }
 
 
@@ -212,6 +225,7 @@ footer {
     color: #88f4a4;
     font-size: 20px;
     font-family: $logoFont ;
+    z-index: 3;
 }
 
 .pop-down-login {
@@ -222,6 +236,7 @@ footer {
     float: right;
     position: relative;
     padding:10px;
+    z-index: 1;
 
 
      .button{padding: 10px;
@@ -371,8 +386,43 @@ footer {
 }
 
 
+#pac-input {
+    width: 300px;
+    z-index: 4;
+    position: relative;
+    left: 35% !important;
+    margin: 30px auto;
+    font-size: 15px;
+    padding: 10px;
+}
 
+.create-map{
+  background:$boxBG;
+  float: left;
+  position:relative;
+  z-index: 1;
+  padding:20px;
+  height:100%;
 
+  #map-name{
+    padding:10px;
+    display:block;
+
+  }
+
+  .create-map-submit{
+    width: 32%;
+    padding: 10px;
+    background: #88f4a4;
+    color: white;
+    margin-top:10px;
+
+    &:hover{
+      background: #daf0e4;
+      text-decoration: none;
+    }
+  }
+}
 
 
 
