@@ -111,8 +111,8 @@ app.get("/new-map", (req, res) => {
 
 
 app.post("/new-map", (req, res) => {
-  console.log(req.body);
-  console.log('REEEEEEES', res);
+  console.log("I am the req body",req.body);
+  // console.log('REEEEEEES', res);
   res.json({success: true});
 });
 

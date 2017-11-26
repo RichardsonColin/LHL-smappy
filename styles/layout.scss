@@ -403,13 +403,15 @@ footer {
 
 
 #pac-input {
-    width: 300px;
+    width: 500px;
     z-index: 4;
-    position: relative;
-    left: 35% !important;
-    margin: 30px auto;
-    font-size: 15px;
-    padding: 10px;
+  position:absolute !important;
+  top:40%!important;
+  left:50%!important;
+  transform:translate(-50%,-50%)!important;
+  margin-bottom: 100px;
+    font-size: 20px;
+    padding: 25px;
 }
 
 .create-map{

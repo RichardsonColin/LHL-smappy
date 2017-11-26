@@ -23,10 +23,12 @@ $(() => {
     method: "GET",
     url: "/api/favorites"
     }).done((favorites) => {
-      console.log('IM THE FAVORITES',favorites);
       for(let map of favorites) {
+      console.log('IM THE FAVORITES',favorites);
       $("<li>").html(`<a href="/maps/${map.id}">${map.title}</a>`).appendTo($(".favourite-maps-list"));
       }
     });
 
 });
+
+
