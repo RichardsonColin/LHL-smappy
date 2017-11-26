@@ -109,12 +109,39 @@ app.get("/new-map", (req, res) => {
   res.render("new-map", templateVars);
 });
 
+function mapContributions(contributeMapData) {
+  return knex('contributions')
+    .insert({
+      map_id: contributeMapData.id,
+      user_id: contributeMapData.user_id
+    })
+    .then(() => {
+      return;
+    });
+ }
+
+function createNewMap(data) {
+  return knex('maps')
+    .insert(data)
+    .returning('*')
+    .then((mapData) => {
+      let mapContribute = mapData[0];
+      let mapId = mapData[0].id;
+      mapContributions(mapContribute);
+      return mapId;
+  });
+}
+
 
 app.post("/new-map", (req, res) => {
-  console.log("I am the req body",req.body);
-  // console.log('REEEEEEES', res);
-  res.json({success: true});
+  let newMapData = req.body;
+  newMapData.user_id = req.session.user_id;
+
+  createNewMap(newMapData).then(result => {
+    res.send(String(result));
+  });
 });
+
 
 
 
@@ -195,15 +222,15 @@ app.get("/maps/:id", (req, res) => {
     });
   }
 
-function getMarkers(id) {
-  return knex
-    .select()
-    .from('markers')
-    .where('map_id', id)
-    .then((markers) => {
-      markersData = markers;
-    });
-}
+// function getMarkers(id) {
+//   return knex
+//     .select()
+//     .from('markers')
+//     .where('map_id', id)
+//     .then((markers) => {
+//       markersData = markers;
+//     });
+// }
 
   getMapData(req.params.id).then(exists => {
     if(exists) {
