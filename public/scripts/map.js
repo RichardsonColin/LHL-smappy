@@ -30,6 +30,8 @@ function DeleteMarker(id) {
 
 //won't work for some reason
 function activateUpdateForm() {
+  console.log('in activate update form function');
+  $(".update-marker").css('visibility', 'visibile');
   var $openUpdate = $('.open-update');
   $openUpdate.click(function() {
     event.preventDefault();
@@ -155,7 +157,8 @@ function drawMarkers(data, map) {
     if(point.picture) {
       infoBox += `<img src="${point.picture}" height="100" width="100">`;
     }
-    infoBox += `<button class="open-update">update</button>`;
+    infoBox += "<input type = 'button' value = 'update' onclick = 'activateUpdateForm();' value = 'update' />";
+    // infoBox += `<button class="open-update">update</button>`;
     let marker = new google.maps.Marker({
       position: latLng,
       map: map,
@@ -177,7 +180,7 @@ function drawMarkers(data, map) {
       currentMarker = marker.databaseId;
       allInfoWindows.push(infoWindow);
       // console.log('all infor windows', allInfoWindows);
-      // $(".update-marker").css('visibility', 'visibile');
+      $(".update-marker").css('visibility', 'visibile');
       console.log('clicked a marker');
       infoWindow.open(map, marker);
 
@@ -241,6 +244,7 @@ function drawMap (data) {
     marker.id = uniqueId;
     uniqueId++;
     $(".marker-info").css('visibility', 'visible');
+    // $(".update-marker").css('visibility', 'visible');
 
     markers.push(marker);
     console.log(markers);
