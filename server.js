@@ -78,14 +78,18 @@ app.get("/profile", (req, res) => {
   let loggedIn = false;
   if (req.session.user_id) {
     loggedIn = true;
-  }
-   let templateVars = {
+    let templateVars = {
                        loggedIn: loggedIn,
                        userid: req.session.user_id,
                        errors: req.flash('error')
                       };
   res.render("profile", templateVars
   );
+
+
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/new-map", (req, res) => {
@@ -99,45 +103,15 @@ app.get("/new-map", (req, res) => {
                        errors: req.flash('error')
 
                        };
+
   res.render("new-map", templateVars);
 });
 
-function mapContributions(contributeMapData) {
-  return knex('contributions')
-    .insert({
-      map_id: contributeMapData.id,
-      user_id: contributeMapData.user_id
-    })
-    .then(() => {
-      return;
-    });
-}
-
-function createNewMap(data) {
-  return knex('maps')
-    .insert(data)
-    .returning('*')
-    .then((mapData) => {
-      let mapContribute = mapData[0];
-      let mapId = mapData[0].id;
-      mapContributions(mapContribute);
-      return mapId;
-    });
-
-}
 
 app.post("/new-map", (req, res) => {
-
-  let newMapData = req.body;
-  newMapData.user_id = req.session.user_id;
-  //console.log(newMapData.id, newMapData.user_id);
-
-  createNewMap(newMapData).then(result => {
-    console.log('IM THE RESULT',result);
-    //mapContributions(result, newMapData);
-
-    res.send(String(result));
-  });
+  console.log(req.body);
+  console.log('REEEEEEES', res);
+  res.json({success: true});
 });
 
 
@@ -186,7 +160,6 @@ function checkLogin(emailreq, password) {
 }
 
 
-
 app.get("/profile", (req, res) => {
   res.render("profile");
 });
@@ -220,6 +193,15 @@ app.get("/maps/:id", (req, res) => {
     });
   }
 
+function getMarkers(id) {
+  return knex
+    .select()
+    .from('markers')
+    .where('map_id', id)
+    .then((markers) => {
+      markersData = markers;
+    });
+}
 
   getMapData(req.params.id).then(exists => {
     if(exists) {
@@ -241,8 +223,7 @@ app.get("/maps/:id", (req, res) => {
 
 
 
-app.post('/logout', (req, res) => {
-  console.log("I AM NOT POSTING AND I DON'T KNOW WHY");
+app.post("/logout", (req, res) => {
   req.session.user_id = null;
   res.redirect(req.get('referer'));
 });
