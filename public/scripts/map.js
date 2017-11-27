@@ -16,6 +16,7 @@ function closeInfoWindows() {
 
 function cancelMarker(id) {
   //Find and remove the marker from the Array
+
   //Doesn't always work, not sure what breaks it
   for (var i = 0; i < markers.length; i++) {
     if (markers[i].id === id) {

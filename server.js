@@ -67,6 +67,7 @@ app.use("/api/current-map-markers", currentMapMarkers(knex));
 // Home page
 app.get("/", (req, res) => {
   let loggedIn = false;
+
   if (req.session.user_id) {
     loggedIn = true;
   }
@@ -111,6 +112,20 @@ app.get("/new-map", (req, res) => {
 
   res.render("new-map", templateVars);
 });
+
+function grabUserName(email){
+  knex.select('name').from('users')
+  .where('email' , email)
+  .asCallback(function(err, rows) {
+
+    if (err) return console.error(err);
+    console.log(rows);
+   return rows;
+     });
+
+}
+
+
 
 function mapContributions(contributeMapData) {
   return knex('contributions')
@@ -301,6 +316,7 @@ app.post('/login', (req, res) => {
 
 
 app.post('/register', (req, res) => {
+
   const email = req.body.email;
   const password = bcrypt.hashSync(req.body.password, 10);
   if (!req.body.email || !req.body.password) {
