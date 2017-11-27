@@ -35,7 +35,7 @@
 - Node Sass Middleware 0.11.0 'npm install node-sass-middleware'
 - Pg 7.4.0 'npm install pg'
 
-##ScreenShots
+## ScreenShots
 
 !["Screenshot Create Map dropdown"]https://github.com/RyukyuColin/map_app-midterm/blob/master/images/Create-map-dropdown.png?raw=true
 
