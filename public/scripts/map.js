@@ -5,6 +5,7 @@ var newMarkerLat = 0;
 var newMarkerLong = 0;
 var mapid = 0;
 var currentMarker = 0;
+var loggedIn = false;
 
 //Closes the windows of other markers
 function closeInfoWindows() {
@@ -120,19 +121,12 @@ function drawMarkers(data, map) {
       infoBox += `<img class="marker-image" src="${point.picture}" height="100" width="100">`;
     }
 
-    infoBox += "<input type='button' value='update' onclick='activateUpdateForm();' class='markerbutton' value = 'update' />  <input type='button' value='delete' onclick='DeleteMarker();' class='deletemarkerbutton' />";
-
-    // infoBox += "<input type = 'button' value = 'update' onclick = 'activateUpdateForm();' value = 'update' />";
-    // infoBox += `<button class="open-update">update</button>`;
     var marker = new google.maps.Marker({
       position: latLng,
       map: map,
       databaseId: point.id,
       infoBox: infoBox
     });
-
-
-
 
     $("<p>").text(point.title).prependTo($(".markers-list"));
 
@@ -172,36 +166,38 @@ function drawMap (data) {
 
   drawMarkers(pointsData, map);
 
-  //Attach click event handler to the map.
-  google.maps.event.addListener(map, 'click', function (e) {
+  if (loggedIn) {
 
-    //Determine the location where the user has clicked.
-    var location = e.latLng;
+    //Attach click event handler to the map.
+    google.maps.event.addListener(map, 'click', function (e) {
 
-    //Create a marker and placed it on the map.
-    var marker = new google.maps.Marker({
-      position: location,
-      map: map
+      //Determine the location where the user has clicked.
+      var location = e.latLng;
+
+      //Create a marker and placed it on the map.
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+
+      var markerLocation = marker.getPosition();
+      newMarkerLat = markerLocation.lat();
+      newMarkerLong = markerLocation.lng();
+
+      marker.id = uniqueId;
+      uniqueId++;
+      //make the window to add information to the marker appear
+      $(".marker-info").css('visibility', 'visible');
+
+      //adds marker to array so it can be removed later
+      markers.push(marker);
     });
 
-    var markerLocation = marker.getPosition();
-    newMarkerLat = markerLocation.lat();
-    newMarkerLong = markerLocation.lng();
-
-    marker.id = uniqueId;
-    uniqueId++;
-    //make the window to add information to the marker appear
-    $(".marker-info").css('visibility', 'visible');
-
-    //adds marker to array so it can be removed later
-    markers.push(marker);
-  });
-
-
-saveMarkerInfo(mapid);
-removeMarker();
-activateUpdateForm();
-removeMarker();
+  saveMarkerInfo(mapid);
+  removeMarker();
+  activateUpdateForm();
+  removeMarker();
+  }
 }
 
 
@@ -210,8 +206,12 @@ function initMap() {
 var mapData = {};
 
   var importData = JSON.parse(map_data);
+  loggedIn = importData.loggedIn;
 
   mapid = importData.map_data1.id;
   drawMap(importData);
+
+  // console.log('logged', importData.loggedIn);
+
 
 }

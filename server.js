@@ -255,7 +255,8 @@ app.get("/maps/:id", (req, res) => {
       return getMarkers(req.params.id).then(() => {
         let dataTemplate = {
           map_data1: mapData,
-          markers_input: markersData
+          markers_input: markersData,
+          loggedIn: loggedIn
         };
         // console.log(dataTemplate);
         dataTemplate = JSON.stringify(dataTemplate);
