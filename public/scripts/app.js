@@ -1,15 +1,5 @@
 $(() => {
-
-  // $.ajax({
-  //   method: "GET",
-  //   url: "/api/users"
-  // }).done((users) => {
-  //   for(user of users) {
-  //     $("<div>").text(user.name).appendTo($("body"));
-  //   }
-  // });
-
-  $.ajax({
+ $.ajax({
     method: "GET",
     url: "/api/all_maps"
     }).done((maps) => {
@@ -31,8 +21,8 @@ $(() => {
       .data({'mapid': `${map.id}`})
       .html(`<a href="/maps/${map.id}">${map.title}</a> <span class="remove-favourite">remove</span>`)
       .appendTo($(".favourite-maps-list"));
-      }
-    });
+    }
+  });
 
 });
 

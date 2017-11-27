@@ -373,18 +373,30 @@ app.post("/update-marker", (req, res) => {
   });
 });
 
-function deleteMarker(id) {
+function deleteMarker(markerId, userId) {
   return knex('markers')
+    .where('id', markerId)
+    .del()
+    .then(() => {
+      deleteContribution(markerId, userId);
+      return;
+    });
+}
+
+function deleteContribution(id) {
+  return knex('contributions')
     .where('id', id)
     .del()
     .then(() => {
+
       return;
     });
 }
 
 app.post("/delete-marker", (req, res) => {
   let markerId = req.body.id;
-  deleteMarker(markerId).then(result => {
+  let userId = req.session.user_id;
+  deleteMarker(markerId, userId).then(result => {
     res.send('success');
   });
 });
