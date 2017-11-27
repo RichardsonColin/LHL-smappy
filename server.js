@@ -420,6 +420,27 @@ app.post("/delete-marker", (req, res) => {
   });
 });
 
+function deleteFavourite(id) {
+  return knex('favourite_maps')
+    .where('id', id)
+    .del()
+    .then(() => {
+      // does this need to do anything?
+      console.log('deleted marker');
+      return;
+    });
+}
+
+app.post("/remove-favourite", (req, res) => {
+  console.log(req.body);
+  let markerId = req.body.id;
+  deleteMarker(markerId).then(result => {
+    console.log('deleted');
+    res.send('success');
+  });
+});
+
+
 app.post('/profile-update', (req, res) => {
   console.log(req.body.name, req.body.location, req.body.description);
    return knex('users')

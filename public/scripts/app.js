@@ -12,9 +12,11 @@ $(() => {
   $.ajax({
     method: "GET",
     url: "/api/all_maps"
-  }).done((maps) => {
+    }).done((maps) => {
     for(let map of maps) {
-      $('<li>').html(`<a href="/maps/${map.id}">${map.title}</a>`).appendTo($('.all-maps-list'));
+      $('<li>')
+      .html(`<a href="/maps/${map.id}">${map.title}</a>`)
+      .appendTo($('.all-maps-list'));
     }
   });
 
@@ -25,10 +27,14 @@ $(() => {
     }).done((favorites) => {
       for(let map of favorites) {
       console.log('IM THE FAVORITES',favorites);
-      $("<li>").html(`<a href="/maps/${map.id}">${map.title}</a>`).appendTo($(".favourite-maps-list"));
+      $("<li>")
+      .data({'mapid': `${map.id}`})
+      .html(`<a href="/maps/${map.id}">${map.title}</a> <span class="remove-favourite">remove</span>`)
+      .appendTo($(".map-markers-list"));
       }
     });
 
 });
+
 
 
