@@ -120,7 +120,6 @@ function drawMarkers(data, map) {
       infoBox += `<img class="marker-image" src="${point.picture}" height="100" width="100">`;
     }
 
-    infoBox += "<input type='button' value='update' onclick='activateUpdateForm();' class='markerbutton' value = 'update' />  <input type='button' value='delete' onclick='DeleteMarker();' class='deletemarkerbutton' />";
 
     // infoBox += "<input type = 'button' value = 'update' onclick = 'activateUpdateForm();' value = 'update' />";
     // infoBox += `<button class="open-update">update</button>`;
