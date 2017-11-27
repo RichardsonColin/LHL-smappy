@@ -1,29 +1,54 @@
-# Node Skeleton
+# README
 
-## Project Setup
+## Smappy - Lighthouse Labs Midterm Project
+- Colin Richardson
+- Mark Zsombor
+- Kelsey Cooper
+- Reid Naaykens
 
-1. Create your own empty repo on GitHub
-2. Clone this repository (do not fork)
-  - Suggestion: When cloning, specify a different folder name that is relevant to your project
-3. Remove the git remote: `git remote rm origin`
-4. Add a remote for your origin: `git remote add origin <your github repo URL>`
-5. Push to the new origin: `git push -u origin master`
-6. Verify that the skeleton code now shows up in your repo on GitHub
+## To run Smappy
 
-## Getting Started
+1. Download repsoitory into a repostiory on your machine
+ https://github.com/RyukyuColin/map_app-midterm
+2. Cd from your terminal into that new repsoitory
+3. Run npm run local - wait for 'Smappy app listening on port 8080'
+4. In your browser go to http://localhost:8080/
 
-1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
-2. Update the .env file with your correct local information
-3. Install dependencies: `npm i`
-4. Fix to binaries for sass: `npm rebuild node-sass`
-5. Run migrations: `npm run knex migrate:latest`
-  - Check the migrations folder to see what gets created in the DB
-6. Run the seed: `npm run knex seed:run`
-  - Check the seeds file to see what gets seeded in the DB
-7. Run the server: `npm run local`
-8. Visit `http://localhost:8080/`
+
 
 ## Dependencies
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
+- bcrypt 1.0.3
+- body-parser 1.15.2
+- connect-flash 0.1.1
+- cookie-session 2.0.0-beta.3
+- dotenv 4.0.0
+- ejs 2.4.1
+- express 4.13.4
+- express-flash git://github.com/RGBboy/express-flash.git
+- knex 0.14.1
+- knex-logger 0.1.0
+- morgan 1.7.0
+- node-sass-middleware 0.11.0
+- pg 7.4.0
+
+##ScreenShots
+
+!["Screenshot Create Map dropdown"]https://github.com/RyukyuColin/map_app-midterm/blob/master/images/Create-map-dropdown.png?raw=true
+
+!["Screenshot Profile page"]https://github.com/RyukyuColin/map_app-midterm/blob/master/images/Profile-page.png?raw=true
+
+!["Screenshot Index page"]https://github.com/RyukyuColin/map_app-midterm/blob/master/images/Smappy_index_page.png?raw=true
+
+!["Screenshot Create map page"]https://github.com/RyukyuColin/map_app-midterm/blob/master/images/create-map-page.png?raw=true
+
+!["Screenshot Index page left navigation slideout"]https://github.com/RyukyuColin/map_app-midterm/blob/master/images/left-navigation-out.png?raw=true
+
+!["Screenshot Logged in dropdown"]https://github.com/RyukyuColin/map_app-midterm/blob/master/images/logged-in-dropdown.png?raw=true
+
+!["Screenshot register/login dropdown"]https://github.com/RyukyuColin/map_app-midterm/blob/master/images/login:register-slideout.png?raw=true
+
+!["Screenshot Individual map page"]https://github.com/RyukyuColin/map_app-midterm/blob/master/images/map-page.png?raw=true
+
