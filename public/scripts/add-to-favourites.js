@@ -1,5 +1,6 @@
 $(() => {
 
+  //saves current map to the users favorites and updates the DB
   $( '#favourite-map' ).click(function() {
 
     $.ajax ({
@@ -17,9 +18,10 @@ $(() => {
     });
   });
 
+  //Removes the current map from the users favourites list
   $(document).on('click', '.remove-favourite', (function() {
-    var $id = $(this).parent().data();
-    var id = {id: $id.mapid};
+    const $id = $(this).parent().data();
+    let id = {id: $id.mapid};
 
     $.ajax ({
             url: '/remove-favourite',
