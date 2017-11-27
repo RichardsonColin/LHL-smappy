@@ -116,6 +116,9 @@ html, body {
   font-size: 25px;
   float:right;
   color: #8effa3;
+  a {
+    text-decoration: none;
+  }
 }
 
 .left-nav {
@@ -247,8 +250,8 @@ textarea, .map-title {
   margin-bottom: 10px;
 }
 
-.upload-button button {w
-  idth:32%;
+.upload-button button {
+  width:32%;
 }
 
 .favourite-maps, .all-maps{
