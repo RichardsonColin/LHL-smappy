@@ -1,3 +1,5 @@
+//This is called by the / page when it loads, it calls a default map location.
+
 function initMap () {
 
   var mapOptions = {

@@ -1,4 +1,6 @@
 $(() => {
+
+  //Retrieves all the saved maps from the database and creates a list of links that redirect to each maps page
   $.ajax({
     method: "GET",
     url: "/api/all_maps"
@@ -10,7 +12,7 @@ $(() => {
     }
   });
 
-
+  //Retrieves all of the current users favorite maps and creates a list of links that redirect to the maps page
   $.ajax({
     method: "GET",
     url: "/api/favorites"

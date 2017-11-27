@@ -1,3 +1,5 @@
+//Contains the functionality for loading a saved map and all its saved markers. Allows for saving, updating, and deleting markers
+
 var allInfoWindows = [];
 var markers = [];
 var uniqueId = 1;
