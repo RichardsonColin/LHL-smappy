@@ -206,10 +206,7 @@ button:hover {
 background-color:#daf0e4;
 
 }
-.marker-image{
-  vertical-align: bottom;
-  margin-right: 5px;
-}
+
 
 .markerbutton:hover{
 background-color:#daf0e4;
@@ -273,7 +270,7 @@ footer {
     position: fixed;
     left: 0px;
     bottom: 0px;
-    padding: 5px;
+    padding: 6px;
     width: 100%;
     color: #88f4a4;
     font-size: 20px;
@@ -427,15 +424,23 @@ footer {
   }
 }
 
-
+.marker-image {
+  width:200px;
+  height:auto;
+}
 .user-info{
   background-image: url('https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?auto=format&fit=crop&w=1052&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D');
-  // height: 100%;
-  // background-repeat-y: no-repeat;
    margin-bottom : 40px;
 
 }
-
+.marker-title{
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+}
+.marker-description{
+  font-size: 15px;
+}
 
 #pac-input {
   width: 500px;
