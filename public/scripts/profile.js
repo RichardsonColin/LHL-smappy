@@ -6,6 +6,15 @@ $(() => {
     return div.innerHTML;
   }
 
+  // Helper function for '/new-map' title input.
+  function noInput(inputField) {
+    if(!inputField.val()) {
+      var errDiv = $('<div>').append($('<p>')).addClass('error');
+      errDiv.text('Please fill in all fields');
+      $('.error-holder').empty().prepend(errDiv);
+      return true;
+    }
+  }
 
   let user_id = $('.user-info').attr("data");
   $.ajax({
@@ -49,10 +58,11 @@ $(() => {
     let $securedescription = escape($description);
     let data = {name: $securename, location: $securelocation, description: $securedescription};
 
-    if ($name.length === 0 || $location.length === 0 || $description.length === 0) {
-      $.flash("All profile information must be filled out to complete your profile");
+    if ((noInput($($form).find('input[name="user_name"]'))) || (noInput($($form).find('input[name="user_location"]'))) || (noInput($($form).find('textarea')))) {
     } else if ($description.length > 200) {
-      $.flash("We know you have a lot to say about yourself but try to keep it under 200 chars!");
+      var errDiv = $('<div>').append($('<p>')).addClass('error');
+      errDiv.text('We would love to learn a ton about you, but try to keep it under 200 characters!');
+      $('.error-holder').empty().prepend(errDiv);
     } else {
       $.ajax({
               type: 'POST',
@@ -66,4 +76,3 @@ $(() => {
 
 
 });
-
