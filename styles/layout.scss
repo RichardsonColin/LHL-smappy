@@ -9,7 +9,7 @@ $logoFont : monospace;
 
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif !important;
   background-color: #EEE;
 
   h1 {
@@ -125,9 +125,7 @@ button:hover {
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
   font-size: 25px;
-  // display: inline-block;
   float:right;
-  // position: relative;
   color: #8effa3;
 
 }
@@ -157,13 +155,19 @@ button:hover {
         color:white;
     }
 
+    h4 {
+      font-weight: bold;
+      margin-left: 15px;
+    }
+
     h3 {
-    font-size: 1.75rem;
-    margin-top: 10px;
-    margin: auto;
-    padding-top: 12px;
-    padding-left: 12px;
-    padding-bottom: 12px;
+      font-size: 25px;
+      margin-top: 10px;
+      margin: auto;
+      padding-top: 12px;
+      padding-left: 12px;
+      padding-bottom: 12px;
+      background-color: rgba(216, 199, 255, 0.37);;
     }
 
     .all-maps-list{
@@ -430,7 +434,7 @@ footer {
 }
 .user-info{
   background-image: url('https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?auto=format&fit=crop&w=1052&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D');
-   margin-bottom : 40px;
+  margin-bottom : 40px;
 
 }
 .marker-title{
@@ -486,19 +490,24 @@ footer {
 
 #favourite-map {
   cursor: pointer;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 700;
   margin-left: 15px;
+}
+
+.favourite-maps i {
+  color: red;
+  margin-left: 5px;
 }
 
 .favourite-maps-list{
 
   li {list-style: none;
-      font-size:20px;
+      font-size:10px;
       color:black;
     }
 
-    a{font-size:20px;
+    a{font-size:14px;
       color:black;}
 
     li:hover a{
