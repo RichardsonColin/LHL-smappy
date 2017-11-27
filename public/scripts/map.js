@@ -30,7 +30,7 @@ function cancelMarker(id) {
 
   }
 
-};
+}
 
 
 //won't work for some reason
@@ -74,35 +74,7 @@ function saveMarkerInfo(mapid) {
   });
 }
 
-// upon clicking the update button will write to DB and reload page
-// functionality not tested yet
-function updateMarkerInfo(mapid) {
-  var $updateButton = $('.update-button');
-  $updateButton.click(function() {
-    event.preventDefault();
-    console.log('update button clicked');
-    var updateMarkerData = {
-      map_id: mapid,
-      //where to define/update markerid?
-      id: markerid,
-      title: $('.marker-title').val(),
-      description: $('.marker-description').val(),
-      picture: $('.picture-url').val()
-    };
 
-    $.ajax ({
-              url: '/update-marker',
-              method: 'POST',
-              data: updateMarkerData,
-              success: function (result) {
-              console.log('IM THE RETURNED DATA', result);
-              document.location.reload();
-            }
-    });
-
-    // $(".marker-info").css('visibility', 'hidden');
-  });
-}
 
 // upon clicking the delete button will write to DB and reload page
 function deleteMarkerInfo() {
@@ -124,6 +96,7 @@ function deleteMarkerInfo() {
     // $(".marker-info").css('visibility', 'hidden');
   });
 }
+
 
 // upon clicking the cancel button will remove the marker from the
 function removeMarker() {
@@ -228,6 +201,7 @@ function drawMap (data) {
 saveMarkerInfo(mapid);
 removeMarker();
 activateUpdateForm();
+removeMarker();
 }
 
 

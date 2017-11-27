@@ -297,9 +297,6 @@ footer {
 
 
   input{width:95%; margin:10px 0;padding: 10px;}
-
-
-
  }
 
 .fa-rotate-180 {
@@ -511,6 +508,13 @@ footer {
     li:hover a{
       color:#88f4a4;
     }
+}
+
+.edit-remove-marker {
+  cursor: pointer;
+  color: darkred;
+  font-size: 11px;
+  vertical-align: 15%;
 }
 
 @keyframes fadein {
