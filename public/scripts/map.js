@@ -28,22 +28,7 @@ function cancelMarker(id) {
       markers.splice(i, 1);
       return;
     }
-
   }
-
-}
-
-
-//won't work for some reason
-function activateUpdateForm() {
-  console.log('in activate update form function');
-  $(".update-marker").css('visibility', 'visibile');
-  var $openUpdate = $('.open-update');
-  $openUpdate.click(function() {
-    event.preventDefault();
-    console.log('clicked the update button');
-    $(".update-marker").css('visibility', 'visibile');
-  });
 }
 
 // upon clicking the save button will write to DB and reload page
@@ -65,13 +50,11 @@ function saveMarkerInfo(mapid) {
               method: 'POST',
               data: newMarkerData,
               success: function (result) {
-              console.log('IM THE RETURNED DATA', result);
               document.location.reload();
             }
     });
 
     $(".marker-info").css('visibility', 'hidden');
-    console.log('data object', newMarkerData);
   });
 }
 
@@ -82,7 +65,6 @@ function deleteMarkerInfo() {
   var $deleteButton = $('.delete-button');
   $deleteButton.click(function() {
     event.preventDefault();
-    console.log('delete button clicked');
 
     $.ajax ({
               url: '/delete-marker',
@@ -93,8 +75,6 @@ function deleteMarkerInfo() {
                 document.location.reload();
               }
     });
-
-    // $(".marker-info").css('visibility', 'hidden');
   });
 }
 
@@ -142,14 +122,10 @@ function drawMarkers(data, map) {
       currentMarker = marker.databaseId;
       allInfoWindows.push(infoWindow);
       $(".update-marker").css('visibility', 'visibile');
-      console.log('clicked a marker');
       infoWindow.open(map, marker);
-
     });
-
     markers.push(marker);
   });
-
 }
 
 
@@ -196,8 +172,6 @@ function drawMap (data) {
 
   saveMarkerInfo(mapid);
   removeMarker();
-  activateUpdateForm();
-  removeMarker();
   }
 }
 
@@ -212,7 +186,6 @@ var mapData = {};
   mapid = importData.map_data1.id;
   drawMap(importData);
 
-  // console.log('logged', importData.loggedIn);
 
 
 }

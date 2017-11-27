@@ -4,12 +4,7 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (knex) => {
-  // console.log('hello');
-
   router.get("/", (req, res) => {
-    // console.log();
-    // var obj = JSON.parse(req.query.id);
-    console.log();
     knex
       .select("*")
       .from("users")
@@ -17,9 +12,7 @@ module.exports = (knex) => {
       .then((results) => {
         res.json(results);
     });
-
   });
-
   return router;
 };
 

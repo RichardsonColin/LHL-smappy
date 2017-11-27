@@ -1,16 +1,5 @@
 $(() => {
 
-  // $.ajax({
-  //   method: "GET",
-  //   url: "/api/users"
-  // }).done((users) => {
-  //   for(user of users) {
-  //     $("<h1>").text(user.name).appendTo($(".user-info"));
-  //     $("<h2>").text(user.your_location).appendTo($(".user-info"));
-  //   }
-  // });
-
-
   function escape(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
@@ -19,7 +8,6 @@ $(() => {
 
 
   let user_id = $('.user-info').attr("data");
-  console.log(user_id);
   $.ajax({
     method: "GET",
     url: `/api/users/`
@@ -37,7 +25,6 @@ $(() => {
     url: "/api/favorites"
   }).done((favorites) => {
     for(let map of favorites) {
-    console.log(map.title);
       $("<div>").text(map.title).appendTo($(".favorite"));
     }
   });
@@ -46,7 +33,6 @@ $(() => {
     method: "GET",
     url: "/api/contributions"
   }).done((contributions) => {
-    console.log(contributions);
     for(let map of contributions) {
       $("<li>").html(`<a href="/maps/${map.id}">${map.title}</a>`).appendTo($(".contributions-maps-list"));
     }
@@ -75,7 +61,6 @@ $(() => {
       }).done(() => {
         location.reload();
       });
-    console.log($name, $location, $description);
     }
   });
 

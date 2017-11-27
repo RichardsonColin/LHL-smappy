@@ -5,10 +5,7 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
-// console.log("hello from favorites");
-
   router.get("/", (req, res) => {
-    console.log('inside the get');
     knex
     .select('*')
     .from('maps')
@@ -20,17 +17,7 @@ module.exports = (knex) => {
       )
       .then((results) => {
         res.json(results);
-
+      });
   });
-});
-
-
-
-
-
-
-
-
-
   return router;
 };

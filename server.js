@@ -174,7 +174,6 @@ function registerUser(email, password) {
     })
     .returning('*')
     .then((users) => {
-      console.log(users[0].id);
       user_id = users[0].id;
       return user_id;
     });
@@ -240,16 +239,6 @@ app.get("/maps/:id", (req, res) => {
     });
   }
 
-// function getMarkers(id) {
-//   return knex
-//     .select()
-//     .from('markers')
-//     .where('map_id', id)
-//     .then((markers) => {
-//       markersData = markers;
-//     });
-// }
-
   getMapData(req.params.id).then(exists => {
     if(exists) {
       return getMarkers(req.params.id).then(() => {
@@ -258,7 +247,6 @@ app.get("/maps/:id", (req, res) => {
           markers_input: markersData,
           loggedIn: loggedIn
         };
-        // console.log(dataTemplate);
         dataTemplate = JSON.stringify(dataTemplate);
         res.render('map_page', {data: dataTemplate, errors: req.flash('error'), loggedIn: loggedIn});
       });
@@ -285,22 +273,16 @@ app.post('/login', (req, res) => {
     res.redirect(req.get('referer'));
     return;
     }
-    // console.log(password);
     checkEmailInDB(email, password)
     .then(exists => {
-      console.log('I AM THE EXISTS!', exists);
       if (exists) {
         checkLogin(email, password)
         .then(exists => {
-          console.log('I AM EXISTS!',exists);
-          // console.log('I am the result of the function promise',exists);
           if (exists) {
             req.session.user_id = exists;
-            console.log(req.session.user_id);
             res.redirect(req.get('referer'));
           }
           else {
-            console.log(exists);
             req.flash('error', 'Email and password do not match');
             res.redirect(req.get('referer'));
             return;
@@ -331,7 +313,6 @@ app.post('/register', (req, res) => {
       return registerUser(email, password)
       .then(user_id => {
         req.session.user_id = user_id;
-        // console.log('right after registration ',req.session.user_id);
         res.redirect(req.get('referer'));
       });
     } else {
@@ -354,7 +335,6 @@ function createNewMarker(data) {
       };
 
       mapContributions(contributionsData);
-      console.log(mapId);
       return mapId;
     });
 }
@@ -363,10 +343,7 @@ app.post("/new-marker", (req, res) => {
 
   let newMapData = req.body;
   newMapData.user_id = req.session.user_id;
-  console.log(newMapData);
-
   createNewMarker(newMapData).then(result => {
-    console.log('IM THE RESULT',result);
     res.send(String(result));
   });
 });
@@ -383,7 +360,6 @@ function updateMarker(data) {
     .returning('*')
     .then((markerData) => {
       let mapId = markerData[0].map_id;
-      console.log(mapId);
       return mapId;
     });
 }
@@ -392,10 +368,7 @@ app.post("/update-marker", (req, res) => {
 
   let updateMarkerData = req.body;
   updateMarkerData.user_id = req.session.user_id;
-  console.log(updateMarkerData);
-
   updateMarker(updateMarkerData).then(result => {
-    console.log('IM THE RESULT',result);
     res.send(String(result));
   });
 });
@@ -405,23 +378,18 @@ function deleteMarker(id) {
     .where('id', id)
     .del()
     .then(() => {
-      // does this need to do anything?
-      console.log('deleted marker');
       return;
     });
 }
 
 app.post("/delete-marker", (req, res) => {
-  console.log(req.body);
   let markerId = req.body.id;
   deleteMarker(markerId).then(result => {
-    console.log('deleted');
     res.send('success');
   });
 });
 
 app.post('/profile-update', (req, res) => {
-  console.log(req.body.name, req.body.location, req.body.description);
    return knex('users')
    .where({id: req.session.user_id})
   .update({name: req.body.name,

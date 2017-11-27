@@ -1,7 +1,6 @@
 $(() => {
 
   $( '#favourite-map' ).click(function() {
-    // console.log('HEYO');
 
     $.ajax ({
             url: "/api/new-favourite",
