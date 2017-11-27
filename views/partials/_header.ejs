@@ -1,15 +1,11 @@
  <div class="logo">
-          <a href="/">  <span> SMAPPY<i class="fa fa-globe"></i></span></a>
+  <a href="/">  <span> SMAPPY<i class="fa fa-globe"></i></span></a>
  </div>
 
-          <div class="button-holder">
-            <% if (loggedIn) { %>
-             <div class="profile-icon"> <i class="fa fa-user" ></i></div>
-
-            <%  } else  {%>
-            <button class="login-button"> login/register</button>
-            <%  }  %>
-
-
-          </div>
-
+<div class="button-holder">
+  <% if (loggedIn) { %>
+    <div class="profile-icon"> <i class="fa fa-user" ></i></div>
+  <%  } else  {%>
+    <button class="login-button"> login/register</button>
+  <%  }  %>
+</div>

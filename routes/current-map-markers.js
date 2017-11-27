@@ -3,9 +3,8 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+  // Displays markers if any are created.
   router.post("/", (req, res) => {
-    console.log('INSIDE CURRENT MAP ROUTE');
-    console.log(req.body.map_data1.id);
     knex
     .select('*')
     .from('markers')
