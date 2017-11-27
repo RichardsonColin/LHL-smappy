@@ -11,7 +11,6 @@ module.exports = (knex) => {
     .from('markers')
     .where({map_id: req.body.map_data1.id})
     .then((results) => {
-      // console.log('IM THE RESULTS BEFORE THEY ARE SENT FROM THE MAP ROUTE', results, Object.keys(results));
       res.json(results);
     });
   });

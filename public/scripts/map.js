@@ -73,58 +73,27 @@ function saveMarkerInfo(mapid) {
   });
 }
 
-function updateMarkerInfo(mapid) {
-  var $updateButton = $('.update-button');
-  $updateButton.click(function() {
-    event.preventDefault();
-    console.log('update button clicked');
-    let updateMarkerData = {
-      map_id: mapid,
-      //where to define/update markerid?
-      id: markerid,
-      title: $('.marker-title').val(),
-      description: $('.marker-description').val(),
-      picture: $('.picture-url').val()
-    };
+// function deleteMarkerInfo() {
+//   var $deleteButton = $('.delete-button');
+//   const $id = $(document).find('input[name="marker-name"]').data();
+//   $deleteButton.click(function(event) {
+//     event.preventDefault();
+//     console.log('delete button clicked');
 
-    $.ajax ({
-              url: '/update-marker',
-              method: 'POST',
-              data: updateMarkerData,
-              success: function (result) {
-              // var obj = JSON.parse(data);
-              console.log('IM THE RETURNED DATA', result);
-              // var id = obj._id;
-              document.location.reload();
-              // location.href = `/maps/${result}`;
-            }
-    });
+//     // $.ajax ({
+//     //           url: '/delete-marker',
+//     //           method: 'POST',
+//     //           //markerid
+//     //           data: `${$id.id}`,
+//     //           success: function() {
+//     //             document.location.reload();
+//     //           }
+//     // });
 
-    // $(".marker-info").css('visibility', 'hidden');
-    // console.log('data object', newMarkerData);
-  });
-}
-
-function deleteMarkerInfo() {
-  var $deleteButton = $('.delete-button');
-  $deleteButton.click(function() {
-    event.preventDefault();
-    console.log('delete button clicked');
-
-    $.ajax ({
-              url: '/delete-marker',
-              method: 'POST',
-              //markerid
-              data: 'markerid',
-              success: function() {
-                document.location.reload();
-              }
-    });
-
-    // $(".marker-info").css('visibility', 'hidden');
-    // console.log('data object', newMarkerData);
-  });
-}
+//     // $(".marker-info").css('visibility', 'hidden');
+//     // console.log('data object', newMarkerData);
+//   });
+// }
 
 function removeMarker() {
   var $cancelButton = $('.cancel-button');
@@ -252,5 +221,6 @@ function drawMap (data) {
 saveMarkerInfo(mapid);
 removeMarker();
 activateUpdateForm();
+removeMarker();
 }
 

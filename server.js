@@ -371,7 +371,7 @@ function updateMarker(data) {
     });
 }
 
-app.post("/new-marker", (req, res) => {
+app.post("/update-marker", (req, res) => {
 
   let updateMarkerData = req.body;
   updateMarkerData.user_id = req.session.user_id;
@@ -389,15 +389,14 @@ function deleteMarker(id) {
     .del()
     .then(() => {
       // does this need to do anything?
-      console.log('deleted marker')
+      console.log('deleted marker');
       return;
     });
 }
 
 app.post("/delete-marker", (req, res) => {
-
-  let markerId = req.body;
-
+  console.log(req.body);
+  let markerId = req.body.id;
   deleteMarker(markerId).then(result => {
     console.log('deleted');
     res.send('success');
