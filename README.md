@@ -1,6 +1,6 @@
 # README
 
-## Smappy - Lighthouse Labs Midterm Project
+## Smappy - Lighthouse Labs Midterm Project 2017/11/27
 - Colin Richardson
 - Mark Zsombor
 - Kelsey Cooper
