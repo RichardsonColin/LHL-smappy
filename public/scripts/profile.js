@@ -25,8 +25,10 @@ $(() => {
     url: `/api/users/`
   }).done((users) => {
     for(let user of users) {
-      $("<h1>").text(user.email).prependTo($(".profile-container"));
       $("<h2>").text(user.your_location).prependTo($(".profile-container"));
+      $("<h1>").text(user.email).prependTo($(".profile-container"));
+      $("<h1>").text(user.name).prependTo($(".profile-container"));
+
     }
   });
 
