@@ -10,66 +10,63 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700" rel="stylesheet">
 
-    <script type="text/javascript">
-      // imports the dataTemplate data from server.js and makes it available to js files
-      var map_data = false;
-    </script>
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-    <script type="text/javascript" src="/scripts/toggle.js"></script>
-    <script type="text/javascript" src="/scripts/map.js"></script>
-    <script type="text/javascript" src="/scripts/login.js"></script>
-    <script type="text/javascript" src="/scripts/profile.js"></script>
 
-
+      <script type="text/javascript">
+    // imports the dataTemplate data from server.js and makes it available to js files
+    var map_data = false;
+  </script>
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/toggle.js"></script>
+  <script type="text/javascript" src="/scripts/map.js"></script>
+  <script type="text/javascript" src="/scripts/login.js"></script>
+  <script type="text/javascript" src="/scripts/profile.js"></script>
   </head>
-
 
   <body>
 
-      <header>
-        <% include ./partials/_header.ejs %>
-      </header>
+    <header>
+      <% include ./partials/_header.ejs %>
+    </header>
 
     <div class="user-info" data="<%=userid%>">
-<% include ./partials/_logout %>
+      <% include ./partials/_logout %>
 
-<div class="full-profile-page">
-  <div class="profile-container">
-    <div class="user-info">
-      <!-- show user infor -->
+      <div class="full-profile-page">
+        <div class="profile-container">
+          <div class="user-info">
+          </div>
+
+        <div class="favourite">
+          <h2>Your Favorite Maps</h2>
+          <ul class="favourite-maps-list"></ul>
+        </div>
+
+        <div class="contributions">
+          <h2>Maps you've contributed to</h2>
+          <ul class="contributions-maps-list"></ul>
+        </div>
+
+        <div class="error-holder"></div>
+
+        <form id="profile-form">
+          <div class="edit-profile-inputs">//////////////////
+              <h2>Edit profile information</h2>
+              <input type="text" name="user_name" placeholder="User Name">
+              <input type="text" name="user_location" placeholder="Your City">
+              <textarea rows="5" name="user_descripton" placeholder="Tell Us About Yourself"></textarea>
+              <input id="profile-submit" type="submit" class="button" value="Save info">
+        </form>
+          </div>
+
+      </div>
     </div>
 
-    <div class="favourite">
-      <h2>Your Favorite Maps</h2>
-      <ul class="favourite-maps-list"></ul>
-      <!-- profile.js will make this list from DB -->
-    </div>
-
-    <div class="contributions">
-      <h2>Maps you've contributed to</h2>
-      <ul class="contributions-maps-list"></ul>
-      <!-- profile.js will make this list from DB -->
-    </div>
-
-    <div class="error-holder"></div>
-    <form id="profile-form">
-    <div class="edit-profile-inputs">
-        <h2>Edit profile information</h2>
-        <input type="text" name="user_name" placeholder="User Name">
-        <input type="text" name="user_location" placeholder="Your City">
-        <textarea rows="5" name="user_descripton" placeholder="Tell Us About Yourself"></textarea>
-        <input id="profile-submit" type="submit" class="button" value="Save info">
-    </form>
+  <footer>
+    <% include ./partials/_footer.ejs %>
+  </footer>
 
 
-    </div>
 
-  </div>
-</div>
-    <footer>
-      <% include ./partials/_footer.ejs %>
-    </footer>
   </body>
-
 </html>

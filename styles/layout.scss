@@ -114,7 +114,7 @@ html, body {
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
   font-size: 25px;
-  float:right;
+  float: right;
   color: #8effa3;
 }
 
@@ -127,12 +127,12 @@ html, body {
   position: absolute;
 
   .button {
-    font-size:20px;
-    background-color:ghostwhite;
-    padding:20px;
-    border:none;
-    display:block;
-    position:absolute;
+    font-size: 20px;
+    background-color: ghostwhite;
+    padding: 20px;
+    border: none;
+    display: block;
+    position: absolute;
     width: 87.5%;
     text-align: center;
   }
@@ -247,8 +247,8 @@ textarea, .map-title {
   margin-bottom: 10px;
 }
 
-.upload-button button {w
-  idth:32%;
+.upload-button button {
+  width:32%;
 }
 
 .favourite-maps, .all-maps{
