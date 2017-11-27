@@ -4,8 +4,6 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.post("/", (req, res) => {
-    console.log('INSIDE CURRENT MAP ROUTE');
-    console.log(req.body.map_data1.id);
     knex
     .select('*')
     .from('markers')
