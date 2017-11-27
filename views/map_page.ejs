@@ -69,6 +69,7 @@
          <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
 
         <%  } %>
+        <div class="left-list">
         <div class="current-map-title">
           <h3>Current Map</h3>
           <h4><%= JSON.parse(data).map_data1.title %></h4>
@@ -91,7 +92,7 @@
           <ul class="all-maps-list">
           </ul>
         </div>
-
+</div>
       </div>
     </div>
     <!-- end of left nav -->
@@ -109,7 +110,7 @@
     </div>
   </div>
 
-  <form
+  <form>
   <div class="update-marker">
     <input name="marker-name" class="update-marker-title" type="text" placeholder="Marker title">
     <textarea class="update-marker-description" col="50" placeholder="Marker description"></textarea>
@@ -121,7 +122,8 @@
       <button class="cancel-update-button">cancel</button>
     </div>
   </div>
-
+</div>
+</form>
   <footer>
     <% include ./partials/_footer.ejs %>
   </footer>
