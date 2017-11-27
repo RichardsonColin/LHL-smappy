@@ -16,11 +16,8 @@ function closeInfoWindows() {
 
 function cancelMarker(id) {
   //Find and remove the marker from the Array
-<<<<<<< HEAD
 
-=======
   //Doesn't always work, not sure what breaks it
->>>>>>> 20f6b7a5f0b75078fe31008e77ef9ff2d2ac4c5c
   for (var i = 0; i < markers.length; i++) {
     if (markers[i].id === id) {
       //Remove the marker from Map
