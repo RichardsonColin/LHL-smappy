@@ -43,19 +43,27 @@
 
 ## ScreenShots
 
+Create map dropdown
 !["Screenshot Create Map dropdown"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/Create-map-dropdown.png?raw=true)
 
+Profile page
 !["Screenshot Profile page"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/Profile-page.png?raw=true)
 
+Smappy index page
 !["Screenshot Index page"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/Smappy_index_page.png?raw=true)
 
+Create map page
 !["Screenshot Create map page"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/create-map-page.png?raw=true)
 
+Left navigation slideout
 !["Screenshot Index page left navigation slideout"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/left-navigation-out.png?raw=true)
 
+Logged in dropdown
 !["Screenshot Logged in dropdown"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/logged-in-dropdown.png?raw=true)
 
+Login/register dropdown
 !["Screenshot register/login dropdown"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/login:register-slideout.png?raw=true)
 
+Individual map page
 !["Screenshot Individual map page"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/map-page.png?raw=true)
 
