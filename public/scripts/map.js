@@ -113,12 +113,12 @@ function removeMarker() {
 function drawMarkers(data, map) {
   data.forEach(function (point) {
     var latLng = new google.maps.LatLng(point.lat, point.long);
-    var infoBox = `<p>${point.title}</p>`;
+    var infoBox = `<p class="marker-title">${point.title}</p>`;
     if(point.description) {
-      infoBox += `<p>${point.description}</p>`;
+      infoBox += `<p class="marker-description">${point.description}</p>`;
     }
     if(point.picture) {
-      infoBox += `<img class="marker-image" src="${point.picture}" height="100" width="100">`;
+      infoBox += `<img class="marker-image" src="${point.picture}" >`;
     }
 
 
