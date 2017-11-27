@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/vendor/bootstrap.min.css" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script type="text/javascript">
       // imports the dataTemplate data from server.js and makes it available to js files
@@ -18,9 +19,9 @@
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/toggle.js"></script>
     <script type="text/javascript" src="/scripts/map-home-page.js"></script>
-
+    <script type="text/javascript" src="/scripts/add-to-favourites.js"></script>
     <script type="text/javascript" src="/scripts/login.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 
   </head>
 
@@ -76,12 +77,14 @@
          <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
 
         <%  } %>
-<div class="left-list">
-        <div class="favourite-maps">
-          <h3>Favourite Maps</h3>
-          <ul class="favourite-maps-list">
-          </ul>
-        </div>
+        <div class="left-list">
+        <% if (loggedIn) { %>
+          <div class="favourite-maps">
+            <h3>Favourite Maps</h3>
+            <ul class="favourite-maps-list">
+            </ul>
+          </div>
+        <%  } %>
         <div class="all-maps">
           <h3> All Maps</h3>
           <ul class="all-maps-list">

@@ -43,6 +43,10 @@ header{
   padding: 10px 20px ;
   text-decoration: none;
   letter-spacing: 1px;
+  margin-top: 7px;
+  -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.35);
+  -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.35);
+  box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.35);
 
 
 }
@@ -71,14 +75,10 @@ button:hover {
 
 .profile-icon {
     color: white;
-    font-size: 30px;
+    font-size: 40px;
     text-align: center;
     cursor: pointer;
-
-    span{font-size:10px;
-        display: inherit;
-        font-family: $logoFont;
-    }
+    text-shadow: 0px 0px 2px #000000;
 }
 
 .pop-down-logout{
@@ -280,6 +280,7 @@ footer {
     font-size: 20px;
     font-family: $logoFont ;
     z-index: 3;
+    text-align: center;
 }
 
 .pop-down-login {
@@ -335,6 +336,7 @@ footer {
     font-weight: 900;
     color: white;
     letter-spacing: 3px;
+    text-shadow: 0px 0px 2px #000000;
 
     i {margin-left:8px;}
 
@@ -533,6 +535,13 @@ footer {
 }
 
 .edit-remove-marker {
+  cursor: pointer;
+  color: darkred;
+  font-size: 11px;
+  vertical-align: 15%;
+}
+
+.remove-favourite {
   cursor: pointer;
   color: darkred;
   font-size: 11px;

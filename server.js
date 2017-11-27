@@ -373,21 +373,54 @@ app.post("/update-marker", (req, res) => {
   });
 });
 
-function deleteMarker(id) {
+function deleteMarker(markerId, userId) {
   return knex('markers')
+    .where('id', markerId)
+    .del()
+    .then(() => {
+      deleteContribution(markerId, userId);
+      return;
+    });
+}
+
+function deleteContribution(id) {
+  return knex('contributions')
     .where('id', id)
     .del()
     .then(() => {
+
       return;
     });
 }
 
 app.post("/delete-marker", (req, res) => {
   let markerId = req.body.id;
-  deleteMarker(markerId).then(result => {
+  let userId = req.session.user_id;
+  deleteMarker(markerId, userId).then(result => {
     res.send('success');
   });
 });
+
+function deleteFavourite(mapId, UserId) {
+
+  return knex('favourite_maps')
+    .where({'map_id': mapId, 'user_id': UserId })
+    .del()
+    .then(() => {
+      return;
+  });
+}
+
+app.post("/remove-favourite", (req, res) => {
+  console.log('I AM THE REMOVE FAVOURITE ID',req.body);
+  let mapId = req.body.id;
+  let UserId = req.session.user_id;
+  deleteFavourite(mapId, UserId).then(result => {
+    console.log('deleted');
+    res.send('success');
+  });
+});
+
 
 app.post('/profile-update', (req, res) => {
    return knex('users')
