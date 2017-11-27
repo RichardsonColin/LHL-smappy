@@ -36,12 +36,16 @@ function saveMarkerInfo(mapid) {
   var $saveButton = $('.save-button');
   $saveButton.click(function() {
     event.preventDefault();
+    var title = $('.marker-title').val();
+    title = title.replace("'", "");
+    var description = $('.marker-description').val();
+    description = description.replace("'", "");
     var newMarkerData = {
       map_id: mapid,
       lat: newMarkerLat,
       long: newMarkerLong,
-      title: $('.marker-title').val(),
-      description: $('.marker-description').val(),
+      title: title,
+      description: description,
       picture: $('.picture-url').val()
     };
 
@@ -57,27 +61,6 @@ function saveMarkerInfo(mapid) {
     $(".marker-info").css('visibility', 'hidden');
   });
 }
-
-
-
-// upon clicking the delete button will write to DB and reload page
-function deleteMarkerInfo() {
-  var $deleteButton = $('.delete-button');
-  $deleteButton.click(function() {
-    event.preventDefault();
-
-    $.ajax ({
-              url: '/delete-marker',
-              method: 'POST',
-              //markerid
-              data: 'markerid',
-              success: function() {
-                document.location.reload();
-              }
-    });
-  });
-}
-
 
 // upon clicking the cancel button will remove the marker from the
 function removeMarker() {

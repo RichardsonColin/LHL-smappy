@@ -26,6 +26,10 @@ $(() => {
  $(document).on('click', '.update-button', (function(event) {
   const $id = $(document).find('input[name="marker-name"]').data();
     event.preventDefault();
+    var title = $('.update-marker-title').val();
+    title = title.replace("'", "");
+    var description = $('.update-marker-description').val();
+    description = description.replace("'", "");
     let updateMarkerData = {
       map_id: mapid,
       id: $id.id,

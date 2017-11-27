@@ -72,6 +72,7 @@ $(() => {
       return;
     } else {
       mapTitle = $('#map-name').val();
+      mapTitle = mapTitle.replace("'", "");
     }
 
     // user_id will be replaced with cookie.
