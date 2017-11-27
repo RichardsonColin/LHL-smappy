@@ -5,6 +5,7 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+  // Gets maps where the map.id in the maps table matches the map.id in the contributions table.
   router.get("/", (req, res) => {
     knex
       .select()

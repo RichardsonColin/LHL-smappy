@@ -7,6 +7,8 @@ exports.seed = function(knex, Promise) {
     {lat: 48.4308, long: -123.361, title: 'The Boom Boom Room', description: 'Since 94', picture: 'http://lorempixel.com/output/abstract-q-c-250-250-7.jpg', user_id: 1, map_id: 1},
     {lat: 48.4352, long: -123.3654, title: 'I once saw a cat here', description: 'It was black', picture: 'https://img.huffingtonpost.com/asset/582cb2601a00002400cc8426.jpeg', user_id: 1, map_id: 3},
     {lat: 48.4279, long: -123.3617, title: 'I once saw a dog here', description: 'I petted it for hours', picture: 'http://www.dogbreedplus.com/dog_categories/images/chow_chow.jpg', user_id: 1, map_id: 3},
-    {lat: 48.4276, long: -123.3673, title: 'I once saw a rat here', description: 'I threw rocks at it', user_id: 1, map_id: 3}
+    {lat: 48.4276, long: -123.3673, title: 'I once saw a rat here', description: 'I threw rocks at it', user_id: 1, map_id: 3},
+    {lat: -75.32, long: -64.7754, title: 'Boat trip', description: 'Wow so many pungu!', picture: 'https://kids.nationalgeographic.com/content/dam/kids/photos/animals/Birds/A-G/emperor-penguin-colony.ngsversion.1412630284744.jpg', user_id: 1, map_id: 2},
+    {lat: -78.2066, long: -48.4277, title: 'The one', description: 'I stumbled upon their leader. No eye contact was made.', picture: 'http://dumbbaby.net/a/i/109/01.jpg ', user_id: 1, map_id: 2}
   ]);
 };

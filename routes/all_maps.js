@@ -3,6 +3,7 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+  // Gets all maps for the list in the left nav.
   router.get("/", (req, res) => {
     knex
       .select("*")
@@ -13,5 +14,5 @@ module.exports = (knex) => {
   });
 
   return router;
-}
+};
 

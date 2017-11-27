@@ -5,6 +5,7 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+  // Gets the user's favorited maps.
   router.get("/", (req, res) => {
     knex
     .select('*')

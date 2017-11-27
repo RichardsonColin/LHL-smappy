@@ -11,25 +11,11 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <script type="text/javascript">
-      // imports the dataTemplate data from server.js and makes it available to js files
-      var map_data = false;
-    </script>
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-    <script type="text/javascript" src="/scripts/toggle.js"></script>
-    <script type="text/javascript" src="/scripts/map-home-page.js"></script>
-    <script type="text/javascript" src="/scripts/add-to-favourites.js"></script>
-    <script type="text/javascript" src="/scripts/login.js"></script>
-
-
   </head>
-
   <body>
 
     <header>
       <% include ./partials/_header.ejs %>
-
     </header>
 
 <!-- map area -->
@@ -42,12 +28,13 @@
         <input type="button" id="data-clear" value="remove all data" />
       </div>
     </div>
+
     <div class="pop-down-login">
       <% if (errors.length) { %>
         <% errors.forEach((error) => { %>
           <p class="error"><%= error %></p>
         <% }) %>
-      <%} %>
+      <% } %>
       <div class="login">
         <h4>LOGIN</h4>
         <form action="/login" method="POST">
@@ -65,37 +52,33 @@
         </form>
       </div>
     </div>
+
     <% include ./partials/_logout.ejs %>
 
-
-
     <div class="left-nav-container">
-
       <div class="left-nav">
         <div class="toggle-button"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
-        <% if (loggedIn) { %>
-         <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
-
-        <%  } %>
+          <% if (loggedIn) { %>
+            <a class="button" href="/new-map">Create a new map</a>
+          <% } %>
         <div class="left-list">
-        <% if (loggedIn) { %>
-          <div class="favourite-maps">
-            <h3>Favourite Maps</h3>
-            <ul class="favourite-maps-list">
-            </ul>
-          </div>
-        <%  } %>
+          <% if (loggedIn) { %>
+            <div class="favourite-maps">
+              <h3>Favourite Maps</h3>
+              <ul class="favourite-maps-list">
+              </ul>
+            </div>
+          <% } %>
         <div class="all-maps">
           <h3> All Maps</h3>
           <ul class="all-maps-list">
           </ul>
         </div>
-</div>
+      </div>
       </div>
     </div>
     <!-- end of left nav -->
     <!-- starts hidden -->
-
 
     <div class="marker-info">
       <input class="map-title" type="text" placeholder="Marker title">
@@ -111,14 +94,19 @@
     </div>
     </div>
 
-
-
-
     <footer>
       <% include ./partials/_footer.ejs %>
     </footer>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-SheEDWF9WCljdS9aO5YELMTjdqjb-tE&callback=initMap" type="text/javascript"></script>
+    <!--imports the dataTemplate data from server.js and makes it available to js files-->
+    <script type="text/javascript">var map_data = false;</script>
 
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/toggle.js"></script>
+    <script type="text/javascript" src="/scripts/map-home-page.js"></script>
+    <script type="text/javascript" src="/scripts/add-to-favourites.js"></script>
+    <script type="text/javascript" src="/scripts/login.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-SheEDWF9WCljdS9aO5YELMTjdqjb-tE&callback=initMap" type="text/javascript"></script>
   </body>
 </html>
