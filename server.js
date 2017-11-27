@@ -420,21 +420,21 @@ app.post("/delete-marker", (req, res) => {
   });
 });
 
-function deleteFavourite(id) {
+function deleteFavourite(mapId, UserId) {
+
   return knex('favourite_maps')
-    .where('id', id)
+    .where({'map_id': mapId, 'user_id': UserId })
     .del()
     .then(() => {
-      // does this need to do anything?
-      console.log('deleted marker');
       return;
-    });
+  });
 }
 
 app.post("/remove-favourite", (req, res) => {
-  console.log(req.body);
-  let markerId = req.body.id;
-  deleteMarker(markerId).then(result => {
+  console.log('I AM THE REMOVE FAVOURITE ID',req.body);
+  let mapId = req.body.id;
+  let UserId = req.session.user_id;
+  deleteFavourite(mapId, UserId).then(result => {
     console.log('deleted');
     res.send('success');
   });

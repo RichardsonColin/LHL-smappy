@@ -30,7 +30,7 @@ $(() => {
       $("<li>")
       .data({'mapid': `${map.id}`})
       .html(`<a href="/maps/${map.id}">${map.title}</a> <span class="remove-favourite">remove</span>`)
-      .appendTo($(".map-markers-list"));
+      .appendTo($(".favourite-maps-list"));
       }
     });
 
