@@ -1,9 +1,9 @@
 $(() => {
- $.ajax({
+  $.ajax({
     method: "GET",
     url: "/api/all_maps"
     }).done((maps) => {
-    for(let map of maps) {
+    for(var map of maps) {
       $('<li>')
       .html(`<a href="/maps/${map.id}">${map.title}</a>`)
       .appendTo($('.all-maps-list'));
@@ -15,15 +15,13 @@ $(() => {
     method: "GET",
     url: "/api/favorites"
     }).done((favorites) => {
-      for(let map of favorites) {
-      console.log('IM THE FAVORITES',favorites);
+      for(var map of favorites) {
       $("<li>")
       .data({'mapid': `${map.id}`})
       .html(`<a href="/maps/${map.id}">${map.title}</a> <span class="remove-favourite">remove</span>`)
       .appendTo($(".favourite-maps-list"));
     }
   });
-
 });
 
 

@@ -36,12 +36,16 @@ function saveMarkerInfo(mapid) {
   var $saveButton = $('.save-button');
   $saveButton.click(function() {
     event.preventDefault();
+    var title = $('.marker-title').val();
+    title = title.replace("'", "");
+    var description = $('.marker-description').val();
+    description = description.replace("'", "");
     var newMarkerData = {
       map_id: mapid,
       lat: newMarkerLat,
       long: newMarkerLong,
-      title: $('.marker-title').val(),
-      description: $('.marker-description').val(),
+      title: title,
+      description: description,
       picture: $('.picture-url').val()
     };
 
@@ -57,27 +61,6 @@ function saveMarkerInfo(mapid) {
     $(".marker-info").css('visibility', 'hidden');
   });
 }
-
-
-
-// upon clicking the delete button will write to DB and reload page
-function deleteMarkerInfo() {
-  var $deleteButton = $('.delete-button');
-  $deleteButton.click(function() {
-    event.preventDefault();
-
-    $.ajax ({
-              url: '/delete-marker',
-              method: 'POST',
-              //markerid
-              data: 'markerid',
-              success: function() {
-                document.location.reload();
-              }
-    });
-  });
-}
-
 
 // upon clicking the cancel button will remove the marker from the
 function removeMarker() {
@@ -185,7 +168,79 @@ var mapData = {};
 
   mapid = importData.map_data1.id;
   drawMap(importData);
-
-
-
 }
+
+// TODO refactor code so all button activation code is implemented the same way
+$(() => {
+
+  // makes a list of the current markers
+  $.ajax ({
+          url: "/api/current-map-markers",
+          method: 'POST',
+          data: JSON.parse(map_data),
+          success: function (markers) {
+            for(var map of markers) {
+            $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
+            }
+        }
+  });
+
+  // opens the edit marker window and populates it will the markers current information
+  $(document).on('click', '.edit-remove-marker', (function() {
+    var $id = $(this).parent().data();
+    $(document).find('.update-marker').css('visibility', 'visible');
+    $(document).find('input[name="marker-name"]').val(`${$id.title}`).data({'id': `${$id.mapid}`});
+    $(document).find('textarea').text(`${$id.description}`);
+    $(document).find('input[name="marker-url"]').val(`${$id.picture}`);
+  }));
+
+  // activates the update button so that it writes new information to the database
+  $(document).on('click', '.update-button', (function(event) {
+    var $id = $(document).find('input[name="marker-name"]').data();
+      event.preventDefault();
+      var title = $('.update-marker-title').val();
+      title = title.replace("'", "");
+      var description = $('.update-marker-description').val();
+      description = description.replace("'", "");
+      var updateMarkerData = {
+        map_id: mapid,
+        id: $id.id,
+        title: $('.update-marker-title').val(),
+        description: $('.update-marker-description').val(),
+        picture: $('.update-picture-url').val()
+      };
+
+      $.ajax ({
+              url: '/update-marker',
+              method: 'POST',
+              data: updateMarkerData,
+              success: function (result) {
+              document.location.reload();
+            }
+      });
+
+  }));
+
+  // activates the delete button so that when clicked it deletes the current marker from the database
+  $(document).on('click', '.delete-button', (function(event) {
+  event.preventDefault();
+    var $id = $(document).find('input[name="marker-name"]').data();
+    var id = {id: $id.id};
+
+    $.ajax ({
+              url: '/delete-marker',
+              method: 'POST',
+              data: id,
+              success: function() {
+                document.location.reload();
+              }
+    });
+  }));
+
+  // activates the cancel button in the updata window so that when clicked it closes the update window
+  $(document).on('click', '.cancel-update-button', (function(event) {
+    event.preventDefault();
+    $(document).find('.update-marker').css('visibility', '');
+  }));
+
+});
