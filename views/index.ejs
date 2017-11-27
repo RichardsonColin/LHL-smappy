@@ -19,7 +19,6 @@
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/toggle.js"></script>
     <script type="text/javascript" src="/scripts/map-home-page.js"></script>
-    <script type="text/javascript" src="/scripts/current-map.js"></script>
     <script type="text/javascript" src="/scripts/add-to-favourites.js"></script>
     <script type="text/javascript" src="/scripts/login.js"></script>
 
@@ -78,12 +77,14 @@
          <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
 
         <%  } %>
-<div class="left-list">
-        <div class="favourite-maps">
-          <h3>Favourite Maps</h3>
-          <ul class="favourite-maps-list">
-          </ul>
-        </div>
+        <div class="left-list">
+        <% if (loggedIn) { %>
+          <div class="favourite-maps">
+            <h3>Favourite Maps</h3>
+            <ul class="favourite-maps-list">
+            </ul>
+          </div>
+        <%  } %>
         <div class="all-maps">
           <h3> All Maps</h3>
           <ul class="all-maps-list">
