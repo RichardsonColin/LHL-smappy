@@ -121,6 +121,7 @@ function drawMarkers(data, map) {
       infoBox += `<img class="marker-image" src="${point.picture}" height="100" width="100">`;
     }
 
+
     var marker = new google.maps.Marker({
       position: latLng,
       map: map,
