@@ -39,7 +39,7 @@
 
 - Using an apostrophe in map title, marker title, or marker description will be edited out before saving the data as it breaks the JSON used to relay this information to the client side javascript files. Need to refactor the code so that the information is called from the database from the client side instead of the server side.
 
-- log out dropdown display doesn't show user name if users has just registered - will show user name once user has added name to profile page
+
 
 ## ScreenShots
 
