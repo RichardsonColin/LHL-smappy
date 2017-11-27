@@ -6,13 +6,14 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/bootstrap.min.css" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700" rel="stylesheet">
 
 
     <script type="text/javascript">
       // imports the dataTemplate data from server.js and makes it available to js files
       var map_data = '<%- data %>';
-      console.log(<%- data %>);
     </script>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -81,7 +82,7 @@
 
         <div class="favourite-maps">
           <h3>Favourite Maps</h3>
-          <a id="favourite-map">Add Map To Favourites</a>
+          <a id="favourite-map">Add Map To Favourites<i class="fa fa-heart"></i></a>
           <ul class="favourite-maps-list">
           </ul>
         </div>
