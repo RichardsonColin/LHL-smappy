@@ -182,9 +182,13 @@ $(() => {
           data: JSON.parse(map_data),
           success: function (markers) {
             for(var map of markers) {
-            $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
+              if (loggedIn) {
+                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
+              } else {
+                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title}`).appendTo($(".map-markers-list"));
+              }
             }
-        }
+          }
   });
 
   // opens the edit marker window and populates it will the markers current information
