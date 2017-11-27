@@ -4,7 +4,7 @@ var map;
 function noTitle(inputField) {
   if(!inputField.val()) {
     var errDiv = $('<div>').append($('<p>')).addClass('error');
-    errDiv.text('Please enter a title.');
+    errDiv.text('Please enter a title');
     $('.create-map').prepend(errDiv);
     return true;
   }
