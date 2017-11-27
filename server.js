@@ -25,6 +25,8 @@ const allMapsRoutes = require("./routes/all_maps");
 const favoritesRoutes = require("./routes/favorites");
 const newFavoriteRoutes = require("./routes/new-favourite");
 const contributionsRoutes = require("./routes/contributions");
+const currentMapMarkers = require("./routes/current-map-markers");
+
 
 app.set("view engine", "ejs");
 
@@ -60,6 +62,7 @@ app.use("/api/all_maps", allMapsRoutes(knex));
 app.use("/api/favorites", favoritesRoutes(knex));
 app.use("/api/contributions", contributionsRoutes(knex));
 app.use("/api/new-favourite", newFavoriteRoutes(knex));
+app.use("/api/current-map-markers", currentMapMarkers(knex));
 
 // Home page
 app.get("/", (req, res) => {
@@ -239,7 +242,7 @@ app.get("/maps/:id", (req, res) => {
           map_data1: mapData,
           markers_input: markersData
         };
-        console.log(dataTemplate);
+        // console.log(dataTemplate);
         dataTemplate = JSON.stringify(dataTemplate);
         res.render('map_page', {data: dataTemplate, errors: req.flash('error'), loggedIn: loggedIn});
       });
@@ -338,6 +341,7 @@ function createNewMarker(data) {
       return mapId;
     });
 }
+
 app.post("/new-marker", (req, res) => {
 
   let newMapData = req.body;
@@ -348,8 +352,56 @@ app.post("/new-marker", (req, res) => {
     console.log('IM THE RESULT',result);
     res.send(String(result));
   });
+});
 
-  // res.json({success: true});
+function updateMarker(data) {
+  return knex('markers')
+    .where('id', data.id)
+    .update({
+      map_id: data.map_id,
+      title: data.title,
+      description: data.description,
+      picture: data.picture
+    })
+    .returning('*')
+    .then((markerData) => {
+      let mapId = markerData[0].map_id;
+      console.log(mapId);
+      return mapId;
+    });
+}
+
+app.post("/new-marker", (req, res) => {
+
+  let updateMarkerData = req.body;
+  updateMarkerData.user_id = req.session.user_id;
+  console.log(updateMarkerData);
+
+  updateMarker(updateMarkerData).then(result => {
+    console.log('IM THE RESULT',result);
+    res.send(String(result));
+  });
+});
+
+function deleteMarker(id) {
+  return knex('markers')
+    .where('id', id)
+    .del()
+    .then(() => {
+      // does this need to do anything?
+      console.log('deleted marker')
+      return;
+    });
+}
+
+app.post("/delete-marker", (req, res) => {
+
+  let markerId = req.body;
+
+  deleteMarker(markerId).then(result => {
+    console.log('deleted');
+    res.send('success');
+  });
 });
 
 app.post('/profile-update', (req, res) => {

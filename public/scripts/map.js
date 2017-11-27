@@ -1,5 +1,6 @@
 const allInfoWindows = [];
 const markers = [];
+let savedMarkers = 0;
 let uniqueId = 1;
 let newMarkerLat = 0;
 let newMarkerLong = 0;
@@ -13,11 +14,15 @@ function closeInfoWindows() {
   }
 }
 
-function DeleteMarker(id) {
+function cancelMarker(id) {
   //Find and remove the marker from the Array
+<<<<<<< HEAD
 
+=======
+  //Doesn't always work, not sure what breaks it
+>>>>>>> 20f6b7a5f0b75078fe31008e77ef9ff2d2ac4c5c
   for (var i = 0; i < markers.length; i++) {
-    if (markers[i].id == id) {
+    if (markers[i].id === id) {
       //Remove the marker from Map
       markers[i].setMap(null);
 
@@ -66,37 +71,8 @@ function saveMarkerInfo(mapid) {
               // var obj = JSON.parse(data);
               console.log('IM THE RETURNED DATA', result);
               // var id = obj._id;
-              location.href = `/maps/${result}`;
-            }
-    });
-
-    $(".marker-info").css('visibility', 'hidden');
-    console.log('data object', newMarkerData);
-  });
-}
-
-function saveMarkerInfo(mapid) {
-  var $saveButton = $('.save-button');
-  $saveButton.click(function() {
-    event.preventDefault();
-    let newMarkerData = {
-      map_id: mapid,
-      lat: newMarkerLat,
-      long: newMarkerLong,
-      title: $('.marker-title').val(),
-      description: $('.marker-description').val(),
-      picture: $('.picture-url').val()
-    };
-
-    $.ajax ({
-              url: '/new-marker',
-              method: 'POST',
-              data: newMarkerData,
-              success: function (result) {
-              // var obj = JSON.parse(data);
-              console.log('IM THE RETURNED DATA', result);
-              // var id = obj._id;
-              location.href = `/maps/${result}`;
+              document.location.reload();
+              // location.href = `/maps/${result}`;
             }
     });
 
@@ -110,26 +86,48 @@ function updateMarkerInfo(mapid) {
   $updateButton.click(function() {
     event.preventDefault();
     console.log('update button clicked');
-    // let newMarkerData = {
-    //   map_id: mapid,
-    //   lat: newMarkerLat,
-    //   long: newMarkerLong,
-    //   title: $('.marker-title').val(),
-    //   description: $('.marker-description').val(),
-    //   picture: $('.picture-url').val()
-    // };
+    let updateMarkerData = {
+      map_id: mapid,
+      //where to define/update markerid?
+      id: markerid,
+      title: $('.marker-title').val(),
+      description: $('.marker-description').val(),
+      picture: $('.picture-url').val()
+    };
 
-    // $.ajax ({
-    //           url: '/new-marker',
-    //           method: 'POST',
-    //           data: newMarkerData,
-    //           success: function (result) {
-    //           // var obj = JSON.parse(data);
-    //           console.log('IM THE RETURNED DATA', result);
-    //           // var id = obj._id;
-    //           location.href = `/maps/${result}`;
-    //         }
-    // });
+    $.ajax ({
+              url: '/update-marker',
+              method: 'POST',
+              data: updateMarkerData,
+              success: function (result) {
+              // var obj = JSON.parse(data);
+              console.log('IM THE RETURNED DATA', result);
+              // var id = obj._id;
+              document.location.reload();
+              // location.href = `/maps/${result}`;
+            }
+    });
+
+    // $(".marker-info").css('visibility', 'hidden');
+    // console.log('data object', newMarkerData);
+  });
+}
+
+function deleteMarkerInfo() {
+  var $deleteButton = $('.delete-button');
+  $deleteButton.click(function() {
+    event.preventDefault();
+    console.log('delete button clicked');
+
+    $.ajax ({
+              url: '/delete-marker',
+              method: 'POST',
+              //markerid
+              data: 'markerid',
+              success: function() {
+                document.location.reload();
+              }
+    });
 
     // $(".marker-info").css('visibility', 'hidden');
     // console.log('data object', newMarkerData);
@@ -140,17 +138,19 @@ function removeMarker() {
   var $cancelButton = $('.cancel-button');
   $cancelButton.on('click', function() {
     event.preventDefault();
-    console.log(markers.length);
-    DeleteMarker(markers.length);
+
+    // console.log('length', markers.length);
+    // console.log('id', markers[markers.length-1].id);
+    cancelMarker(markers.length);
     $(".marker-info").css('visibility', 'hidden');
   });
 }
 
 
 function drawMarkers(data, map) {
-  for(let j = 0; j < markers.length; j++) {
-    DeleteMarker(j);
-  }
+//   for(let j = 0; j < markers.length; j++) {
+//     cancelMarker(j);
+//   }
 
   data.forEach(function (point) {
     // console.log(point);
@@ -162,7 +162,10 @@ function drawMarkers(data, map) {
     if(point.picture) {
       infoBox += `<img class="marker-image" src="${point.picture}" height="100" width="100">`;
     }
+
     infoBox += "<input type='button' value='update' onclick='activateUpdateForm();' class='markerbutton' value = 'update' />  <input type='button' value='delete' onclick='DeleteMarker();' class='deletemarkerbutton' />";
+
+    // infoBox += "<input type = 'button' value = 'update' onclick = 'activateUpdateForm();' value = 'update' />";
     // infoBox += `<button class="open-update">update</button>`;
     let marker = new google.maps.Marker({
       position: latLng,
@@ -172,8 +175,14 @@ function drawMarkers(data, map) {
     });
 
 
+
+
+    $("<p>").text(point.title).prependTo($(".markers-list"));
+
     marker.id = uniqueId;
     uniqueId++;
+    savedMarkers ++;
+    // console.log('saved markers', savedMarkers);
     // console.log('marker', marker.infoBox);
     google.maps.event.addListener(marker, "click", function () {
       closeInfoWindows();
