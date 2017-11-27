@@ -136,8 +136,8 @@ button:hover {
 
 .left-nav {
     width: 400px;
-    background: $boxBG;
-    height: 100%;
+    background: rgba(250,250,250,0.7);
+    height: 90%;
     border: solid 1px white;
     display: inline-block;
     position: absolute;
@@ -318,7 +318,7 @@ footer {
 #googleMap {
   position: absolute;
   z-index: 0;
-  height: 95%;
+  height: 89%;
   width: 100%;
 }
 
