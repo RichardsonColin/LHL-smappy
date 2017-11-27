@@ -16,12 +16,12 @@ $(() => {
     }
   }
 
-  let user_id = $('.user-info').attr("data");
+  var user_id = $('.user-info').attr("data");
   $.ajax({
     method: "GET",
     url: `/api/users/`
   }).done((users) => {
-    for(let user of users) {
+    for(var user of users) {
       $("<h2>").text(user.your_location).prependTo($(".profile-container"));
       $("<h1>").text(user.email).prependTo($(".profile-container"));
       $("<h1>").text(user.name).prependTo($(".profile-container"));
@@ -33,7 +33,7 @@ $(() => {
     method: "GET",
     url: "/api/favorites"
   }).done((favorites) => {
-    for(let map of favorites) {
+    for(var map of favorites) {
       $("<div>").text(map.title).appendTo($(".favorite"));
     }
   });
@@ -42,21 +42,21 @@ $(() => {
     method: "GET",
     url: "/api/contributions"
   }).done((contributions) => {
-    for(let map of contributions) {
+    for(var map of contributions) {
       $("<li>").html(`<a href="/maps/${map.id}">${map.title}</a>`).appendTo($(".contributions-maps-list"));
     }
   });
 
   $( '#profile-form' ).on('submit', function(event) {
     event.preventDefault();
-    const $form = $(this).parent();
-    let $name = $($form).find('input[name="user_name"]').val();
-    let $securename = escape($name);
-    let $location = $($form).find('input[name="user_location"]').val();
-    let $securelocation= escape($location);
-    let $description = $($form).find('textarea').val();
-    let $securedescription = escape($description);
-    let data = {name: $securename, location: $securelocation, description: $securedescription};
+    var $form = $(this).parent();
+    var $name = $($form).find('input[name="user_name"]').val();
+    var $securename = escape($name);
+    var $location = $($form).find('input[name="user_location"]').val();
+    var $securelocation= escape($location);
+    var $description = $($form).find('textarea').val();
+    var $securedescription = escape($description);
+    var data = {name: $securename, location: $securelocation, description: $securedescription};
 
     if ((noInput($($form).find('input[name="user_name"]'))) || (noInput($($form).find('input[name="user_location"]'))) || (noInput($($form).find('textarea')))) {
     } else if ($description.length > 200) {
@@ -73,6 +73,4 @@ $(() => {
       });
     }
   });
-
-
 });

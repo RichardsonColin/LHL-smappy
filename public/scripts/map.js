@@ -170,6 +170,7 @@ var mapData = {};
   drawMap(importData);
 }
 
+// TODO refactor code so all button activation code is implemented the same way
 $(() => {
 
   // makes a list of the current markers
@@ -178,7 +179,7 @@ $(() => {
           method: 'POST',
           data: JSON.parse(map_data),
           success: function (markers) {
-            for(let map of markers) {
+            for(var map of markers) {
             $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
             }
         }
@@ -186,7 +187,7 @@ $(() => {
 
   // opens the edit marker window and populates it will the markers current information
   $(document).on('click', '.edit-remove-marker', (function() {
-    const $id = $(this).parent().data();
+    var $id = $(this).parent().data();
     $(document).find('.update-marker').css('visibility', 'visible');
     $(document).find('input[name="marker-name"]').val(`${$id.title}`).data({'id': `${$id.mapid}`});
     $(document).find('textarea').text(`${$id.description}`);
@@ -195,13 +196,13 @@ $(() => {
 
   // activates the update button so that it writes new information to the database
   $(document).on('click', '.update-button', (function(event) {
-    const $id = $(document).find('input[name="marker-name"]').data();
+    var $id = $(document).find('input[name="marker-name"]').data();
       event.preventDefault();
       var title = $('.update-marker-title').val();
       title = title.replace("'", "");
       var description = $('.update-marker-description').val();
       description = description.replace("'", "");
-      let updateMarkerData = {
+      var updateMarkerData = {
         map_id: mapid,
         id: $id.id,
         title: $('.update-marker-title').val(),
@@ -223,8 +224,8 @@ $(() => {
   // activates the delete button so that when clicked it deletes the current marker from the database
   $(document).on('click', '.delete-button', (function(event) {
   event.preventDefault();
-    const $id = $(document).find('input[name="marker-name"]').data();
-    let id = {id: $id.id};
+    var $id = $(document).find('input[name="marker-name"]').data();
+    var id = {id: $id.id};
 
     $.ajax ({
               url: '/delete-marker',

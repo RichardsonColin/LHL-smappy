@@ -13,6 +13,7 @@ function noTitle(inputField) {
 // Google map API code.
 function initAutocomplete() {
 
+  // Loads a default map
   map = new google.maps.Map(document.getElementById('googleMap'), {
   center: {lat: 53.1233, lng: -4.6582},
   zoom: 3,

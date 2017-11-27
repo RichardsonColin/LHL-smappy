@@ -17,20 +17,17 @@ $(() => {
     });
   });
 
- $(document).on('click', '.remove-favourite', (function() {
-  const $id = $(this).parent().data();
-  let id = {id: $id.mapid};
-  console.log($id.mapid);
+  $(document).on('click', '.remove-favourite', (function() {
+    var $id = $(this).parent().data();
+    var id = {id: $id.mapid};
 
-  $.ajax ({
+    $.ajax ({
             url: '/remove-favourite',
             method: 'POST',
-            //markerid
             data: id,
             success: function() {
               document.location.reload();
             }
-  });
+    });
   }));
-
 });

@@ -9,7 +9,7 @@ function toggleLeftNav() {
 }
 toggleLeftNav();
 
-let rotated = false;
+var rotated = false;
 
 function toggleLeftNavArrow(){
 
@@ -43,5 +43,7 @@ function togglelogout() {
       });
     });
   }
-  togglelogout();
+
+togglelogout();
+
 });
