@@ -67,3 +67,6 @@ Login/register dropdown
 Individual map page
 !["Screenshot Individual map page"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/map-page.png?raw=true)
 
+
+Map page marker info box
+!["Screenshot Map page marker info box"](https://github.com/RyukyuColin/map_app-midterm/blob/master/images/map-page-marker-info-box.png?raw=true)
