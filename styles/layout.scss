@@ -143,6 +143,7 @@ html, body {
   .button:hover {
       background-color: purple;
       color:white;
+      text-decoration: none;
   }
   h4 {
     font-weight: bold;
@@ -395,6 +396,13 @@ input{
   }
 }
 
+.map-markers-list {
+  li {
+    margin-left: -30px;
+    list-style: none;
+    padding: 7px 5px;
+  }
+}
 
 .error {
   background-color: red;
