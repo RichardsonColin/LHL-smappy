@@ -11,8 +11,9 @@
 1. Download repsoitory into a repostiory on your machine
  https://github.com/RyukyuColin/map_app-midterm
 2. Cd from your terminal into that new repsoitory
-3. Run npm run local - wait for 'Smappy app listening on port 8080'
-4. In your browser go to http://localhost:8080/
+3. Run 'npm install'
+4. Run npm run local - wait for 'Smappy app listening on port 8080'
+5. In your browser go to http://localhost:8080/
 
 
 
@@ -20,19 +21,19 @@
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
-- bcrypt 1.0.3
-- body-parser 1.15.2
-- connect-flash 0.1.1
-- cookie-session 2.0.0-beta.3
-- dotenv 4.0.0
-- ejs 2.4.1
-- express 4.13.4
-- express-flash git://github.com/RGBboy/express-flash.git
-- knex 0.14.1
-- knex-logger 0.1.0
-- morgan 1.7.0
-- node-sass-middleware 0.11.0
-- pg 7.4.0
+- Bcrypt 1.0.3 'npm install bcrypt'
+- Body Parser 1.15.2 'npm install body-parser'
+- Connect Flash 0.1.1 'npm install connect-flash'
+- Cookie Session 2.0.0-beta.3 'npm install cookie-session'
+- Dotenv 4.0.0 'install dotenv --save'
+- Ejs 2.4.1 ' npm install ejs'
+- Express 4.13.4 'npm install express --save'
+- Express-flash 'npm install git://github.com/RGBboy/express-flash.git'
+- Knex 0.14.1 'npm install knex --save'
+- Knex-logger 0.1.0 'npm install knex-logger'
+- Morgan 1.7.0 'npm install morgan'
+- Node Sass Middleware 0.11.0 'npm install node-sass-middleware'
+- Pg 7.4.0 'npm install pg'
 
 ##ScreenShots
 
