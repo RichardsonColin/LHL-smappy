@@ -1,12 +1,12 @@
-const allInfoWindows = [];
-const markers = [];
-let savedMarkers = 0;
-let uniqueId = 1;
-let newMarkerLat = 0;
-let newMarkerLong = 0;
-let mapid = 0;
-let currentMarker = 0;
+var allInfoWindows = [];
+var markers = [];
+var uniqueId = 1;
+var newMarkerLat = 0;
+var newMarkerLong = 0;
+var mapid = 0;
+var currentMarker = 0;
 
+//Closes the windows of other markers
 function closeInfoWindows() {
   while (allInfoWindows.length > 0) {
     allInfoWindows[0].close();
@@ -16,11 +16,7 @@ function closeInfoWindows() {
 
 function cancelMarker(id) {
   //Find and remove the marker from the Array
-<<<<<<< HEAD
-
-=======
   //Doesn't always work, not sure what breaks it
->>>>>>> 20f6b7a5f0b75078fe31008e77ef9ff2d2ac4c5c
   for (var i = 0; i < markers.length; i++) {
     if (markers[i].id === id) {
       //Remove the marker from Map
@@ -48,13 +44,12 @@ function activateUpdateForm() {
   });
 }
 
-
-
+// upon clicking the save button will write to DB and reload page
 function saveMarkerInfo(mapid) {
   var $saveButton = $('.save-button');
   $saveButton.click(function() {
     event.preventDefault();
-    let newMarkerData = {
+    var newMarkerData = {
       map_id: mapid,
       lat: newMarkerLat,
       long: newMarkerLong,
@@ -68,11 +63,8 @@ function saveMarkerInfo(mapid) {
               method: 'POST',
               data: newMarkerData,
               success: function (result) {
-              // var obj = JSON.parse(data);
               console.log('IM THE RETURNED DATA', result);
-              // var id = obj._id;
               document.location.reload();
-              // location.href = `/maps/${result}`;
             }
     });
 
@@ -81,12 +73,14 @@ function saveMarkerInfo(mapid) {
   });
 }
 
+// upon clicking the update button will write to DB and reload page
+// functionality not tested yet
 function updateMarkerInfo(mapid) {
   var $updateButton = $('.update-button');
   $updateButton.click(function() {
     event.preventDefault();
     console.log('update button clicked');
-    let updateMarkerData = {
+    var updateMarkerData = {
       map_id: mapid,
       //where to define/update markerid?
       id: markerid,
@@ -100,19 +94,16 @@ function updateMarkerInfo(mapid) {
               method: 'POST',
               data: updateMarkerData,
               success: function (result) {
-              // var obj = JSON.parse(data);
               console.log('IM THE RETURNED DATA', result);
-              // var id = obj._id;
               document.location.reload();
-              // location.href = `/maps/${result}`;
             }
     });
 
     // $(".marker-info").css('visibility', 'hidden');
-    // console.log('data object', newMarkerData);
   });
 }
 
+// upon clicking the delete button will write to DB and reload page
 function deleteMarkerInfo() {
   var $deleteButton = $('.delete-button');
   $deleteButton.click(function() {
@@ -130,32 +121,24 @@ function deleteMarkerInfo() {
     });
 
     // $(".marker-info").css('visibility', 'hidden');
-    // console.log('data object', newMarkerData);
   });
 }
 
+// upon clicking the cancel button will remove the marker from the
 function removeMarker() {
   var $cancelButton = $('.cancel-button');
   $cancelButton.on('click', function() {
     event.preventDefault();
-
-    // console.log('length', markers.length);
-    // console.log('id', markers[markers.length-1].id);
     cancelMarker(markers.length);
     $(".marker-info").css('visibility', 'hidden');
   });
 }
 
-
+// populates the map with markers from the database and creates the infoboxes
 function drawMarkers(data, map) {
-//   for(let j = 0; j < markers.length; j++) {
-//     cancelMarker(j);
-//   }
-
   data.forEach(function (point) {
-    // console.log(point);
-    let latLng = new google.maps.LatLng(point.lat, point.long);
-    let infoBox = `<p>${point.title}</p>`;
+    var latLng = new google.maps.LatLng(point.lat, point.long);
+    var infoBox = `<p>${point.title}</p>`;
     if(point.description) {
       infoBox += `<p>${point.description}</p>`;
     }
@@ -167,7 +150,7 @@ function drawMarkers(data, map) {
 
     // infoBox += "<input type = 'button' value = 'update' onclick = 'activateUpdateForm();' value = 'update' />";
     // infoBox += `<button class="open-update">update</button>`;
-    let marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
       position: latLng,
       map: map,
       databaseId: point.id,
@@ -181,20 +164,14 @@ function drawMarkers(data, map) {
 
     marker.id = uniqueId;
     uniqueId++;
-    savedMarkers ++;
-    // console.log('saved markers', savedMarkers);
-    // console.log('marker', marker.infoBox);
     google.maps.event.addListener(marker, "click", function () {
       closeInfoWindows();
-      // console.log('clicked a marker');
-      // console.log(marker.id);
       var content = marker.infoBox;
       var infoWindow = new google.maps.InfoWindow({
         content: content
       });
       currentMarker = marker.databaseId;
       allInfoWindows.push(infoWindow);
-      // console.log('all infor windows', allInfoWindows);
       $(".update-marker").css('visibility', 'visibile');
       console.log('clicked a marker');
       infoWindow.open(map, marker);
@@ -206,39 +183,20 @@ function drawMarkers(data, map) {
 
 }
 
-function initMap() {
-let mapData = {};
 
-  let importData = JSON.parse(map_data);
-
-  mapid = importData.map_data1.id;
-  drawMap(importData);
-
-}
-
+//creates the map
 function drawMap (data) {
-  let markerArr = [];
-  let mapData = data.map_data1;
-  // console.log('in drawmap', mapData);
-  // document.querySelector('#mapTitleInput').value = mapData.title;
-  let pointsData = data.markers_input;
-  // console.log('indrawmap', pointsData);
-
-  let mapOptions = {
+  var mapData = data.map_data1;
+  var pointsData = data.markers_input;
+  var mapOptions = {
     center: new google.maps.LatLng(mapData.lat, mapData.long),
     zoom: Number(mapData.zoom),
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-
   };
 
-  const map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+  var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
   drawMarkers(pointsData, map);
-
-
-  // console.log(markers);
-
-
 
   //Attach click event handler to the map.
   google.maps.event.addListener(map, 'click', function (e) {
@@ -258,11 +216,11 @@ function drawMap (data) {
 
     marker.id = uniqueId;
     uniqueId++;
+    //make the window to add information to the marker appear
     $(".marker-info").css('visibility', 'visible');
-    // $(".update-marker").css('visibility', 'visible');
 
+    //adds marker to array so it can be removed later
     markers.push(marker);
-    console.log(markers);
   });
 
 
@@ -271,3 +229,14 @@ removeMarker();
 activateUpdateForm();
 }
 
+
+//This function is called by the page
+function initMap() {
+var mapData = {};
+
+  var importData = JSON.parse(map_data);
+
+  mapid = importData.map_data1.id;
+  drawMap(importData);
+
+}
