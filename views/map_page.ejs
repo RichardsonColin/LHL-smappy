@@ -19,6 +19,7 @@
     <script type="text/javascript" src="/scripts/toggle.js"></script>
     <script type="text/javascript" src="/scripts/map.js"></script>
     <script type="text/javascript" src="/scripts/login.js"></script>
+    <script type="text/javascript" src="/scripts/current-map.js"></script>
     <script type="text/javascript" src="/scripts/add-to-favourites.js"></script>
 
   </head>
@@ -74,6 +75,15 @@
          <a class="button" href="/new-map" style="text-decoration:none;">Create a new map</a>
 
         <%  } %>
+        <div class="current-map-title">
+          <h3>Current Map</h3>
+          <h4><%= JSON.parse(data).map_data1.title %></h4>
+        </div>
+        <div class="map-markers">
+          <h3>Map Markers</h3>
+          <ul class="map-markers-list">
+          </ul>
+        </div>
 
         <div class="favourite-maps">
           <h3>Favourite Maps</h3>
@@ -81,11 +91,13 @@
           <ul class="favourite-maps-list">
           </ul>
         </div>
+
         <div class="all-maps">
           <h3> All Maps</h3>
           <ul class="all-maps-list">
           </ul>
         </div>
+
       </div>
     </div>
     <!-- end of left nav -->
