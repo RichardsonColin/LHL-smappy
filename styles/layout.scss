@@ -539,6 +539,13 @@ footer {
   vertical-align: 15%;
 }
 
+.remove-favourite {
+  cursor: pointer;
+  color: darkred;
+  font-size: 11px;
+  vertical-align: 15%;
+}
+
 @keyframes fadein {
     from {
         opacity:0;

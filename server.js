@@ -389,6 +389,27 @@ app.post("/delete-marker", (req, res) => {
   });
 });
 
+function deleteFavourite(mapId, UserId) {
+
+  return knex('favourite_maps')
+    .where({'map_id': mapId, 'user_id': UserId })
+    .del()
+    .then(() => {
+      return;
+  });
+}
+
+app.post("/remove-favourite", (req, res) => {
+  console.log('I AM THE REMOVE FAVOURITE ID',req.body);
+  let mapId = req.body.id;
+  let UserId = req.session.user_id;
+  deleteFavourite(mapId, UserId).then(result => {
+    console.log('deleted');
+    res.send('success');
+  });
+});
+
+
 app.post('/profile-update', (req, res) => {
    return knex('users')
    .where({id: req.session.user_id})
