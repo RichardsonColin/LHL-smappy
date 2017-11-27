@@ -1,27 +1,15 @@
-
-//refs
-//
 $boxBG: rgba(250,250,250,0.7);
-
 $logoFont : monospace;
-
-
-
 
 body {
   font-family: 'Raleway', sans-serif !important;
   background-color: #EEE;
-
   h1 {
     color: #244751;
   }
 }
 
-
-
-
 header{
-  //display:flex;
    padding:10px;
    background: #8effa3;
    border-bottom: solid 4px white;
@@ -47,22 +35,20 @@ header{
   -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.35);
   -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.35);
   box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.35);
-
-
 }
 
 button:hover {
   background: #daf0e4;
   text-decoration: none;
+  }
 }
- }
 
- html, body {
+html, body {
 
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .button-holder {
@@ -70,7 +56,6 @@ button:hover {
     display: block;
     text-align: right;
     margin-right: 5%;
-    //margin-top: 8px
 }
 
 .profile-icon {
@@ -81,41 +66,45 @@ button:hover {
     text-shadow: 0px 0px 2px #000000;
 }
 
-.pop-down-logout{
-    display:none;
-    width: 325px;
-    background: rgba(250,250,250,0.7);
-    border: solid 1px white;
-    float: right;
-    position: relative;
-    padding:10px;
-    z-index: 1;
+.pop-down-logout {
+  display:none;
+  width: 325px;
+  background: rgba(250,250,250,0.7);
+  border: solid 1px white;
+  float: right;
+  position: relative;
+  padding:10px;
+  z-index: 1;
 
-    span{
-      font-size: 20px;
+  span {
+    font-size: 20px;
+    &:first-child{color: #2ab150;}
+  }
 
+  form {
+    margin: 5px 0;
+    display:inline-block;
+  }
 
-      &:first-child{color: #2ab150;}
-
-    }
-
-    form{
-      margin: 5px 0;
-      display:inline-block;
-    }
-
-     .button{padding: 10px;
+  .button {
+    padding: 10px;
     background: #88f4a4;
     color: white;
     width: 100%;
 
-      &:hover{ background: #daf0e4;
-      text-decoration: none;}
+    &:hover {
+      background: #daf0e4;
+      text-decoration: none;
     }
+  }
 }
 
-.logo{display:inline-block;}
-.logo img{max-width:60px;}
+.logo {
+  display:inline-block;
+  img {
+    max-width:60px;
+  }
+}
 
 .toggle-button{
   width: 50px;
@@ -127,94 +116,89 @@ button:hover {
   font-size: 25px;
   float:right;
   color: #8effa3;
-
 }
-
-
 
 .left-nav {
-    width: 400px;
-    background: rgba(250,250,250,0.7);
-    height: 90%;
-    border: solid 1px white;
-    display: inline-block;
-    position: absolute;
+  width: 400px;
+  background: rgba(250,250,250,0.7);
+  height: 90%;
+  border: solid 1px white;
+  display: inline-block;
+  position: absolute;
 
-    .button{
-      font-size:20px;
-      background-color:ghostwhite;
-      padding:20px;
-      border:none;
-      display:block;
-      position:absolute;
-      width: 87.5%;
-      text-align: center;
+  .button {
+    font-size:20px;
+    background-color:ghostwhite;
+    padding:20px;
+    border:none;
+    display:block;
+    position:absolute;
+    width: 87.5%;
+    text-align: center;
+  }
+
+  .button:hover {
+      background-color: purple;
+      color:white;
+  }
+  h4 {
+    font-weight: bold;
+    margin-left: 15px;
+  }
+
+  h3 {
+    font-size: 25px;
+    margin-top: 10px;
+    margin: auto;
+    padding-top: 12px;
+    padding-left: 12px;
+    padding-bottom: 12px;
+    background-color: rgba(216, 199, 255, 0.37);;
+  }
+
+  .all-maps-list {
+    a {
+      text-decoration: none;
+      color: black;
     }
-    .button:hover{
-        background-color: purple;
-        color:white;
+
+    li:hover a {
+      color:#8effa3;
     }
+  }
 
-    h4 {
-      font-weight: bold;
-      margin-left: 15px;
-    }
-
-    h3 {
-      font-size: 25px;
-      margin-top: 10px;
-      margin: auto;
-      padding-top: 12px;
-      padding-left: 12px;
-      padding-bottom: 12px;
-      background-color: rgba(216, 199, 255, 0.37);;
-    }
-
-    .all-maps-list{
-      a{
-        text-decoration: none;
-        color: black;
-      }
-      li:hover a {color:#8effa3;}
-      }
-
-      .left-list{
-        overflow: auto;
-        max-height: 640px;
-        margin-top: 68px;
-      }
-
+  .left-list {
+    overflow: auto;
+    max-height: 640px;
+    margin-top: 68px;
+  }
 }
 
 
-.markerbutton{
+.markerbutton {
   font-size:15px;
   padding: 10px;
   background: #88f4a4;
   color: white;
   font-weight: 500;
   cursor:pointer;
-
 }
-.deletemarkerbutton{
+
+.deletemarkerbutton {
   font-size:15px;
   padding:10px;
   background: #ccc;
   font-weight: 500;
   cursor: pointer;
-
 }
 
-.deletemarkerbutton:hover{
-
-background-color:#daf0e4;
-
+.deletemarkerbutton:hover {
+  background-color:#daf0e4;
 }
 
 
 .markerbutton:hover{
-background-color:#daf0e4;
-
+  background-color:#daf0e4;
 }
 
 
@@ -225,87 +209,100 @@ background-color:#daf0e4;
 
 
 .marker-info {
-    position: relative;
-    background-color: $boxBG;
-    float: right;
-    width: 500px;
-    padding: 10px;
-    visibility: hidden;
+  position: relative;
+  background-color: $boxBG;
+  float: right;
+  width: 500px;
+  padding: 10px;
+  visibility: hidden;
+  input {
+    display:block;
+    margin: 10px 0 ;
+  }
 }
 
-.marker-info input{
-  display:block;
-  margin: 10px 0 ;
-
-}
 
 .update-marker {
-    position: relative;
-    background-color: $boxBG;
-    float: right;
-    width: 500px;
-    padding: 10px;
-    visibility: hidden;
+  position: relative;
+  background-color: $boxBG;
+  float: right;
+  width: 500px;
+  padding: 10px;
+  visibility: hidden;
+  input {
+    display:block;
+    margin: 10px 0 ;
+  }
 }
 
-.update-marker input{
-  display:block;
-  margin: 10px 0 ;
-
+.buttons button{
+  width: 32%;
 }
-.buttons button{width:32%;}
 
-textarea, .map-title{width:98%;}
+textarea, .map-title {
+  width:98%;
+}
 
 .upload-button {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-.upload-button  button {width:32%;}
+.upload-button button {w
+  idth:32%;
+}
 
 .favourite-maps, .all-maps{
   border-bottom: solid 1px white;
-  ul {padding:10px;}
-  li{list-style:none; padding: 5px;}
+  ul {
+    padding: 10px;
+  }
+  li {
+    list-style:none;
+    padding: 5px;
+  }
 }
 
 footer {
-    background: #fff;
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    padding: 6px;
-    width: 100%;
-    color: #88f4a4;
-    font-size: 20px;
-    font-family: $logoFont ;
-    z-index: 3;
-    text-align: center;
+  background: #fff;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  padding: 6px;
+  width: 100%;
+  color: #88f4a4;
+  font-size: 20px;
+  font-family: $logoFont ;
+  z-index: 3;
+  text-align: center;
 }
 
 .pop-down-login {
-    display:none;
-    width: 300px;
-    background: rgba(250,250,250,0.7);
-    border: solid 1px white;
-    float: right;
-    position: relative;
-    padding:10px;
-    z-index: 1;
+  display:none;
+  width: 300px;
+  background: rgba(250,250,250,0.7);
+  border: solid 1px white;
+  float: right;
+  position: relative;
+  padding:10px;
+  z-index: 1;
 
 
-     .button{padding: 10px;
-    background: #88f4a4;
-    color: white;
-    width: 32%;
+   .button{padding: 10px;
+  background: #88f4a4;
+  color: white;
+  width: 32%;
 
-    &:hover{ background: #daf0e4;
-    text-decoration: none;}
+  &:hover{ background: #daf0e4;
+  text-decoration: none;
   }
+}
 
 
-  input{width:95%; margin:10px 0;padding: 10px;}
- }
+input{
+  width:95%;
+  margin:10px 0;
+  padding: 10px;}
+}
 
 .fa-rotate-180 {
   -webkit-transform: rotate(180deg);
@@ -327,24 +324,29 @@ footer {
   width: 100%;
 }
 
-#datactrl{top:10px;}
-
-.logo{
-    margin-left: 5%;
-    font-size: 40px;
-    font-family: $logoFont ;
-    font-weight: 900;
-    color: white;
-    letter-spacing: 3px;
-    text-shadow: 0px 0px 2px #000000;
-
-    i {margin-left:8px;}
-
-    a, a:hover{color:#fff;
-      text-decoration: none;
-    }
-
+#datactrl {
+  top:10px;
 }
+
+.logo {
+  margin-left: 5%;
+  font-size: 40px;
+  font-family: $logoFont ;
+  font-weight: 900;
+  color: white;
+  letter-spacing: 3px;
+  text-shadow: 0px 0px 2px #000000;
+
+  i {
+    margin-left:8px;
+  }
+
+  a, a:hover {
+    color:#fff;
+    text-decoration: none;
+  }
+}
+
 .in-form{
   padding:10px;
 
@@ -359,29 +361,35 @@ footer {
 }
 
 .upload-button button , .buttons button{
-    width: 32%;
-    padding: 10px;
-    background: #88f4a4;
-    color: white;
+  width: 32%;
+  padding: 10px;
+  background: #88f4a4;
+  color: white;
 }
 
 .upload-button button:hover, .buttons button:hover{
-    background: #daf0e4;
-    text-decoration: none;
+  background: #daf0e4;
+  text-decoration: none;
 }
 
 .buttons {
 
-  button:nth-child(2){background-color: #ccc;}
+  button:nth-child(2){
+    background-color: #ccc;
+  }
 
-  button:nth-child(2):hover{background-color:#888;}
+  button:nth-child(2):hover{
+    background-color:#888;
+  }
 
   button:nth-child(3) {
     color: white;
     background: magenta;
   }
 
-  button:nth-child(3):hover{background-color:#993fa7;}
+  button:nth-child(3):hover{
+    background-color:#993fa7;
+  }
 }
 
 
@@ -393,36 +401,33 @@ footer {
   text-align: center;
 }
 
-
-
-
-.profile-container{
+.profile-container {
   background-color: $boxBG;
   width:50%;
   margin:auto;
   padding:10px;
 
+  .edit-profile-inputs {
 
-
-  .edit-profile-inputs{
     input{
       width:50%;
       padding:10px;
       margin-top:10px;
-
     }
+
     textarea{
       margin-top:10px;
       border:none;
       resize:none;
     }
+
     .button{
     width: 32%;
     padding: 10px;
     background: #88f4a4;
     color: white;
 
-      &:hover{
+      &:hover {
       background: #daf0e4;
       text-decoration: none;
       }
@@ -434,16 +439,18 @@ footer {
   width:200px;
   height:auto;
 }
+
 .user-info{
   background-image: url('https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?auto=format&fit=crop&w=1052&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D');
   margin-bottom : 40px;
+}
 
-}
 .marker-title{
-    font-size: 15px;
-    font-weight: 500;
-    border-bottom: 1px solid #ddd;
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 1px solid #ddd;
 }
+
 .marker-description{
   font-size: 15px;
 }
@@ -504,34 +511,40 @@ footer {
 
 .favourite-maps-list{
 
-  li {list-style: none;
-      font-size:10px;
-      color:black;
-    }
+  li {
+    list-style: none;
+    font-size:10px;
+    color:black;
+  }
 
-    a{font-size:20px;
-      color:black;}
+  a {
+    font-size:20px;
+    color:black;
+  }
 
-    li:hover a{
-      color:#88f4a4;
-      text-decoration: none;
-    }
+  li:hover a{
+    color:#88f4a4;
+    text-decoration: none;
+  }
 }
 
-.contributions-maps-list{
+.contributions-maps-list {
 
-  li {list-style: none;
-      font-size:20px;
-      color:black;
+  li {
+    list-style: none;
+    font-size:20px;
+    color:black;
     }
 
-    a{font-size:20px;
-      color:black;}
+  a {
+    font-size:20px;
+    color:black;
+  }
 
-    li:hover a{
-      color:#88f4a4;
-      text-decoration: none;
-    }
+  li:hover a{
+    color:#88f4a4;
+    text-decoration: none;
+  }
 }
 
 .edit-remove-marker {
@@ -549,34 +562,37 @@ footer {
 }
 
 @keyframes fadein {
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
 }
+
 @-moz-keyframes fadein { /* Firefox */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
 }
+
 @-webkit-keyframes fadein { /* Safari and Chrome */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
 }
+
 @-o-keyframes fadein { /* Opera */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity:0;
+  }
+  to {
+    opacity: 1;
+  }
 }
