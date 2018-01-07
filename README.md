@@ -20,7 +20,7 @@ This map app allows users to collaboratively create maps which list multiple "po
 
 ## To Run Smappy
 
-1. Clone this repository to your local machine.
+1. Fork and clone this repository to your local machine.
 2. Cd from your terminal into that new repsoitory.
 1. Create a `.env` file by using `.env.example` as a reference: `cp .env.example .env`.
 2. Update the `.env` file with your correct local information.
