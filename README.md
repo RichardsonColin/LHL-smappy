@@ -1,6 +1,6 @@
 # Smappy - Lighthouse Labs Midterm Project 2017/11/27
 
-This map app allows users to collaboratively create maps which list multiple "points", for example: "Best Sunset Spots" or "Locations of Movie Scenes". The requirements were:
+This map app allows users to collaboratively create maps which list multiple "points", for example: "Best Sunset Spots" or "Locations of Movie Scenes". It was built over five days during week four of the Lighthouse Labs Web Development Bootcamp. The requirements were:
 
 * Users can see a list of the available maps
 * Users can view a map
