@@ -23,7 +23,7 @@ This map app allows users to collaboratively create maps which list multiple "po
 1. Fork and clone this repository to your local machine.
 2. Cd from your terminal into that new repsoitory.
 3. Create a `.env` file by using `.env.example` as a reference: `cp .env.example .env`.
-4. Create a Postgres database `createdb db_name`
+4. Create a Postgres database `createdb <db_name>`
 5. Update the `.env` file with database name.
 6. Install dependencies using the `npm install` command.
 7. Run migrations: `knex migrate:latest`.
