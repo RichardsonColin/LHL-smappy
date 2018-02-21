@@ -26,6 +26,7 @@ const favoritesRoutes = require("./routes/favorites");
 const newFavoriteRoutes = require("./routes/new-favourite");
 const contributionsRoutes = require("./routes/contributions");
 const currentMapMarkers = require("./routes/current-map-markers");
+const getMap = require("./routes/getMap");
 
 
 app.set("view engine", "ejs");
@@ -61,6 +62,7 @@ app.use("/api/favorites", favoritesRoutes(knex));
 app.use("/api/contributions", contributionsRoutes(knex));
 app.use("/api/new-favourite", newFavoriteRoutes(knex));
 app.use("/api/current-map-markers", currentMapMarkers(knex));
+app.use("/api/getMap", getMap(knex));
 
 
 // Inserts into map contributions
