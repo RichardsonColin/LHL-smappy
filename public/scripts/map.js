@@ -174,6 +174,16 @@ var mapData = {};
 
 // TODO refactor code so all button activation code is implemented the same way
 $(() => {
+  console.log('map id', map_num);
+  console.log('map data', map_data);
+  $.ajax ({
+          url: "/api/getMap",
+          method: 'POST',
+          data: {id: map_num},
+          success: function(mapData) {
+            console.log("Map data inside the ajax call", mapData);
+          }
+  });
 
   // makes a list of the current markers
   $.ajax ({
@@ -190,6 +200,8 @@ $(() => {
             }
           }
   });
+
+
 
   // opens the edit marker window and populates it will the markers current information
   $(document).on('click', '.edit-remove-marker', (function() {

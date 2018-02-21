@@ -290,7 +290,12 @@ app.get("/maps/:id", (req, res) => {
           loggedIn: loggedIn
         };
         dataTemplate = JSON.stringify(dataTemplate);
-        res.render('map_page', {data: dataTemplate, errors: req.flash('error'), loggedIn: loggedIn});
+        res.render('map_page', {
+          id: req.params.id,
+          data: dataTemplate,
+          errors: req.flash('error'),
+          loggedIn: loggedIn
+        });
       });
       } else {
         res.status(404).send("Map doesn't exist");

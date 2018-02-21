@@ -5,10 +5,12 @@ module.exports = (knex) => {
 
   // Gets the map data.
   router.post("/", (req, res) => {
+    console.log("data fed into the get map route", req.body)
     knex
     .select('*')
     .from('maps')
-    .where('id', req.params.id)
+    // .where('id', req.params.id)
+    .where({id: req.body.id})
     .then((results) => {
       if(results) {
         console.log("Map data in api route", results);
