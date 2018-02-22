@@ -39,9 +39,7 @@ function saveMarkerInfo(mapid) {
   $saveButton.click(function() {
     event.preventDefault();
     var title = $('.marker-title').val();
-    title = title.replace("'", "");
     var description = $('.marker-description').val();
-    description = description.replace("'", "");
     var newMarkerData = {
       map_id: mapid,
       lat: newMarkerLat,
@@ -163,6 +161,7 @@ function drawMap (data) {
 
 //This function is called by the page
 function initMap() {
+  mapid = map_num;
   var importData = {};
   $.ajax ({
           url: "/api/getMap",
@@ -212,9 +211,7 @@ $(() => {
     var $id = $(document).find('input[name="marker-name"]').data();
       event.preventDefault();
       var title = $('.update-marker-title').val();
-      title = title.replace("'", "");
       var description = $('.update-marker-description').val();
-      description = description.replace("'", "");
       var updateMarkerData = {
         map_id: mapid,
         id: $id.id,
