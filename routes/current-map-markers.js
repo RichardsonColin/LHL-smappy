@@ -9,7 +9,7 @@ module.exports = (knex) => {
     knex
     .select('*')
     .from('markers')
-    .where({map_id: req.body.map_data1.id})
+    .where('map_id', req.body.id)
     .then((results) => {
       res.json(results);
     });

@@ -10,7 +10,7 @@ module.exports = (knex) => {
     .select('*')
     .from('maps')
     // .where('id', req.params.id)
-    .where({id: req.body.id})
+    .where('id', req.body.id)
     .then((results) => {
       if(results) {
         console.log("Map data in api route", results);

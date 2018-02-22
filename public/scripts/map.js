@@ -174,7 +174,6 @@ var mapData = {};
 
 // TODO refactor code so all button activation code is implemented the same way
 $(() => {
-  console.log('map id', map_num);
   console.log('map data', map_data);
   $.ajax ({
           url: "/api/getMap",
@@ -182,6 +181,7 @@ $(() => {
           data: {id: map_num},
           success: function(mapData) {
             console.log("Map data inside the ajax call", mapData);
+            $('.current-map-title').append(`<h4>${mapData.title}</h4>`)
           }
   });
 
@@ -189,7 +189,7 @@ $(() => {
   $.ajax ({
           url: "/api/current-map-markers",
           method: 'POST',
-          data: JSON.parse(map_data),
+          data: {id: map_num},
           success: function (markers) {
             for(var map of markers) {
               if (loggedIn) {
