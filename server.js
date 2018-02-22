@@ -258,49 +258,15 @@ app.get("/maps/:id", (req, res) => {
   let mapData = {};
   let markersData = {};
 
-  // Pull map id
-  function getMapData(id) {
-    return knex
-    .select()
-    .from('maps')
-    .where('id', id)
-    .then((maps) => {
-      mapData = maps[0];
-      return id;
+  if(req.params.id) {
+    res.render('map_page', {
+      id: req.params.id,
+      errors: req.flash('error'),
+      loggedIn: loggedIn
     });
+  } else {
+    res.status(404).send("Map doesn't exist");
   }
-
-  // Pull Markers
-  function getMarkers(id) {
-    return knex
-    .select()
-    .from('markers')
-    .where('map_id', id)
-    .then((markers) => {
-      markersData = markers;
-    });
-  }
-
-  getMapData(req.params.id).then(exists => {
-    if(exists) {
-      return getMarkers(req.params.id).then(() => {
-        let dataTemplate = {
-          map_data1: mapData,
-          markers_input: markersData,
-          loggedIn: loggedIn
-        };
-        dataTemplate = JSON.stringify(dataTemplate);
-        res.render('map_page', {
-          id: req.params.id,
-          data: dataTemplate,
-          errors: req.flash('error'),
-          loggedIn: loggedIn
-        });
-      });
-      } else {
-        res.status(404).send("Map doesn't exist");
-    }
-  });
 });
 
 

@@ -116,9 +116,7 @@ function drawMarkers(data, map) {
 
 //creates the map
 function drawMap (data) {
-  console.log('arguement inthe draw map functino', data);
   var mapData = data.map_data1;
-  console.log('mapdata', mapData);
   var pointsData = data.markers_input;
   var mapOptions = {
     center: new google.maps.LatLng(mapData.lat, mapData.long),
@@ -165,17 +163,12 @@ function drawMap (data) {
 
 //This function is called by the page
 function initMap() {
-  // var mapData = {};
   var importData = {};
-  // var importData = JSON.parse(map_data);
-  // loggedIn = importData.loggedIn;
-  console.log('map data', map_data);
   $.ajax ({
           url: "/api/getMap",
           method: 'POST',
           data: {id: map_num}
   }).done(function(mapData) {
-          console.log("Map data inside the ajax call", mapData);
           importData.map_data1 = mapData;
           $('.current-map-title').append(`<h4>${mapData.title}</h4>`)
 
@@ -195,11 +188,6 @@ function initMap() {
             }
           }
 
-
-
-      // mapid = importData.map_data1.id;
-      console.log('previous data', JSON.parse(map_data));
-      console.log('current data fed into the draw map function', importData, typeof importData);
       drawMap(importData);
     });
   });
