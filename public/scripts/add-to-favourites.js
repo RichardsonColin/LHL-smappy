@@ -6,7 +6,7 @@ $(() => {
     $.ajax ({
             url: "/api/new-favourite",
             method: 'POST',
-            data: JSON.parse(map_data),
+            data: {id: map_num},
             success: function () {
             $.ajax ( {
               method: "GET",
