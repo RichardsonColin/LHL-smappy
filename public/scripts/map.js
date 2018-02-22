@@ -7,7 +7,7 @@ var newMarkerLat = 0;
 var newMarkerLong = 0;
 var mapid = 0;
 var currentMarker = 0;
-var loggedIn = false;
+// var loggedIn = false;
 
 //Closes the windows of other markers
 function closeInfoWindows() {
@@ -116,7 +116,9 @@ function drawMarkers(data, map) {
 
 //creates the map
 function drawMap (data) {
+  console.log('arguement inthe draw map functino', data);
   var mapData = data.map_data1;
+  console.log('mapdata', mapData);
   var pointsData = data.markers_input;
   var mapOptions = {
     center: new google.maps.LatLng(mapData.lat, mapData.long),
@@ -163,43 +165,48 @@ function drawMap (data) {
 
 //This function is called by the page
 function initMap() {
-var mapData = {};
-
-  var importData = JSON.parse(map_data);
-  loggedIn = importData.loggedIn;
-
-  mapid = importData.map_data1.id;
-  drawMap(importData);
-}
-
-// TODO refactor code so all button activation code is implemented the same way
-$(() => {
+  // var mapData = {};
+  var importData = {};
+  // var importData = JSON.parse(map_data);
+  // loggedIn = importData.loggedIn;
   console.log('map data', map_data);
   $.ajax ({
           url: "/api/getMap",
           method: 'POST',
-          data: {id: map_num},
-          success: function(mapData) {
-            console.log("Map data inside the ajax call", mapData);
-            $('.current-map-title').append(`<h4>${mapData.title}</h4>`)
-          }
-  });
+          data: {id: map_num}
+  }).done(function(mapData) {
+          console.log("Map data inside the ajax call", mapData);
+          importData.map_data1 = mapData;
+          $('.current-map-title').append(`<h4>${mapData.title}</h4>`)
+
 
   // makes a list of the current markers
-  $.ajax ({
+    $.ajax ({
           url: "/api/current-map-markers",
           method: 'POST',
-          data: {id: map_num},
-          success: function (markers) {
-            for(var map of markers) {
-              if (loggedIn) {
-                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
-              } else {
-                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title}`).appendTo($(".map-markers-list"));
-              }
+          data: {id: map_num}
+    }).done(function (markers) {
+          importData.markers_input = markers;
+          for(var map of markers) {
+            if (loggedIn) {
+              $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
+            } else {
+              $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title}`).appendTo($(".map-markers-list"));
             }
           }
+
+
+
+      // mapid = importData.map_data1.id;
+      console.log('previous data', JSON.parse(map_data));
+      console.log('current data fed into the draw map function', importData, typeof importData);
+      drawMap(importData);
+    });
   });
+}
+
+// TODO refactor code so all button activation code is implemented the same way
+$(() => {
 
 
 
