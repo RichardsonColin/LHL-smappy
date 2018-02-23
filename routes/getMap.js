@@ -3,14 +3,18 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
-  // Displays markers if any are created.
+  // Gets the map data.
   router.post("/", (req, res) => {
     knex
     .select('*')
-    .from('markers')
-    .where('map_id', req.body.id)
+    .from('maps')
+    .where('id', req.body.id)
     .then((results) => {
-      res.json(results);
+      if(results) {
+        res.json(results[0]);
+      } else {
+        res.status(404).send("Map doesn't exist");
+      }
     });
   });
 

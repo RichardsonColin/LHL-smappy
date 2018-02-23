@@ -7,7 +7,7 @@ var newMarkerLat = 0;
 var newMarkerLong = 0;
 var mapid = 0;
 var currentMarker = 0;
-var loggedIn = false;
+// var loggedIn = false;
 
 //Closes the windows of other markers
 function closeInfoWindows() {
@@ -39,9 +39,7 @@ function saveMarkerInfo(mapid) {
   $saveButton.click(function() {
     event.preventDefault();
     var title = $('.marker-title').val();
-    title = title.replace("'", "");
     var description = $('.marker-description').val();
-    description = description.replace("'", "");
     var newMarkerData = {
       map_id: mapid,
       lat: newMarkerLat,
@@ -163,33 +161,41 @@ function drawMap (data) {
 
 //This function is called by the page
 function initMap() {
-var mapData = {};
+  mapid = map_num;
+  var importData = {};
+  $.ajax ({
+          url: "/api/getMap",
+          method: 'POST',
+          data: {id: map_num}
+  }).done(function(mapData) {
+          importData.map_data1 = mapData;
+          $('.current-map-title').append(`<h4>${mapData.title}</h4>`)
 
-  var importData = JSON.parse(map_data);
-  loggedIn = importData.loggedIn;
 
-  mapid = importData.map_data1.id;
-  drawMap(importData);
+  // makes a list of the current markers
+    $.ajax ({
+          url: "/api/current-map-markers",
+          method: 'POST',
+          data: {id: map_num}
+    }).done(function (markers) {
+          importData.markers_input = markers;
+          for(var map of markers) {
+            if (loggedIn) {
+              $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
+            } else {
+              $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title}`).appendTo($(".map-markers-list"));
+            }
+          }
+
+      drawMap(importData);
+    });
+  });
 }
 
 // TODO refactor code so all button activation code is implemented the same way
 $(() => {
 
-  // makes a list of the current markers
-  $.ajax ({
-          url: "/api/current-map-markers",
-          method: 'POST',
-          data: JSON.parse(map_data),
-          success: function (markers) {
-            for(var map of markers) {
-              if (loggedIn) {
-                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
-              } else {
-                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title}`).appendTo($(".map-markers-list"));
-              }
-            }
-          }
-  });
+
 
   // opens the edit marker window and populates it will the markers current information
   $(document).on('click', '.edit-remove-marker', (function() {
@@ -205,9 +211,7 @@ $(() => {
     var $id = $(document).find('input[name="marker-name"]').data();
       event.preventDefault();
       var title = $('.update-marker-title').val();
-      title = title.replace("'", "");
       var description = $('.update-marker-description').val();
-      description = description.replace("'", "");
       var updateMarkerData = {
         map_id: mapid,
         id: $id.id,

@@ -9,7 +9,7 @@ module.exports = (knex) => {
   router.post("/", (req, res) => {
      return knex('favourite_maps')
     .insert({user_id: req.session.user_id,
-             map_id: req.body.map_data1.id})
+             map_id: req.body.id})
     .returning('*')
     .then((mapData) => {
     res.send(String(mapData));
