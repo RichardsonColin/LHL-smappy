@@ -139,9 +139,7 @@ function drawMap (mapid) {
           method: 'POST',
           data: {id: mapid}
     }).done(function (markers) {
-          console.log('map markers', markers);
           importData.markers_input = markers;
-          // var pointsData = importData.markers_input;
           for(var entry of importData.markers_input) {
             if (loggedIn) {
               $("<li>").data({'mapid': `${entry.id}`,'title':`${entry.title}`, 'description':`${entry.description}`, 'picture':`${entry.picture}`}).html(`${entry.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
