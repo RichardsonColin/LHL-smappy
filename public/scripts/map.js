@@ -113,86 +113,87 @@ function drawMarkers(data, map) {
 
 
 //creates the map
-function drawMap (data) {
-  var mapData = data.map_data1;
-  var pointsData = data.markers_input;
-  var mapOptions = {
-    center: new google.maps.LatLng(mapData.lat, mapData.long),
-    zoom: Number(mapData.zoom),
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-  };
+function drawMap (mapid) {
 
-  var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
-
-  drawMarkers(pointsData, map);
-
-  if (loggedIn) {
-
-    //Attach click event handler to the map.
-    google.maps.event.addListener(map, 'click', function (e) {
-
-      //Determine the location where the user has clicked.
-      var location = e.latLng;
-
-      //Create a marker and placed it on the map.
-      var marker = new google.maps.Marker({
-        position: location,
-        map: map
-      });
-
-      var markerLocation = marker.getPosition();
-      newMarkerLat = markerLocation.lat();
-      newMarkerLong = markerLocation.lng();
-
-      marker.id = uniqueId;
-      uniqueId++;
-      //make the window to add information to the marker appear
-      $(".marker-info").css('visibility', 'visible');
-
-      //adds marker to array so it can be removed later
-      markers.push(marker);
-    });
-
-  saveMarkerInfo(mapid);
-  removeMarker();
-  }
-}
-
-  mapid = map_num;
   var importData = {};
   $.ajax ({
           url: "/api/getMap",
           method: 'POST',
-          data: {id: map_num}
+          data: {id: mapid}
   }).done(function(mapData) {
           importData.map_data1 = mapData;
+          $('.current-map-title').append(`<h4>${importData.map_data1.title}</h4>`)
 
+          var mapData = importData.map_data1;
+          var mapOptions = {
+            center: new google.maps.LatLng(mapData.lat, mapData.long),
+            zoom: Number(mapData.zoom),
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+          };
+
+          var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
   // makes a list of the current markers
     $.ajax ({
           url: "/api/current-map-markers",
           method: 'POST',
-          data: {id: map_num}
+          data: {id: mapid}
     }).done(function (markers) {
+          console.log('map markers', markers);
           importData.markers_input = markers;
-          console.log('finished get map data');
-          $(() => {
-            $('.current-map-title').append(`<h4>${importData.map_data1.title}</h4>`)
-            for(var map of importData.markers_input) {
-              if (loggedIn) {
-                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
-              } else {
-                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title}`).appendTo($(".map-markers-list"));
-              }
+          // var pointsData = importData.markers_input;
+          for(var entry of importData.markers_input) {
+            if (loggedIn) {
+              $("<li>").data({'mapid': `${entry.id}`,'title':`${entry.title}`, 'description':`${entry.description}`, 'picture':`${entry.picture}`}).html(`${entry.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
+            } else {
+              $("<li>").data({'mapid': `${entry.id}`,'title':`${entry.title}`, 'description':`${entry.description}`, 'picture':`${entry.picture}`}).html(`${entry.title}`).appendTo($(".map-markers-list"));
             }
-        });
+          }
+
+          drawMarkers(markers, map);
+
+          if (loggedIn) {
+
+            //Attach click event handler to the map.
+            google.maps.event.addListener(map, 'click', function (e) {
+
+              //Determine the location where the user has clicked.
+              var location = e.latLng;
+
+              //Create a marker and placed it on the map.
+              var marker = new google.maps.Marker({
+                position: location,
+                map: map
+              });
+
+              var markerLocation = marker.getPosition();
+              newMarkerLat = markerLocation.lat();
+              newMarkerLong = markerLocation.lng();
+
+              marker.id = uniqueId;
+              uniqueId++;
+              //make the window to add information to the marker appear
+              $(".marker-info").css('visibility', 'visible');
+
+              //adds marker to array so it can be removed later
+              markers.push(marker);
+            });
+
+          saveMarkerInfo(mapid);
+          removeMarker();
+          }
+
+
+
     });
   });
 
+}
+
 //This function is called by the page
 function initMap() {
-  console.log('going to draw the map');
-  drawMap(importData);
+  mapid = map_num;
+  drawMap(mapid);
 }
 
 // TODO refactor code so all button activation code is implemented the same way
