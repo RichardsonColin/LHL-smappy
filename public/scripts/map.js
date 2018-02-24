@@ -158,9 +158,6 @@ function drawMap (data) {
   }
 }
 
-
-//This function is called by the page
-function initMap() {
   mapid = map_num;
   var importData = {};
   $.ajax ({
@@ -169,7 +166,6 @@ function initMap() {
           data: {id: map_num}
   }).done(function(mapData) {
           importData.map_data1 = mapData;
-          $('.current-map-title').append(`<h4>${mapData.title}</h4>`)
 
 
   // makes a list of the current markers
@@ -179,17 +175,24 @@ function initMap() {
           data: {id: map_num}
     }).done(function (markers) {
           importData.markers_input = markers;
-          for(var map of markers) {
-            if (loggedIn) {
-              $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
-            } else {
-              $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title}`).appendTo($(".map-markers-list"));
+          console.log('finished get map data');
+          $(() => {
+            $('.current-map-title').append(`<h4>${importData.map_data1.title}</h4>`)
+            for(var map of importData.markers_input) {
+              if (loggedIn) {
+                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title} <span class="edit-remove-marker">edit</span>`).appendTo($(".map-markers-list"));
+              } else {
+                $("<li>").data({'mapid': `${map.id}`,'title':`${map.title}`, 'description':`${map.description}`, 'picture':`${map.picture}`}).html(`${map.title}`).appendTo($(".map-markers-list"));
+              }
             }
-          }
-
-      drawMap(importData);
+        });
     });
   });
+
+//This function is called by the page
+function initMap() {
+  console.log('going to draw the map');
+  drawMap(importData);
 }
 
 // TODO refactor code so all button activation code is implemented the same way
